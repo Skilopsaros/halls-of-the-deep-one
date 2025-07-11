@@ -28,5 +28,5 @@ alignment = 1
 [node name="Option" parent="Background/HBoxContainer" instance=ExtResource("2_gcspv")]
 layout_mode = 2
 
-[node name="Option2" parent="Background/HBoxContainer" instance=ExtResource("2_gcspv")]
+[node name="Option3" parent="Background/HBoxContainer" instance=ExtResource("2_gcspv")]
 layout_mode = 2
