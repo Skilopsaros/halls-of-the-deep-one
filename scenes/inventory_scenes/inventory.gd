@@ -1,12 +1,14 @@
-extends Node
+extends Node2D
 
 @onready var foreground = $inventory_foreground
 @onready var background = $inventory_background
+@onready var background_rect = $background_rect
 
 @export var cols = 9
 @export var rows = 3
 var slots
-var items = []
+var items = [] # this will be a list of tuples [index,item]
+# current problem: showing two items with the bounding box at the same top left corner not possible
 var occupancy = [] # this really doesn't need to be an array, it only contains singe bits
 # TODO for the future: refactor this to be a binary number with 1 bit per slot
 # also makes the add_item function be able to use bitwise comparisons instead of loops for 
@@ -15,11 +17,14 @@ var occupancy = [] # this really doesn't need to be an array, it only contains s
 func _ready():
 	slots = cols * rows
 	for i in range(slots):
-		items.append({})
 		occupancy.append(0)
-
-	background.display_item_slots(rows,cols,occupancy)
-	foreground.display_item_slots(rows,cols,items)
+	
+	var background_width = cols*60+10
+	var background_height = rows*60+10
+	background_rect.size = Vector2(background_width,background_height)
+	background.initialize_item_slots(rows,cols)
+	foreground.initialize_item_slots(rows,cols)
+	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 
 func update_item_slots():
 	background.update_item_slots(occupancy)
@@ -52,7 +57,7 @@ func set_item(item,position):
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
 			occupancy[i+position] = reshaped_occupancy[i]
-	items[position] = item
+	items.append([position,item])
 	update_item_slots()
 	return true
 

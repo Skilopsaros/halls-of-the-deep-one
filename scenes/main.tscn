@@ -21,3 +21,5 @@ script = ExtResource("1_o6xl0")
 [node name="InventoryLayer" type="CanvasLayer" parent="."]
 
 [node name="Inventory" parent="InventoryLayer" instance=ExtResource("5_tbgi4")]
+cols = 6
+rows = 5

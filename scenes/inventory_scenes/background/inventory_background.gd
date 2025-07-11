@@ -2,17 +2,12 @@ extends GridContainer
 
 @export var ItemSlotBG: PackedScene
 
-#var item_slots = []
-
-func display_item_slots(rows,cols,occupancy):
+func initialize_item_slots(rows,cols):
 	columns = cols
 	var slots = rows*cols
 	for index in range(slots):
 		var item_slot = ItemSlotBG.instantiate()
-		if occupancy[index] == 0:
-			item_slot.color = Color("4a2350")
-		else:
-			item_slot.color = Color("daa95e")
+		item_slot.color = Color("daa95e")
 		add_child(item_slot)
 
 func update_item_slots(occupancy):
