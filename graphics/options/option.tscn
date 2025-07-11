@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2b5vjx4v2uqg"]
+
+[ext_resource type="Texture2D" uid="uid://4qy3vpu74ocj" path="res://graphics/options/option_box.png" id="1_52ukv"]
+
+[node name="Option" type="Control"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(110, 110)
+texture = ExtResource("1_52ukv")
+offset = Vector2(10, 10)
+
+[node name="OptionText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 65.0
+offset_right = 217.0
+offset_bottom = 217.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+autowrap_mode = 3
+
+[node name="OptionTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = 218.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+text = "Option Title"
+horizontal_alignment = 1

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd3fikbu43hqs"]
+
+[ext_resource type="Texture2D" uid="uid://c3dygi61luspo" path="res://graphics/options/options_container.png" id="1_gl2km"]
+[ext_resource type="PackedScene" uid="uid://d2b5vjx4v2uqg" path="res://graphics/options/option.tscn" id="2_gcspv"]
+
+[node name="ChoisesContainer" type="CanvasLayer"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 590)
+texture = ExtResource("1_gl2km")
+offset = Vector2(0, -100)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1270.0
+offset_top = -350.0
+offset_right = -10.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Option" parent="Background/HBoxContainer" instance=ExtResource("2_gcspv")]
+layout_mode = 2
+
+[node name="Option2" parent="Background/HBoxContainer" instance=ExtResource("2_gcspv")]
+layout_mode = 2
