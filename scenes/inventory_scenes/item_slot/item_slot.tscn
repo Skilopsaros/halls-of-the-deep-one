@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8vgvyfg85i2"]
+
+[ext_resource type="Script" uid="uid://b3wl3cw4ciu8h" path="res://scenes/inventory_scenes/item_slot/item_slot.gd" id="1_86wqj"]
+[ext_resource type="Texture2D" uid="uid://coh1u0xgarg15" path="res://graphics/items/coin.png" id="2_fpj2b"]
+
+[node name="ItemSlot" type="ColorRect"]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 30.0
+offset_bottom = 30.0
+color = Color(0.184314, 0.133333, 0.215686, 0)
+script = ExtResource("1_86wqj")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 45.0
+offset_bottom = 45.0
+texture = ExtResource("2_fpj2b")

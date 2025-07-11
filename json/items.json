@@ -1,0 +1,14 @@
+{
+	"coin": {
+		"name": "Coin",
+		"icon": "coin.png",
+		"bounding_box": [1,1],
+		"occupied_spaces": [[1]]
+	},
+	"gem": {
+		"name": "Gem",
+		"icon": "gem.png",
+		"bounding_box": [2,1],
+		"occupied_spaces": [[1],[1]]
+	}
+}

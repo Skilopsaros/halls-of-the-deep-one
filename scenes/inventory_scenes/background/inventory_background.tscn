@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b27jafcc8ut84"]
+
+[ext_resource type="Script" uid="uid://dwysvk7oc5deh" path="res://Inventory/background/inventory_background.gd" id="1_6rfb6"]
+[ext_resource type="PackedScene" uid="uid://djsw70h6db6xr" path="res://Inventory/item_slot/item_slot_background.tscn" id="2_s1vwl"]
+
+[node name="inventory_background" type="GridContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+script = ExtResource("1_6rfb6")
+ItemSlotBG = ExtResource("2_s1vwl")

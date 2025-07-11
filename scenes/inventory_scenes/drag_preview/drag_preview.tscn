@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbpdimsir0pk6"]
+
+[ext_resource type="Script" uid="uid://cg43qd4kbtx1p" path="res://Inventory/drag_preview/drag_preview.gd" id="1_56ygq"]
+
+[node name="DragPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_56ygq")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

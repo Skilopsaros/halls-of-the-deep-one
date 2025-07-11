@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://djsw70h6db6xr"]
+
+[ext_resource type="Script" uid="uid://dblt0w7rbekkw" path="res://Inventory/item_slot/item_slot_background.gd" id="1_jng5p"]
+
+[node name="item_slot_background" type="ColorRect" groups=["ItemSlotBackgrounds"]]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.499025, 0.446673, 0.116585, 1)
+script = ExtResource("1_jng5p")
