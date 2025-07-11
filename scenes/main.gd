@@ -5,4 +5,6 @@ extends Node
 func _ready():
 	inventory.set_item(Global.get_item_by_key("coin"),5)
 	inventory.set_item(Global.get_item_by_key("gem"),8)
+	inventory.set_item(Global.get_item_by_key("amulet"),12)
+	inventory.set_item(Global.get_item_by_key("shoe"),15)
 	

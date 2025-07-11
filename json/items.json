@@ -1,4 +1,4 @@
-{
+{	
 	"coin": {
 		"name": "Coin",
 		"icon": "coin.png",
@@ -10,5 +10,17 @@
 		"icon": "gem.png",
 		"bounding_box": [2,1],
 		"occupied_spaces": [[1],[1]]
+	},
+	"amulet": {
+		"name": "Amulet",
+		"icon": "amulet.png",
+		"bounding_box": [2,2],
+		"occupied_spaces": [[1,1],[1,0]]
+	},
+	"shoe": {
+		"name": "Shoe",
+		"icon": "shoe.png",
+		"bounding_box": [2,2],
+		"occupied_spaces": [[0,1],[1,1]]
 	}
 }
