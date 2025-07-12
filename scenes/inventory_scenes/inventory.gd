@@ -1,23 +1,22 @@
 extends Node2D
 
-@onready var foreground = $inventory_foreground
-@onready var background = $inventory_background
-@onready var background_rect = $background_rect
+@onready var foreground := $inventory_foreground
+@onready var background := $inventory_background
+@onready var background_rect := $background_rect # TODO make bigger on top and make the whole thing draggable
 
-@export var cols = 9
-@export var rows = 3
-var slots
-var items = [] # this will be a list of tuples [index,item]
+@export var cols:int = 9
+@export var rows:int = 3
+var slots:int
+var items = [] # this will be a list of tuples [position,item]
 # current problem: showing two items with the bounding box at the same top left corner not possible
-var occupancy = [] # this really doesn't need to be an array, it only contains singe bits
-# TODO for the future: refactor this to be a binary number with 1 bit per slot
-# also makes the add_item function be able to use bitwise comparisons instead of loops for 
-# incredible performance
+var occupancy = [] # 0 if no item, 1 if item
+var occupancy_pters = [] # has the same shape as occupancy, but contains pointers to the item that occupies a certain space
 
 func _ready():
 	slots = cols * rows
 	for i in range(slots):
 		occupancy.append(0)
+		occupancy_pters.append(null)
 	
 	var background_width = cols*60+10
 	var background_height = rows*60+10
@@ -51,12 +50,21 @@ func _calculate_reshaped_occupancy(item):
 func set_item(item,position):
 	var reshaped_occupancy = _calculate_reshaped_occupancy(item)
 	# attempt to put the item in
+	# number one: does the bounding box fit
+	var bounding_box = item.bounding_box
+	if (position%cols - item.offset + bounding_box[1]) > cols:
+		return false
+	if (int(position/cols)) + bounding_box[0] > rows:
+		return false
+	
 	for i in range(len(reshaped_occupancy)):
-		if occupancy[i+position] + reshaped_occupancy[i] >= 2:
+		if occupancy[i+position-item.offset] + reshaped_occupancy[i] >= 2:
 			return false
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
-			occupancy[i+position] = reshaped_occupancy[i]
+			if reshaped_occupancy[i] == 1:
+				occupancy[i+position-item.offset] = reshaped_occupancy[i]
+				occupancy_pters[i+position-item.offset] = item
 	items.append([position,item])
 	update_item_slots()
 	return true
