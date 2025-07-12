@@ -12,7 +12,8 @@ const self_scene = preload("res://scenes/inventory_scenes/inventory.tscn")
 @export var rows:int = 3
 var slots:int
 var items = [] # this will be a list of tuples [position,item]
-# current problem: showing two items with the bounding box at the same top left corner not possible
+# TODO this being a dictionary would make much more sense
+
 var occupancy = [] # 0 if no item, 1 if item
 var occupancy_positions = [] # has the same shape as occupancy, information about the position of the item there
 

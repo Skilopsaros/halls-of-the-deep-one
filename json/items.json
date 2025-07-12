@@ -26,5 +26,12 @@
 		"bounding_box": [2,2],
 		"occupied_spaces": [[0,1],[1,1]],
 		"offset": 1
+	},
+	"frog": {
+		"name": "Frog",
+		"icon": "frog.png",
+		"bounding_box": [3,2],
+		"occupied_spaces": [[1,1],[1,1],[1,1]],
+		"offset": 0
 	}
 }
