@@ -16,5 +16,4 @@ func _ready() -> void:
 func load_entities() -> void:
 	for entity_stack in entities:
 		var new_entity = entity_stack.entities[0].instantiate() ### <<< FIX THIS, ONLY LOADING FIRST ENTITY IN STACK
-		print(new_entity.skin)
 		hbox_container.add_child(new_entity)
