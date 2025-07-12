@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=5 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
 [ext_resource type="PackedScene" uid="uid://b27jafcc8ut84" path="res://scenes/inventory_scenes/background/inventory_background.tscn" id="1_xqyry"]
 [ext_resource type="PackedScene" uid="uid://bt1gca12e4dw0" path="res://scenes/inventory_scenes/foreground/inventory_foreground.tscn" id="2_88mhb"]
+[ext_resource type="Script" uid="uid://bjk386vce8stl" path="res://scenes/inventory_scenes/background/background_rect.gd" id="2_srsel"]
 
 [node name="Inventory" type="Node2D"]
 script = ExtResource("1_uov6c")
@@ -11,6 +12,7 @@ script = ExtResource("1_uov6c")
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.126276, 0.0537822, 0.150027, 1)
+script = ExtResource("2_srsel")
 
 [node name="inventory_background" parent="." instance=ExtResource("1_xqyry")]
 offset_left = 10.0

@@ -28,11 +28,29 @@ func _ready():
 		occupancy_positions.append(-1)
 	
 	var background_width = cols*60+10
-	var background_height = rows*60+10
+	var background_height = rows*60+60
 	background_rect.size = Vector2(background_width,background_height)
 	background.initialize_item_slots(rows,cols)
 	foreground.initialize_item_slots(rows,cols)
+	foreground.position.y = 60
+	background.position.y = 60
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
+	background_rect.connect("gui_input", _on_inventoryBackground_input)
+
+var window_drag_offset = 0
+var dragging = false
+
+func _on_inventoryBackground_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
+			dragging = true
+			window_drag_offset = position - get_global_mouse_position()
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and dragging:
+			dragging = false
+			
+func _process(delta):
+	if dragging:
+		position = get_global_mouse_position() + window_drag_offset
 
 func _calculate_reshaped_occupancy(item_object):
 	var bounding_box = item_object.bounding_box
