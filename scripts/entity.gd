@@ -3,7 +3,9 @@ class_name Entity
 
 @export var skin: Texture
 
-var choices: Array = []
+var choices: Array[Dictionary] = []
+
+signal entity_clicked
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -24,4 +26,5 @@ func _ready():
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		pass
+		print("emmiting signal")
+		emit_signal("entity_clicked", choices)

@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name PlayerHud
 
 @onready var character := $Character
 @onready var health_label := $Background/Health

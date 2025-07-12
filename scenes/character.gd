@@ -1,5 +1,7 @@
 extends Node
 
+class_name Character
+
 signal health_changed
 signal insanity_changed
 signal died

@@ -1,9 +1,14 @@
 extends Control
+class_name Option
 
 @onready var title := $OptionTitle
 @onready var text := $OptionText
  
 var action: Callable = null_action
+
+func _ready():
+	print(title)
+	print(text)
 
 func init_from_dict(init_dict:Dictionary) -> void:
 	title.text = init_dict["title"]
