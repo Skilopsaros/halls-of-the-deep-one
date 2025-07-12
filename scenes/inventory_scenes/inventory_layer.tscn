@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7mms8twfmadh"]
+
+[ext_resource type="Script" uid="uid://cims2i3fch8na" path="res://inventory_layer.gd" id="1_uskig"]
+[ext_resource type="PackedScene" uid="uid://cbpdimsir0pk6" path="res://scenes/inventory_scenes/drag_preview/drag_preview.tscn" id="2_s2ubw"]
+[ext_resource type="PackedScene" uid="uid://bj12l8y8dx1bi" path="res://scenes/inventory_scenes/inventory.tscn" id="3_s2ubw"]
+
+[node name="InventoryLayer" type="CanvasLayer"]
+script = ExtResource("1_uskig")
+
+[node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
+
+[node name="Inventories" type="Node" parent="."]
+
+[node name="PlayerInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]

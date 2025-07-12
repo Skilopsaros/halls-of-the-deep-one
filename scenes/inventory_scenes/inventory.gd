@@ -1,4 +1,7 @@
 extends Node2D
+class_name Inventory
+
+const self_scene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @onready var foreground := $inventory_foreground
 @onready var background := $inventory_background
@@ -11,6 +14,12 @@ var items = [] # this will be a list of tuples [position,item]
 # current problem: showing two items with the bounding box at the same top left corner not possible
 var occupancy = [] # 0 if no item, 1 if item
 var occupancy_positions = [] # has the same shape as occupancy, information about the position of the item there
+
+static func constructor(cols: int, rows: int) -> Inventory:
+	var obj = self_scene.instantiate()
+	obj.cols = cols
+	obj.rows = rows
+	return obj
 
 func _ready():
 	slots = cols * rows

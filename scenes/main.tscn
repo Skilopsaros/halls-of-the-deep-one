@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cd3fikbu43hqs" path="res://scenes/main_display_scenes/choices_container.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ce6l1qwo0u77n" path="res://scenes/main_display_scenes/room_container.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bqa3i600a7odc" path="res://scenes/main_display_scenes/menu_hud.tscn" id="4_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://bj12l8y8dx1bi" path="res://scenes/inventory_scenes/inventory.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://c7mms8twfmadh" path="res://scenes/inventory_scenes/inventory_layer.tscn" id="6_tefeu"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_o6xl0")
@@ -18,8 +18,4 @@ script = ExtResource("1_o6xl0")
 
 [node name="CanvasLayer" parent="." instance=ExtResource("4_jyhfs")]
 
-[node name="InventoryLayer" type="CanvasLayer" parent="."]
-
-[node name="Inventory" parent="InventoryLayer" instance=ExtResource("5_tbgi4")]
-cols = 6
-rows = 5
+[node name="InventoryLayer" parent="." instance=ExtResource("6_tefeu")]
