@@ -7,8 +7,8 @@
 [node name="InventoryLayer" type="CanvasLayer"]
 script = ExtResource("1_uskig")
 
-[node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
-
 [node name="Inventories" type="Node" parent="."]
 
 [node name="PlayerInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
+
+[node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
