@@ -11,3 +11,9 @@ func set_dragged_item(item):
 		item_icon.texture = load("res://assets/images/%s" % dragged_item.icon)
 	else:
 		item_icon.texture = null
+
+func pick_up_item():
+	pass
+	
+func put_down_item():
+	pass

@@ -16,3 +16,13 @@ func update_item_slots(items):
 		var index = item[0]
 		var item_object = item[1]
 		item_slots[index].display_item(item_object)
+
+func add_item(item):
+	var item_slots = get_children()
+	var index = item[0]
+	var item_object = item[1]
+	item_slots[index].display_item(item_object)
+	
+func remove_item(index):
+	var item_slots = get_children()
+	item_slots[index].display_item({})

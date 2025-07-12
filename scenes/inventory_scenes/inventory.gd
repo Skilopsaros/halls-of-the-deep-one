@@ -10,13 +10,13 @@ var slots:int
 var items = [] # this will be a list of tuples [position,item]
 # current problem: showing two items with the bounding box at the same top left corner not possible
 var occupancy = [] # 0 if no item, 1 if item
-var occupancy_pters = [] # has the same shape as occupancy, but contains pointers to the item that occupies a certain space
+var occupancy_positions = [] # has the same shape as occupancy, information about the position of the item there
 
 func _ready():
 	slots = cols * rows
 	for i in range(slots):
 		occupancy.append(0)
-		occupancy_pters.append(null)
+		occupancy_positions.append(-1)
 	
 	var background_width = cols*60+10
 	var background_height = rows*60+10
@@ -25,13 +25,9 @@ func _ready():
 	foreground.initialize_item_slots(rows,cols)
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 
-func update_item_slots():
-	background.update_item_slots(occupancy)
-	foreground.update_item_slots(items)
-
-func _calculate_reshaped_occupancy(item):
-	var bounding_box = item.bounding_box
-	var occupied_spaces = item.occupied_spaces
+func _calculate_reshaped_occupancy(item_object):
+	var bounding_box = item_object.bounding_box
+	var occupied_spaces = item_object.occupied_spaces
 	var reshaped_occupied_spaces = []
 	var buffer_length = cols - bounding_box[1]
 	var buffer = []
@@ -47,33 +43,49 @@ func _calculate_reshaped_occupancy(item):
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
-func set_item(item,position):
-	var reshaped_occupancy = _calculate_reshaped_occupancy(item)
+func add_item(item_object,index):
+	var reshaped_occupancy = _calculate_reshaped_occupancy(item_object)
 	# attempt to put the item in
 	# number one: does the bounding box fit
-	var bounding_box = item.bounding_box
-	if (position%cols - item.offset + bounding_box[1]) > cols:
+	var bounding_box = item_object.bounding_box
+	if (index%cols - item_object.offset + bounding_box[1]) > cols:
 		return false
-	if (int(position/cols)) + bounding_box[0] > rows:
+	if (int(index/cols)) + bounding_box[0] > rows:
 		return false
 	
 	for i in range(len(reshaped_occupancy)):
-		if occupancy[i+position-item.offset] + reshaped_occupancy[i] >= 2:
+		if occupancy[i+index-item_object.offset] + reshaped_occupancy[i] >= 2:
 			return false
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
 			if reshaped_occupancy[i] == 1:
-				occupancy[i+position-item.offset] = reshaped_occupancy[i]
-				occupancy_pters[i+position-item.offset] = item
-	items.append([position,item])
-	update_item_slots()
+				occupancy[i+index-item_object.offset] = reshaped_occupancy[i]
+				occupancy_positions[i+index-item_object.offset] = index
+	items.append([index,item_object])
+	foreground.add_item([index,item_object])
+	background.update_item_slots(occupancy)
 	return true
 
-func remove_item(position):
-	var item = items[position].duplicate()
-	var reshaped_occupancy = _calculate_reshaped_occupancy(item)
-	items[position].clear()
+func remove_item(searched_index):
+	var location = _find_item_by_index(searched_index)
+	var inx = location[0]
+	var item_object = location[1]
+	var reshaped_occupancy = _calculate_reshaped_occupancy(item_object)
+	items.pop_at(inx)
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
-			occupancy[i+position] = 0
-	return item
+			occupancy[i+searched_index-item_object.offset] = 0
+			occupancy_positions[i+searched_index-item_object.offset] = -1
+	foreground.remove_item(searched_index)
+	background.update_item_slots(occupancy)
+	return item_object
+
+func _find_item_by_index(searched_index):
+	var item_object = {}
+	var inx = -1
+	for index in range(len(items)):
+		if items[index][0] == searched_index:
+			item_object = items[index][1]
+			inx = index
+			
+	return [inx,item_object]
