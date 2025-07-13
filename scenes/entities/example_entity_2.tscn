@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmsc0bh1h68nq"]
+
+[ext_resource type="Script" uid="uid://cd08v80ub2suo" path="res://scenes/entities/example_entity_2.gd" id="1_q38ms"]
+[ext_resource type="Texture2D" uid="uid://kvbnoaw3ypu8" path="res://graphics/entities/master_poisoner_advanced.png" id="2_s5d3v"]
+
+[node name="ExampleEntity2" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_q38ms")
+skin = ExtResource("2_s5d3v")

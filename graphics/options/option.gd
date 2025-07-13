@@ -7,8 +7,7 @@ class_name Option
 var action: Callable = null_action
 
 func _ready():
-	print(title)
-	print(text)
+	pass
 
 func init_from_dict(init_dict:Dictionary) -> void:
 	title.text = init_dict["title"]

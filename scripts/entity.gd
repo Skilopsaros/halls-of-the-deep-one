@@ -4,6 +4,9 @@ class_name Entity
 @export var skin: Texture
 
 var choices: Array[Dictionary] = []
+var index: int
+
+signal clear_entity
 
 signal entity_clicked
 
@@ -26,5 +29,8 @@ func _ready():
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		print("emmiting signal")
+		print(self)
 		emit_signal("entity_clicked", choices)
+
+func clear_self():
+	emit_signal("clear_entity", index)
