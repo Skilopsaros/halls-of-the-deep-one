@@ -5,17 +5,14 @@ const self_scene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @onready var foreground := $inventory_foreground
 @onready var background := $inventory_background
-@onready var click_layer := $click_interaction_layer
 @onready var background_rect := $background_rect
 @onready var title_label := $background_rect/title_label
-
 
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
 var slots:int
-var items = [] # this will be a list of tuples [position,item]
-# TODO this being a dictionary would make much more sense
+var items = {}
 
 var occupancy = [] # 0 if no item, 1 if item
 var occupancy_positions = [] # has the same shape as occupancy, information about the position of the item there
@@ -59,9 +56,9 @@ func _process(delta):
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
 
-func _calculate_reshaped_occupancy(item_object):
-	var bounding_box = item_object.bounding_box
-	var occupied_spaces = item_object.occupied_spaces
+func _calculate_reshaped_occupancy(item):
+	var bounding_box = item.bounding_box
+	var occupied_spaces = item.occupied_spaces
 	var reshaped_occupied_spaces = []
 	var buffer_length = cols - bounding_box[1]
 	var buffer = []
@@ -77,49 +74,47 @@ func _calculate_reshaped_occupancy(item_object):
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
-func add_item(item_object,index):
-	var reshaped_occupancy = _calculate_reshaped_occupancy(item_object)
-	# attempt to put the item in
-	# number one: does the bounding box fit
-	var bounding_box = item_object.bounding_box
-	if (index%cols - item_object.offset + bounding_box[1]) > cols:
+func add_item(item,index):
+	var reshaped_occupancy = _calculate_reshaped_occupancy(item)
+
+	# does the bounding box fit?
+	var bounding_box = item.bounding_box
+	if (index%cols - item.offset + bounding_box[1]) > cols:
 		return false
 	if (int(index/cols)) + bounding_box[0] > rows:
 		return false
 	
+	# does it collide with other items?
 	for i in range(len(reshaped_occupancy)):
-		if occupancy[i+index-item_object.offset] + reshaped_occupancy[i] >= 2:
+		if occupancy[i+index-item.offset] + reshaped_occupancy[i] >= 2:
 			return false
+			
+	# put it in
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
 			if reshaped_occupancy[i] == 1:
-				occupancy[i+index-item_object.offset] = reshaped_occupancy[i]
-				occupancy_positions[i+index-item_object.offset] = index
-	items.append([index,item_object])
-	foreground.add_item([index,item_object])
+				occupancy[i+index-item.offset] = reshaped_occupancy[i]
+				occupancy_positions[i+index-item.offset] = index
+
+	items[index] = item
+	foreground.add_item(index,item)
 	background.update_item_slots(occupancy)
 	return true
 
-func remove_item(searched_index):
-	var location = _find_item_by_index(searched_index)
-	var inx = location[0]
-	var item_object = location[1]
-	var reshaped_occupancy = _calculate_reshaped_occupancy(item_object)
-	items.pop_at(inx)
+func remove_item(index):
+	var item = _find_item_by_index(index)
+	var reshaped_occupancy = _calculate_reshaped_occupancy(item)
+	items.erase(index)
 	for i in range(len(reshaped_occupancy)):
 		if reshaped_occupancy[i] >= 1:
-			occupancy[i+searched_index-item_object.offset] = 0
-			occupancy_positions[i+searched_index-item_object.offset] = -1
-	foreground.remove_item(searched_index)
+			occupancy[i+index-item.offset] = 0
+			occupancy_positions[i+index-item.offset] = -1
+	foreground.remove_item(index)
 	background.update_item_slots(occupancy)
-	return item_object
+	return item
 
-func _find_item_by_index(searched_index):
-	var item_object = {}
-	var inx = -1
-	for index in range(len(items)):
-		if items[index][0] == searched_index:
-			item_object = items[index][1]
-			inx = index
-			
-	return [inx,item_object]
+func _find_item_by_index(index):
+	if index in items.keys():
+		return items[index]
+	else:
+		return null

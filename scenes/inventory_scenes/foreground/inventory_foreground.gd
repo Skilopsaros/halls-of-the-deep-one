@@ -12,16 +12,13 @@ func initialize_item_slots(rows,cols):
 
 func update_item_slots(items):
 	var item_slots = get_children()
-	for item in items:
-		var index = item[0]
-		var item_object = item[1]
-		item_slots[index].display_item(item_object)
+	for index in items.keys():
+		var item = items[index]
+		item_slots[index].display_item(item)
 
-func add_item(item):
+func add_item(index,item):
 	var item_slots = get_children()
-	var index = item[0]
-	var item_object = item[1]
-	item_slots[index].display_item(item_object)
+	item_slots[index].display_item(item)
 	
 func remove_item(index):
 	var item_slots = get_children()

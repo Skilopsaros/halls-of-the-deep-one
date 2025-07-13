@@ -8,22 +8,23 @@ const Inventory = preload("res://scenes/inventory_scenes/inventory.gd")
 
 func _ready():
 	for inventory in inventories.get_children():
-		_initialize_inventory(inventory)
+		_initialize_inventory_interactivity(inventory)
 #
-func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, index:int) -> void:
+func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == {}:
-			var inx = inventory.occupancy_positions[index]
-			var clicked_item = inventory._find_item_by_index(inx)
-			if clicked_item[0] == -1:
+			var item_index = inventory.occupancy_positions[slot_index]
+			var clicked_item = inventory._find_item_by_index(item_index)
+			if !clicked_item:
 				return
-			inventory.remove_item(inx)
-			drag_preview.dragged_item = clicked_item[1]
+			print(clicked_item.name)
+			inventory.remove_item(item_index)
+			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != {}:
-			var inx = inventory.occupancy_positions[index]
-			if inx != -1:
+			var item_index = inventory.occupancy_positions[slot_index]
+			if item_index != -1:
 				return
-			var sucess = inventory.add_item(drag_preview.dragged_item,index)
+			var sucess = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if sucess:
 				drag_preview.dragged_item = {}
 			
@@ -31,12 +32,10 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, index:int)
 func add_inventory(cols: int, rows: int, title: String) -> Node2D:
 	var new_inventory = Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
-	
-	_initialize_inventory(new_inventory)
-	
+	_initialize_inventory_interactivity(new_inventory)
 	return new_inventory
 
-func _initialize_inventory(inventory:Inventory):
+func _initialize_inventory_interactivity(inventory:Inventory):
 	var item_slots = inventory.background.get_children()
 	for index in range(len(item_slots)):
 		var item_slot = item_slots[index]
