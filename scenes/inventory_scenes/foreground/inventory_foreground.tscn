@@ -6,7 +6,7 @@
 [node name="inventory_foreground" type="GridContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 script = ExtResource("1_uov6c")
 ItemSlot = ExtResource("2_xqyry")

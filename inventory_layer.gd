@@ -39,10 +39,12 @@ func add_inventory(cols: int, rows: int, title: String) -> Node2D:
 	var new_inventory = Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
+	new_inventory.z_index = 2*len(inventories.get_children())
+	drag_preview.z_index = 2*len(inventories.get_children())+2
 	return new_inventory
 
 func _initialize_inventory_interactivity(inventory:Inventory):
-	var item_slots = inventory.background.get_children()
+	var item_slots = inventory.foreground.get_children()
 	for index in range(len(item_slots)):
 		var item_slot = item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))

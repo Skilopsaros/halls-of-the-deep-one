@@ -4,7 +4,6 @@ class_name Inventory
 const self_scene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @onready var foreground := $inventory_foreground
-@onready var background := $inventory_background
 @onready var background_rect := $background_rect
 @onready var title_label := $background_rect/title_label
 
@@ -33,11 +32,9 @@ func _ready():
 	var background_width = cols*60+10
 	var background_height = rows*60+60
 	background_rect.size = Vector2(background_width,background_height)
-	background.initialize_item_slots(rows,cols)
 	foreground.initialize_item_slots(rows,cols)
-	foreground.position.y = 60
-	background.position.x = 5
-	background.position.y = 55
+	foreground.position.y = 55
+	foreground.position.x = 5
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventoryBackground_input)
@@ -99,7 +96,7 @@ func add_item(item,index):
 
 	items[index] = item
 	foreground.add_item(index,item)
-	background.update_item_slots(occupancy)
+	foreground.update_occupancy(occupancy)
 	return true
 
 func remove_item(index):
@@ -111,7 +108,7 @@ func remove_item(index):
 			occupancy[i+index-item.offset] = 0
 			occupancy_positions[i+index-item.offset] = -1
 	foreground.remove_item(index)
-	background.update_item_slots(occupancy)
+	foreground.update_occupancy(occupancy)
 	return item
 
 func _find_item_by_index(index):
