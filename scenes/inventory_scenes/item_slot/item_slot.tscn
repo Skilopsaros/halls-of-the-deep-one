@@ -7,6 +7,7 @@
 custom_minimum_size = Vector2(50, 50)
 offset_right = 30.0
 offset_bottom = 30.0
+mouse_filter = 2
 color = Color(0.184314, 0.133333, 0.215686, 0)
 script = ExtResource("1_86wqj")
 
@@ -16,4 +17,5 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 45.0
 offset_bottom = 45.0
+mouse_filter = 2
 texture = ExtResource("2_fpj2b")

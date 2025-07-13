@@ -8,10 +8,7 @@ const Inventory = preload("res://scenes/inventory_scenes/inventory.gd")
 
 func _ready():
 	for inventory in inventories.get_children():
-		var item_slots = inventory.click_layer.get_children()
-		for index in range(len(item_slots)):
-			var item_slot = item_slots[index]
-			item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+		_initialize_inventory(inventory)
 #
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, index:int) -> void:
 	if event is InputEventMouseButton:
@@ -35,9 +32,12 @@ func add_inventory(cols: int, rows: int, title: String) -> Node2D:
 	var new_inventory = Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
 	
-	var item_slots = new_inventory.click_layer.get_children()
-	for index in range(len(item_slots)):
-		var item_slot = item_slots[index]
-		item_slot.connect("gui_input", _on_inventory_slot_input.bind(new_inventory,index))
+	_initialize_inventory(new_inventory)
 	
 	return new_inventory
+
+func _initialize_inventory(inventory:Inventory):
+	var item_slots = inventory.background.get_children()
+	for index in range(len(item_slots)):
+		var item_slot = item_slots[index]
+		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))

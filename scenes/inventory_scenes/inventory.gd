@@ -38,10 +38,8 @@ func _ready():
 	background_rect.size = Vector2(background_width,background_height)
 	background.initialize_item_slots(rows,cols)
 	foreground.initialize_item_slots(rows,cols)
-	click_layer.initialize_item_slots(rows,cols)
 	foreground.position.y = 60
 	background.position.y = 60
-	click_layer.position.y = 60
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventoryBackground_input)
