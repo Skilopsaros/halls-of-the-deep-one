@@ -36,7 +36,8 @@ func _ready():
 	background.initialize_item_slots(rows,cols)
 	foreground.initialize_item_slots(rows,cols)
 	foreground.position.y = 60
-	background.position.y = 60
+	background.position.x = 5
+	background.position.y = 55
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventoryBackground_input)
