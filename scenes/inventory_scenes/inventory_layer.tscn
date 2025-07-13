@@ -10,5 +10,6 @@ script = ExtResource("1_uskig")
 [node name="Inventories" type="Node" parent="."]
 
 [node name="PlayerInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
+title = "My Stuff"
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]

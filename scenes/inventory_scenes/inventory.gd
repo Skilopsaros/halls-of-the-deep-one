@@ -6,10 +6,13 @@ const self_scene = preload("res://scenes/inventory_scenes/inventory.tscn")
 @onready var foreground := $inventory_foreground
 @onready var background := $inventory_background
 @onready var click_layer := $click_interaction_layer
-@onready var background_rect := $background_rect # TODO make bigger on top and make the whole thing draggable
+@onready var background_rect := $background_rect
+@onready var title_label := $background_rect/title_label
+
 
 @export var cols:int = 9
 @export var rows:int = 3
+@export var title:String = ""
 var slots:int
 var items = [] # this will be a list of tuples [position,item]
 # TODO this being a dictionary would make much more sense
@@ -17,10 +20,11 @@ var items = [] # this will be a list of tuples [position,item]
 var occupancy = [] # 0 if no item, 1 if item
 var occupancy_positions = [] # has the same shape as occupancy, information about the position of the item there
 
-static func constructor(cols: int, rows: int) -> Inventory:
+static func constructor(cols: int, rows: int, title: String) -> Inventory:
 	var obj = self_scene.instantiate()
 	obj.cols = cols
 	obj.rows = rows
+	obj.title = title
 	return obj
 
 func _ready():
@@ -38,6 +42,7 @@ func _ready():
 	foreground.position.y = 60
 	background.position.y = 60
 	click_layer.position.y = 60
+	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventoryBackground_input)
 
