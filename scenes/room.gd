@@ -34,7 +34,7 @@ func remove_entity(index:int) -> void:
 		load_entity(index)
 		
 func load_entity(index:int) -> void:
-	var new_entity = entity_stacks[index].entities[active_entity_stack_indexes[index]].instantiate()
+	var new_entity = entity_stacks[index].entities[active_entity_stack_indexes[index]].new()
 	new_entity.entity_clicked.connect(get_node("/root/Main")._on_entity_clicked)
 	new_entity.clear_entity.connect(remove_entity)
 	hbox_container.add_child(new_entity)

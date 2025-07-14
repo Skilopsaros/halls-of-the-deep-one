@@ -1,4 +1,4 @@
 extends Resource
 class_name EntityStack
 
-@export var entities: Array[PackedScene]
+@export var entities: Array[GDScript]

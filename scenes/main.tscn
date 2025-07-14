@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7b3iq80s5ufb"]
+[gd_scene load_steps=10 format=3 uid="uid://c7b3iq80s5ufb"]
 
 [ext_resource type="PackedScene" uid="uid://c7015tuyqysh8" path="res://scenes/main_display_scenes/player_hud.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dg1bnftf0sgcg" path="res://scenes/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cd3fikbu43hqs" path="res://scenes/main_display_scenes/choices_container.tscn" id="2_0wfyh"]
 [ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_tefeu"]
+[ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_tipki"]
 [ext_resource type="PackedScene" uid="uid://ce6l1qwo0u77n" path="res://scenes/main_display_scenes/room_container.tscn" id="3_sugp2"]
+[ext_resource type="Resource" uid="uid://ckjapun58t78b" path="res://resources/rooms/example_room_2.tres" id="4_85g3d"]
 [ext_resource type="PackedScene" uid="uid://bqa3i600a7odc" path="res://scenes/main_display_scenes/menu_hud.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://da27tnlsb8mau" path="res://scenes/room.tscn" id="6_o6xl0"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tbgi4")
-room_data = ExtResource("2_tefeu")
+room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu"), ExtResource("4_85g3d")])
 
 [node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
 

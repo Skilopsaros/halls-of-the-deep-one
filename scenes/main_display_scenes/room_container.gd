@@ -7,6 +7,7 @@ var room: Room
 func init_room(room_data) -> void:
 	if room:
 		room.queue_free()
+		await room.tree_exited
 	room = room_scene.instantiate()
 	room.position = Vector2(640, 230)
 	room.data = room_data

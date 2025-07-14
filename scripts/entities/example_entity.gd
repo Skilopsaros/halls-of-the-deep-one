@@ -1,6 +1,7 @@
 extends Entity
 
 func _ready() -> void:
+	self.skin = load("res://graphics/entities/master_poisoner.png")
 	super._ready()
 	choices = [
 		{
