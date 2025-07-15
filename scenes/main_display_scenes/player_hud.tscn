@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7015tuyqysh8"]
+[gd_scene load_steps=4 format=3 uid="uid://c7015tuyqysh8"]
 
+[ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
+[ext_resource type="PackedScene" uid="uid://vwcpmy2hi2qc" path="res://scenes/character.tscn" id="3_ldeky"]
 
 [node name="PlayerHud" type="CanvasLayer"]
+script = ExtResource("1_dnds5")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 670)
@@ -35,3 +38,8 @@ offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "20/20"
+
+[node name="Character" parent="." instance=ExtResource("3_ldeky")]
+
+[connection signal="health_changed" from="Character" to="." method="_on_character_health_changed"]
+[connection signal="insanity_changed" from="Character" to="." method="_on_character_insanity_changed"]
