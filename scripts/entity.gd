@@ -13,13 +13,13 @@ signal entity_clicked
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	var sprite = Sprite2D.new()
+	var sprite := Sprite2D.new()
 	sprite.texture = skin
 	sprite.offset = Vector2i(0, 130)
 	add_child(sprite)
 	
-	var area2d = Area2D.new()
-	var collision = CollisionShape2D.new()
+	var area2d := Area2D.new()
+	var collision := CollisionShape2D.new()
 	collision.shape = RectangleShape2D.new()
 	collision.shape.size = Vector2(240, 240)
 	collision.position = Vector2(0, 130)
