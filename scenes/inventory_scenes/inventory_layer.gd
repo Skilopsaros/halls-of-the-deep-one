@@ -4,7 +4,10 @@ extends CanvasLayer
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
 
-const Inventory = preload("res://scenes/inventory_scenes/inventory.gd")
+const Inventory := preload("res://scenes/inventory_scenes/inventory.gd")
+const Starting_z_index: int = 2
+
+@onready var inventory_view_order:Array[Inventory] = []
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
@@ -15,7 +18,8 @@ const Inventory = preload("res://scenes/inventory_scenes/inventory.gd")
 func _ready():
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
-#
+		inventory_view_order.append(inventory)
+
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == {}:
@@ -33,14 +37,20 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			var sucess = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if sucess:
 				drag_preview.dragged_item = {}
-			
+
+func move_inventory_to_foreground(inventory: Inventory) -> void:
+	inventory_view_order.erase(inventory)
+	inventory_view_order.append(inventory)
+	for i in range(len(inventory_view_order)):
+		inventory_view_order[i].z_index = Starting_z_index + 2*i
 
 func add_inventory(cols: int, rows: int, title: String) -> Node2D:
 	var new_inventory = Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
-	new_inventory.z_index = 2*len(inventories.get_children())
-	drag_preview.z_index = 2*len(inventories.get_children())+2
+	inventory_view_order.append(new_inventory)
+	new_inventory.z_index = 2*len(inventory_view_order)
+	drag_preview.z_index = 2*len(inventory_view_order)+2
 	return new_inventory
 
 func _initialize_inventory_interactivity(inventory:Inventory):
