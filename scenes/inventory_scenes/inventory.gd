@@ -48,7 +48,7 @@ func _on_inventory_background_input(event: InputEvent) -> void:
 			self.get_parent().get_parent().move_inventory_to_foreground(self)
 			dragging = true
 			window_drag_offset = position - get_global_mouse_position()
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and dragging:
+		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and dragging:
 			dragging = false
 			
 func _process(delta) -> void:
