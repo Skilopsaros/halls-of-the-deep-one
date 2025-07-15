@@ -5,7 +5,7 @@ var dragged_item = {}:
 	
 @onready var item_icon = $ItemIcon
 
-func set_dragged_item(item):
+func set_dragged_item(item) -> void:
 	dragged_item = item
 	if dragged_item:
 		item_icon.texture = load("res://graphics/items/%s" % dragged_item.icon)
@@ -18,14 +18,14 @@ func set_dragged_item(item):
 func _process(delta: float) -> void:
 	position = get_global_mouse_position()
 
-func pick_up_item(item):
+func pick_up_item(item) -> bool:
 	if dragged_item != {}:
 		return false
 	else:
 		dragged_item = item
 		return true
 	
-func put_down_item():
+func put_down_item() -> Dictionary:
 	var previous_item = dragged_item
 	dragged_item = {}
 	return previous_item
