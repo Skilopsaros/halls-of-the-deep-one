@@ -1,11 +1,11 @@
 extends Control
 
-var dragged_item = {}:
+var dragged_item: Dictionary = {}:
 	set = set_dragged_item
 	
-@onready var item_icon = $ItemIcon
+@onready var item_icon := $ItemIcon
 
-func set_dragged_item(item) -> void:
+func set_dragged_item(item: Dictionary) -> void:
 	dragged_item = item
 	if dragged_item:
 		item_icon.texture = load("res://graphics/items/%s" % dragged_item.icon)
@@ -18,7 +18,7 @@ func set_dragged_item(item) -> void:
 func _process(delta: float) -> void:
 	position = get_global_mouse_position()
 
-func pick_up_item(item) -> bool:
+func pick_up_item(item: Dictionary) -> bool:
 	if dragged_item != {}:
 		return false
 	else:
@@ -26,6 +26,6 @@ func pick_up_item(item) -> bool:
 		return true
 	
 func put_down_item() -> Dictionary:
-	var previous_item = dragged_item
+	var previous_item: Dictionary = dragged_item
 	dragged_item = {}
 	return previous_item

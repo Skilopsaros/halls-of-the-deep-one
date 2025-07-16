@@ -51,11 +51,11 @@ func _on_inventory_background_input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and dragging:
 			dragging = false
 			
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
 
-func _calculate_reshaped_occupancy(item) -> Array[float]:
+func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
 	var bounding_box:Array = item.bounding_box
 	var occupied_spaces:Array = item.occupied_spaces # :Array[Array[float]]
 	var reshaped_occupied_spaces:Array[float] = []
@@ -72,7 +72,7 @@ func _calculate_reshaped_occupancy(item) -> Array[float]:
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
-func add_item(item,index) -> bool:
+func add_item(item: Dictionary, index: int) -> bool:
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 
 	# does the bounding box fit?
@@ -100,7 +100,7 @@ func add_item(item,index) -> bool:
 	foreground.update_occupancy(occupancy)
 	return true
 
-func remove_item(index):
+func remove_item(index: int):
 	var item := _find_item_by_index(index)
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 	items.erase(index)
@@ -112,7 +112,7 @@ func remove_item(index):
 	foreground.update_occupancy(occupancy)
 	return item
 
-func _find_item_by_index(index) -> Dictionary:
+func _find_item_by_index(index: int) -> Dictionary:
 	if index in items.keys():
 		return items[index]
 	else:

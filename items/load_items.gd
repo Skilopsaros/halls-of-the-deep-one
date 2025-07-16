@@ -3,7 +3,7 @@ extends Node2D
 var all_items:Dictionary
 
 func _ready() -> void:
-	all_items = read_from_JSON("res://json/items.json")
+	all_items = read_from_JSON("res://items/items.json")
 	for key in all_items.keys():
 		all_items[key]["key"] = key
 

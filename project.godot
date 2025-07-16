@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-item_library="*res://json/load_items.gd"
+item_library="*res://items/load_items.gd"
 
 [display]
 
