@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ce6l1qwo0u77n"]
 
 [ext_resource type="Texture2D" uid="uid://58wc08d2u8si" path="res://graphics/huds/room_container.png" id="1_27sec"]
-[ext_resource type="PackedScene" uid="uid://da27tnlsb8mau" path="res://scenes/room.tscn" id="1_yl210"]
+[ext_resource type="Script" uid="uid://btvcr12wiwx2e" path="res://scenes/main_display_scenes/room_container.gd" id="1_rbjdk"]
 
 [node name="RoomContainer" type="CanvasLayer"]
-
-[node name="Room" parent="." instance=ExtResource("1_yl210")]
-position = Vector2(640, 230)
+script = ExtResource("1_rbjdk")
 
 [node name="RoomOutline" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(640, 230)
 texture = ExtResource("1_27sec")
