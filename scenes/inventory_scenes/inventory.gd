@@ -33,7 +33,7 @@ func _ready() -> void:
 	var background_width:int = cols*60+10
 	var background_height:int = rows*60+50
 	background_rect.size = Vector2(background_width,background_height)
-	background_rect_inner_color.size = background_rect.size - Vector2(10,10)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 10,35)
 	background_rect_inner_color.position = Vector2(5,5)
 	foreground.initialize_item_slots(rows,cols)
 	foreground.position.y = 45

@@ -16,7 +16,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-color = Color(0.167667, 0.0807306, 0.196652, 1)
+color = Color(0.0823529, 0.101961, 0.172549, 1)
 
 [node name="Title" type="Label" parent="BackgroundRect"]
 layout_mode = 1
