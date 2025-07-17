@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cc6stlv5kc46a" path="res://graphics/huds/menu_hud.png" id="1_48dti"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="MenuHud" type="CanvasLayer"]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 50)
