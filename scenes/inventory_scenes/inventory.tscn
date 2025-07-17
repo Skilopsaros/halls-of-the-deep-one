@@ -9,7 +9,7 @@ script = ExtResource("1_uov6c")
 [node name="BackgroundRect" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0.126276, 0.0537822, 0.150027, 1)
+color = Color(0.06955, 0.0091, 0.13, 1)
 
 [node name="Title" type="Label" parent="BackgroundRect"]
 layout_mode = 1
