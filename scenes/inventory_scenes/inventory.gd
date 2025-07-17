@@ -8,6 +8,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
 
+@onready var corner_tr_sprite := $CornerTR
+
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
@@ -30,14 +32,15 @@ func _ready() -> void:
 		occupancy.append(0)
 		occupancy_positions.append(-1)
 	
-	var background_width:int = cols*60+10
-	var background_height:int = rows*60+50
+	var background_width:int = cols*60+4
+	var background_height:int = rows*60+42
 	background_rect.size = Vector2(background_width,background_height)
-	background_rect_inner_color.size = Vector2(background_rect.size.x - 10,35)
-	background_rect_inner_color.position = Vector2(5,5)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 4,36)
+	background_rect_inner_color.position = Vector2(2,2)
 	foreground.initialize_item_slots(rows,cols)
-	foreground.position.y = 45
-	foreground.position.x = 5
+	foreground.position.y = 40
+	foreground.position.x = 2
+	corner_tr_sprite.position.x += background_width - 64
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
