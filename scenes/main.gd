@@ -8,7 +8,7 @@ extends Node
 var next_room: int = 0
 
 func _ready() -> void:
-  var player_inventory:Inventory = inventory_manager.player_inventory
+	var player_inventory:Inventory = inventory_manager.player_inventory
   
 	# example content to try functionality
 	var chest:Inventory = inventory_manager.add_inventory(5,3,"Chest")
@@ -29,4 +29,3 @@ func _on_entity_clicked(options_list:Array[Dictionary]) -> void:
 	print("on entity clicked")
 	print(choices_container)
 	choices_container.add_options_from_options_list(options_list)
-
