@@ -3,7 +3,7 @@ class_name Inventory
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
-@onready var foreground := $InventoryForeground
+@onready var foreground := $Foreground
 @onready var background_rect := $BackgroundRect
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
