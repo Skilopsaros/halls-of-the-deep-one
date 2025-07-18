@@ -11,7 +11,30 @@ script = ExtResource("1_uskig")
 
 [node name="PlayerInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
 z_index = 2
-title = "My Stuff"
+cols = 10
+title = "Inventory"
+draggable = false
+
+[node name="EquipmentWeapon" parent="Inventories" instance=ExtResource("3_s2ubw")]
+cols = 2
+rows = 2
+title = "Weapon"
+filters = Array[String](["weapon"])
+draggable = false
+
+[node name="EquipmentArmor" parent="Inventories" instance=ExtResource("3_s2ubw")]
+cols = 2
+rows = 2
+title = "Armor"
+filters = Array[String](["armor"])
+draggable = false
+
+[node name="EquipmentAccessory" parent="Inventories" instance=ExtResource("3_s2ubw")]
+cols = 2
+rows = 2
+title = "Accessory"
+filters = Array[String](["accessory"])
+draggable = false
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
 z_index = 4

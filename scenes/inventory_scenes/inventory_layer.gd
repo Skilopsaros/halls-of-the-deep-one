@@ -3,6 +3,9 @@ extends CanvasLayer
 @onready var drag_preview := $DragPreview
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
+@onready var player_weapon:= $Inventories/EquipmentWeapon
+@onready var player_armor:= $Inventories/EquipmentArmor
+@onready var player_accessory:= $Inventories/EquipmentAccessory
 
 const Inventory := preload("res://scenes/inventory_scenes/inventory.gd")
 const starting_z_index: int = 2
@@ -19,6 +22,21 @@ func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
+	
+	_realign_pleayer_inventory_parts(40)
+	
+func _realign_pleayer_inventory_parts(player_UI_spacing: int) -> void:
+	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
+	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y)
+	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
+	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x+player_armor.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
+	
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("toggle_inventory"):
+		player_inventory.visible = not player_inventory.visible
+		player_weapon.visible = player_inventory.visible
+		player_armor.visible = player_inventory.visible
+		player_accessory.visible = player_inventory.visible
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:

@@ -3,7 +3,7 @@ class_name Inventory
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
-@onready var foreground := $InventoryForeground
+@onready var foreground := $Foreground
 @onready var background_rect := $BackgroundRect
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
@@ -11,6 +11,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
+@export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
+# if multiple keys are given all of them need to be fulfilled
 var slots:int
 var items:Dictionary = {}
 
@@ -42,12 +44,13 @@ func _ready() -> void:
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
 
+@export var draggable:bool = true
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
 var dragging:bool = false
 
 func _on_inventory_background_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
+		if draggable and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
 			self.get_parent().get_parent().move_inventory_to_foreground(self)
 			dragging = true
 			window_drag_offset = position - get_global_mouse_position()
@@ -75,7 +78,16 @@ func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
+func _check_filter_ok(item: Dictionary) -> bool:
+	for filter in filters:
+		if filter not in item["tags"]:
+			return false
+	return true
+
 func add_item(item: Dictionary, index: int) -> bool:
+	if not _check_filter_ok(item):
+		return false
+		
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 
 	# does the bounding box fit?
