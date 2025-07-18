@@ -13,8 +13,24 @@ func _ready() -> void:
 			"title": "Gain Insanity",
 			"text": "Gain 3 insanity",
 			"action": gain_insanity
+		},
+		{
+			"title": "Sneak by",
+			"text": "skip this monster",
+			"action": sneak_by,
+			"requirement":requirement_to_skip
 		}
 	]
+
+func requirement_to_skip():
+	var character = get_node("/root/Main/PlayerHud").character
+	if character.agility > 12:
+		return(true)
+	return(false)
+
+func sneak_by():
+	clear_self()
+
 
 func lose_health():
 	var character = get_node("/root/Main/PlayerHud").character

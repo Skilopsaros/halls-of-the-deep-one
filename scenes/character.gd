@@ -9,6 +9,10 @@ signal insane
 
 @export var max_health: int = 20
 @export var max_insanity: int = 20
+@export var power: int = 10
+@export var agility: int = 10
+@export var perception: int = 10
+@export var occult: int = 10
 
 var current_health: int
 var current_insanity: int = 0

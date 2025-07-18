@@ -1,9 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
-[ext_resource type="PackedScene" uid="uid://bt1gca12e4dw0" path="res://scenes/inventory_scenes/foreground/inventory_foreground.tscn" id="2_88mhb"]
-[ext_resource type="Texture2D" uid="uid://b238m2frq6eg6" path="res://graphics/inventory/inventory_corner_1.png" id="2_h75hr"]
 [ext_resource type="Texture2D" uid="uid://j5r1eaqldg2j" path="res://graphics/inventory/inventory_corner_2.png" id="4_srsel"]
+[ext_resource type="Texture2D" uid="uid://b238m2frq6eg6" path="res://graphics/inventory/inventory_corner_1.png" id="2_h75hr"]
+[ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/foreground.gd" id="2_xeujj"]
+[ext_resource type="PackedScene" uid="uid://c8vgvyfg85i2" path="res://scenes/inventory_scenes/item_slot/item_slot.tscn" id="3_h75hr"]
 
 [node name="Inventory" type="Node2D"]
 script = ExtResource("1_uov6c")
@@ -30,12 +31,13 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InventoryForeground" parent="." instance=ExtResource("2_88mhb")]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 50.0
-offset_bottom = 50.0
-mouse_filter = 2
+[node name="Foreground" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("2_xeujj")
+ItemSlot = ExtResource("3_h75hr")
 
 [node name="CornerTL" type="TextureRect" parent="."]
 z_index = 1
