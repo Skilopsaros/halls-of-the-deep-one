@@ -17,6 +17,8 @@ func _ready() -> void:
 	player_inventory.add_item(item_library.get_item_by_key("coin"),9)
 	player_inventory.add_item(item_library.get_item_by_key("gem"),8)
 	player_inventory.add_item(item_library.get_item_by_key("shoe"),13)
+	player_inventory.add_item(item_library.get_item_by_key("sword"),0)
+	player_inventory.add_item(item_library.get_item_by_key("amulet"),2)
   
 	init_next_room()
 	pass

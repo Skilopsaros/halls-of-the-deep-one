@@ -11,6 +11,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
+@export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
+# if multiple keys are given all of them need to be fulfilled
 var slots:int
 var items:Dictionary = {}
 
@@ -76,7 +78,16 @@ func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
+func _check_filter_ok(item: Dictionary) -> bool:
+	for filter in filters:
+		if filter not in item["tags"]:
+			return false
+	return true
+
 func add_item(item: Dictionary, index: int) -> bool:
+	if not _check_filter_ok(item):
+		return false
+		
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 
 	# does the bounding box fit?
