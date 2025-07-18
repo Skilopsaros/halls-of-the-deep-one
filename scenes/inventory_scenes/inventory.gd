@@ -42,12 +42,13 @@ func _ready() -> void:
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
 
+@export var draggable:bool = true
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
 var dragging:bool = false
 
 func _on_inventory_background_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
+		if draggable and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
 			self.get_parent().get_parent().move_inventory_to_foreground(self)
 			dragging = true
 			window_drag_offset = position - get_global_mouse_position()
