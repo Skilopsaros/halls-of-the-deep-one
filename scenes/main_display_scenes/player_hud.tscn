@@ -24,6 +24,7 @@ offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "20/20"
+horizontal_alignment = 1
 
 [node name="Insanity" type="Label" parent="Background"]
 anchors_preset = 7
@@ -38,6 +39,7 @@ offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "20/20"
+horizontal_alignment = 1
 
 [node name="Character" parent="." instance=ExtResource("3_ldeky")]
 

@@ -7,8 +7,8 @@ signal insanity_changed
 signal died
 signal insane
 
-@export var max_health: int = 20
-@export var max_insanity: int = 20
+@export var max_health: int = 5
+@export var max_insanity: int = 5
 @export var power: int = 10
 @export var agility: int = 10
 @export var perception: int = 10
@@ -18,7 +18,13 @@ var current_health: int
 var current_insanity: int = 0
 
 func _ready() -> void:
+	pass
+
+func init_character() -> void:
 	current_health = max_health
+	current_insanity = 0
+	emit_signal("insanity_changed")
+	emit_signal("health_changed")
 
 func take_damage(d:int):
 	current_health -= d
