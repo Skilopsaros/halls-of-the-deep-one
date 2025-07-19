@@ -8,7 +8,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
 
-@onready var corner_tr_sprite := $CornerTR
+@onready var decoration_ctrl := $Decoration
 
 @export var cols:int = 9
 @export var rows:int = 3
@@ -42,7 +42,7 @@ func _ready() -> void:
 	foreground.initialize_item_slots(rows,cols)
 	foreground.position.y = 40
 	foreground.position.x = 2
-	corner_tr_sprite.position.x += background_width - 64
+	_recalculate_decoration()
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
@@ -135,3 +135,19 @@ func _find_item_by_index(index: int) -> Dictionary:
 		return items[index]
 	else:
 		return {}
+
+func _recalculate_decoration() -> void:
+	decoration_ctrl.size = background_rect.size
+	if (decoration_ctrl.size.x - 120) / 4 > 10:
+		var border_tl:TextureRect = $Decoration/BorderTL
+		border_tl.size.x = (decoration_ctrl.size.x - 120) / 4
+		var border_tr:TextureRect = $Decoration/BorderTR
+		border_tr.size.x = (decoration_ctrl.size.x - 120) / 4
+	else:
+		var border_tl:TextureRect = $Decoration/BorderTL
+		border_tl.hide()
+		var border_tr:TextureRect = $Decoration/BorderTR
+		border_tr.hide()
+	
+	
+	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b238m2frq6eg6"
-path="res://.godot/imported/inventory_corner_1.png-cbd77d75c1b1926cb583ba39271c014f.ctex"
+uid="uid://clx07yk58lj3d"
+path="res://.godot/imported/border_tr.png-68a8de4f52e18530668de2dd1e1c9199.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/inventory/inventory_corner_1.png"
-dest_files=["res://.godot/imported/inventory_corner_1.png-cbd77d75c1b1926cb583ba39271c014f.ctex"]
+source_file="res://graphics/inventory/border_tr.png"
+dest_files=["res://.godot/imported/border_tr.png-68a8de4f52e18530668de2dd1e1c9199.ctex"]
 
 [params]
 

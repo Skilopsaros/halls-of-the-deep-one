@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=10 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
-[ext_resource type="Texture2D" uid="uid://b238m2frq6eg6" path="res://graphics/inventory/inventory_corner_1.png" id="2_h75hr"]
 [ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/foreground.gd" id="2_xeujj"]
 [ext_resource type="PackedScene" uid="uid://c8vgvyfg85i2" path="res://scenes/inventory_scenes/item_slot/item_slot.tscn" id="3_h75hr"]
-[ext_resource type="Texture2D" uid="uid://j5r1eaqldg2j" path="res://graphics/inventory/inventory_corner_2.png" id="4_srsel"]
+[ext_resource type="Texture2D" uid="uid://dyerufpv7tey4" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TL.tres" id="4_10cjv"]
+[ext_resource type="Script" uid="uid://b8p7vwpab48cd" path="res://scenes/inventory_scenes/decoration.gd" id="4_s6irk"]
+[ext_resource type="Texture2D" uid="uid://d3sejw41nl4qm" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TR.tres" id="5_10cjv"]
+[ext_resource type="Texture2D" uid="uid://d1t37r6js5nn7" path="res://graphics/inventory/border_tl.png" id="5_vln77"]
+[ext_resource type="Texture2D" uid="uid://clx07yk58lj3d" path="res://graphics/inventory/border_tr.png" id="6_vln77"]
+[ext_resource type="Texture2D" uid="uid://by8er07op0ewk" path="res://graphics/inventory/inventory_1_maps/inventory_flourish_top.tres" id="6_wj4uu"]
 
 [node name="Inventory" type="Node2D"]
 script = ExtResource("1_uov6c")
@@ -39,21 +43,72 @@ theme_override_constants/v_separation = 0
 script = ExtResource("2_xeujj")
 ItemSlot = ExtResource("3_h75hr")
 
-[node name="CornerTL" type="TextureRect" parent="."]
-z_index = 1
+[node name="Decoration" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("4_s6irk")
+
+[node name="BorderTL" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+offset_left = 62.0
+offset_top = -4.0
+offset_right = 92.0
+offset_bottom = 1.0
+scale = Vector2(2, 2)
+texture = ExtResource("5_vln77")
+stretch_mode = 1
+
+[node name="BorderTR" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = -4.0
+offset_right = 10.0
+offset_bottom = 1.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+texture = ExtResource("6_vln77")
+stretch_mode = 1
+
+[node name="CornerTL" type="TextureRect" parent="Decoration"]
+layout_mode = 0
 offset_left = -16.0
 offset_top = -8.0
-offset_right = 24.0
+offset_right = 25.0
 offset_bottom = 32.0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("2_h75hr")
+texture = ExtResource("4_10cjv")
+stretch_mode = 2
 
-[node name="CornerTR" type="TextureRect" parent="."]
+[node name="CornerTR" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
 offset_top = -8.0
-offset_right = 40.0
+offset_right = -24.0
 offset_bottom = 32.0
+grow_horizontal = 0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("4_srsel")
+texture = ExtResource("5_10cjv")
+stretch_mode = 2
+
+[node name="CenterTop" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = -10.0
+offset_bottom = 2.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+texture = ExtResource("6_wj4uu")
 stretch_mode = 2
