@@ -8,6 +8,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
 
+@onready var decoration_ctrl := $Decoration
+
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
@@ -32,14 +34,15 @@ func _ready() -> void:
 		occupancy.append(0)
 		occupancy_positions.append(-1)
 	
-	var background_width:int = cols*60+10
-	var background_height:int = rows*60+50
+	var background_width:int = cols*60+4
+	var background_height:int = rows*60+42
 	background_rect.size = Vector2(background_width,background_height)
-	background_rect_inner_color.size = background_rect.size - Vector2(10,10)
-	background_rect_inner_color.position = Vector2(5,5)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 4,36)
+	background_rect_inner_color.position = Vector2(2,2)
 	foreground.initialize_item_slots(rows,cols)
-	foreground.position.y = 45
-	foreground.position.x = 5
+	foreground.position.y = 40
+	foreground.position.x = 2
+	_recalculate_decoration()
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
@@ -132,3 +135,19 @@ func _find_item_by_index(index: int) -> Dictionary:
 		return items[index]
 	else:
 		return {}
+
+func _recalculate_decoration() -> void:
+	decoration_ctrl.size = background_rect.size
+	if (decoration_ctrl.size.x - 120) / 4 > 10:
+		var border_tl:TextureRect = $Decoration/BorderTL
+		border_tl.size.x = (decoration_ctrl.size.x - 120) / 4
+		var border_tr:TextureRect = $Decoration/BorderTR
+		border_tr.size.x = (decoration_ctrl.size.x - 120) / 4
+	else:
+		var border_tl:TextureRect = $Decoration/BorderTL
+		border_tl.hide()
+		var border_tr:TextureRect = $Decoration/BorderTR
+		border_tr.hide()
+	
+	
+	
