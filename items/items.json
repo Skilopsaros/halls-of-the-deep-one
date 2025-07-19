@@ -44,13 +44,22 @@
 		"value": 75,
 		"tags": []
 	},
-	"sword": {
-		"name": "Sword",
-		"icon": "sword.png",
+	"knife": {
+		"name": "Knife",
+		"icon": "knife.png",
 		"bounding_box": [2,1],
 		"occupied_spaces": [[1],[1]],
 		"offset": 0,
 		"value": 3,
+		"tags": ["weapon"]
+	},
+	"sword": {
+		"name": "Sword",
+		"icon": "sword.png",
+		"bounding_box": [1,2],
+		"occupied_spaces": [[1,1]],
+		"offset": 0,
+		"value": 12,
 		"tags": ["weapon"]
 	}
 }
