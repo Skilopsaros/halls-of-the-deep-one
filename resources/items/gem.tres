@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://doypvfk0vsns4"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_2bghf"]
+[ext_resource type="Texture2D" uid="uid://c3rw015oca0rw" path="res://graphics/items/gem.png" id="2_vshvr"]
+
+[resource]
+script = ExtResource("1_2bghf")
+name = "gem"
+texture = ExtResource("2_vshvr")
+tags = Array[String]([])
+value = 100
+occupation_matrix = "1
+1"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

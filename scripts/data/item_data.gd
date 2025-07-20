@@ -5,7 +5,7 @@ class_name Item
 @export var texture: Texture
 @export var tags: Array[String]
 @export var value: int
-@export var occupation_matrix: String
+@export_multiline var occupation_matrix: String
 var occupancy: Array = []
 var offset: int
 var bounding_box: Vector2i
@@ -13,11 +13,8 @@ var bounding_box: Vector2i
 func _ready()->void:
 	resource_local_to_scene = true
 	_derive_occupancy()
-	print(occupancy)
 	_derive_bounding_box()
-	print(bounding_box)
 	_derive_offet()
-	print(offset)
 
 func _derive_occupancy()->void:
 	var occupancy_temp:Array = []

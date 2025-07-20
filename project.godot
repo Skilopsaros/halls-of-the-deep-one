@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-item_library="*res://items/load_items.gd"
 ItemManager="*res://scripts/item_manager.gd"
 
 [display]

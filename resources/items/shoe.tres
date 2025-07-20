@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://53lins83es7h"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_bpp6t"]
+[ext_resource type="Texture2D" uid="uid://cvhy07pu2322d" path="res://graphics/items/shoe.png" id="2_gs51p"]
+
+[resource]
+script = ExtResource("1_bpp6t")
+name = "shoe"
+texture = ExtResource("2_gs51p")
+tags = Array[String](["armor"])
+value = 3
+occupation_matrix = "0,1
+1,1"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
