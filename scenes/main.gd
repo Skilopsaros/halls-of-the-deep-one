@@ -11,13 +11,9 @@ func _ready() -> void:
 	var player_inventory:Inventory = inventory_manager.player_inventory
   
 	# example content to try functionality
-	player_inventory.add_item(item_library.get_item_by_key("coin"),9)
-	player_inventory.add_item(item_library.get_item_by_key("gem"),8)
-	player_inventory.add_item(item_library.get_item_by_key("shoe"),13)
-	player_inventory.add_item(item_library.get_item_by_key("knife"),0)
-	player_inventory.add_item(item_library.get_item_by_key("sword"),5)
-	player_inventory.add_item(item_library.get_item_by_key("amulet"),2)
-  
+	player_inventory.add_item(ItemManager.get_item_by_name("coin"),9)
+
+	
 	init_next_room()
 	pass
 

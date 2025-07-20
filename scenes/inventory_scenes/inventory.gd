@@ -64,10 +64,10 @@ func _process(delta: float) -> void:
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
 
-func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
-	var bounding_box:Array = item.bounding_box
-	var occupied_spaces:Array = item.occupied_spaces # :Array[Array[float]]
-	var reshaped_occupied_spaces:Array[float] = []
+func _calculate_reshaped_occupancy(item: Item) -> Array[int]:
+	var bounding_box:Vector2i = item.bounding_box
+	var occupied_spaces:Array = item.occupancy # :Array[Array[int]]
+	var reshaped_occupied_spaces:Array[int] = []
 	var buffer_length:int = int(cols - bounding_box[1])
 	var buffer:Array[int] = []
 	buffer.resize(buffer_length)
@@ -81,25 +81,25 @@ func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
-func _check_filter_ok(item: Dictionary) -> bool:
+func _check_filter_ok(item: Item) -> bool:
 	for filter in filters:
-		if filter not in item["tags"]:
+		if filter not in item.tags:
 			return false
 	return true
 
-func add_item(item: Dictionary, index: int) -> bool:
+func add_item(item: Item, index: int) -> bool:
 	if not _check_filter_ok(item):
 		return false
 		
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 
 	# does the bounding box fit?
-	var bounding_box:Array = item.bounding_box
-	if (index%cols - item.offset + bounding_box[1]) > cols:
+	var bounding_box:Vector2i = item.bounding_box
+	if (index%cols - item.offset + bounding_box.y) > cols:
 		return false
 	if (index%cols - item.offset) < 0:
 		return false
-	if (int(index/cols)) + bounding_box[0] > rows:
+	if (int(index/cols)) + bounding_box.x > rows:
 		return false
 	
 	# does it collide with other items?
@@ -130,11 +130,11 @@ func remove_item(index: int):
 	foreground.update_occupancy(occupancy)
 	return item
 
-func _find_item_by_index(index: int) -> Dictionary:
+func _find_item_by_index(index: int) -> Item:
 	if index in items.keys():
 		return items[index]
 	else:
-		return {}
+		return null
 
 func _recalculate_decoration() -> void:
 	decoration_ctrl.size = background_rect.size

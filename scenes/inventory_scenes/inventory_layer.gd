@@ -40,22 +40,22 @@ func _process(delta: float) -> void:
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == {}:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == null:
 			var item_index:int = inventory.occupancy_positions[slot_index]
-			var clicked_item:Dictionary = inventory._find_item_by_index(item_index)
+			var clicked_item:Item = inventory._find_item_by_index(item_index)
 			if !clicked_item:
 				return
 			print(clicked_item.name)
 			inventory.remove_item(item_index)
 			drag_preview.dragged_item = clicked_item
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != {}:
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
 			var item_index:int = inventory.occupancy_positions[slot_index]
 			if item_index != -1:
 				# space is already occupied
 				return
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:
-				drag_preview.dragged_item = {}
+				drag_preview.dragged_item = null
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
