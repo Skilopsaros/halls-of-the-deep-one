@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://ba3lfgupcp2y1"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://ba3lfgupcp2y1"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="2_v0upb"]
 [ext_resource type="Texture2D" uid="uid://coh1u0xgarg15" path="res://graphics/items/coin.png" id="3_v0upb"]
 
 [resource]
 script = ExtResource("2_v0upb")
-title = "coin"
+name = ""
 texture = ExtResource("3_v0upb")
 tags = Array[String]([])
 value = 10

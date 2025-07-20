@@ -11,7 +11,6 @@ var offset: int
 var bounding_box: Vector2i
 
 func _ready()->void:
-	resource_local_to_scene = true
 	_derive_occupancy()
 	_derive_bounding_box()
 	_derive_offet()
