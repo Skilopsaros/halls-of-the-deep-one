@@ -1,6 +1,8 @@
 extends Node2D
 class_name Inventory
 
+signal inventory_changed
+
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @onready var foreground := $Foreground
@@ -46,6 +48,7 @@ func _ready() -> void:
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
+	inventory_changed.emit()
 
 @export var draggable:bool = true
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
@@ -116,6 +119,7 @@ func add_item(item: Item, index: int) -> bool:
 	items[index] = item
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
+	inventory_changed.emit()
 	return true
 
 func remove_item(index: int):
@@ -128,6 +132,7 @@ func remove_item(index: int):
 			occupancy_positions[i+index-item.offset] = -1
 	foreground.remove_item(index)
 	foreground.update_occupancy(occupancy)
+	inventory_changed.emit()
 	return item
 
 func _find_item_by_index(index: int) -> Item:

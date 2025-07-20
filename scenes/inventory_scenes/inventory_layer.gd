@@ -22,7 +22,8 @@ func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
-	
+		inventory.inventory_changed.connect(_on_inventory_changed.bind(inventory))
+
 	_realign_pleayer_inventory_parts(40)
 	
 func _realign_pleayer_inventory_parts(player_UI_spacing: int) -> void:
@@ -37,6 +38,13 @@ func _process(delta: float) -> void:
 		player_weapon.visible = player_inventory.visible
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
+
+func _on_inventory_changed(inventory:Inventory)->void:
+	if inventory == player_inventory:
+		var total_value: int = 0
+		for key in inventory.items.keys():
+			total_value += inventory.items[key].value
+		player_inventory.title_label.text = str(total_value)+" €"
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
