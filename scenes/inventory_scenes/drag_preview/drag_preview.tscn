@@ -1,11 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbpdimsir0pk6"]
+[gd_scene load_steps=2 format=3 uid="uid://cbpdimsir0pk6"]
 
 [ext_resource type="Script" uid="uid://cg43qd4kbtx1p" path="res://scenes/inventory_scenes/drag_preview/drag_preview.gd" id="1_56ygq"]
-[ext_resource type="Shader" uid="uid://bjnms6ib5wkpg" path="res://graphics/shaders/rotate0.gdshader" id="2_4gecy"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e780g"]
-resource_local_to_scene = true
-shader = ExtResource("2_4gecy")
 
 [node name="DragPreview" type="Control"]
 layout_mode = 3
@@ -13,7 +8,6 @@ anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_56ygq")
 
-[node name="ItemIcon" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_e780g")
-layout_mode = 0
-mouse_filter = 2
+[node name="ItemIcon" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+centered = false

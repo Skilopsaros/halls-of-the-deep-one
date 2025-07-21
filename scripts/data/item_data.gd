@@ -11,15 +11,12 @@ var offset: int
 var bounding_box: Vector2i
 var rotation: int = 0
 
-var texture_size: Vector2i
+var draw_offset: Vector2i
 
 
 func _ready()->void:
 	_derive_occupancy()
 	_derive_bounding_box()
-	texture_size = (bounding_box*30)-Vector2i(10,10)
-	texture_size = Vector2i(texture_size.y,texture_size.x)
-	print(texture_size)
 	_derive_offet()
 
 func _derive_occupancy()->void:
@@ -61,6 +58,7 @@ func rotate()->void:
 		new_occupancy[i] = new_row
 	rotation += 1
 	rotation %= 4
+	
 	
 	occupancy = new_occupancy
 	_derive_bounding_box()
