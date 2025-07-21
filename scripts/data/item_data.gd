@@ -3,9 +3,16 @@ class_name Item
 
 @export var name: String
 @export var texture: Texture
-@export var tags: Array[String]
-@export var value: int
 @export_multiline var occupation_matrix: String
+@export var tags: Array[String]
+@export_group("Equip stat modifiers")
+@export var power_modifier: int = 0
+@export var agility_modifier: int = 0
+@export var perception_modifier: int = 0
+@export var occult_modifier: int = 0
+@export_group("Various")
+@export var value: int
+@export var movable: bool = true
 var occupancy: Array = []
 var offset: int
 var bounding_box: Vector2i
@@ -78,3 +85,17 @@ func _derive_draw_offset()->void:
 			draw_offset += Vector2(0,(bounding_box.x)*40)
 			draw_offset += Vector2(0,(bounding_box.x-1)*20)
 	draw_offset -= Vector2(offset*60,0)	
+
+func _on_equip(character: Character):
+	character.power += power_modifier
+	character.agility += agility_modifier
+	character.perception += perception_modifier
+	character.occult += occult_modifier
+	print(character)
+
+func _on_unequip(character: Character):
+	character.power -= power_modifier
+	character.agility -= agility_modifier
+	character.perception -= perception_modifier
+	character.occult -= occult_modifier
+	print(character)

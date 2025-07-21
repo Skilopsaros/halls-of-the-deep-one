@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cims2i3fch8na" path="res://scenes/inventory_scenes/inventory_layer.gd" id="1_uskig"]
 [ext_resource type="PackedScene" uid="uid://cbpdimsir0pk6" path="res://scenes/inventory_scenes/drag_preview/drag_preview.tscn" id="2_s2ubw"]
-[ext_resource type="PackedScene" uid="uid://bj12l8y8dx1bi" path="res://scenes/inventory_scenes/inventory.tscn" id="3_s2ubw"]
+[ext_resource type="PackedScene" uid="uid://bj12l8y8dx1bi" path="res://scenes/inventory_scenes/inventory/inventory.tscn" id="3_s2ubw"]
 
 [node name="InventoryLayer" type="CanvasLayer"]
 script = ExtResource("1_uskig")

@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var player_armor:= $Inventories/EquipmentArmor
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
-const Inventory := preload("res://scenes/inventory_scenes/inventory.gd")
+const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
 const starting_z_index: int = 2
 
 @onready var inventory_view_order:Array[Inventory] = []
@@ -22,7 +22,7 @@ func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
-		inventory.inventory_changed.connect(_on_inventory_changed.bind(inventory))
+		inventory.inventory_changed.connect(_on_inventory_changed)
 
 	_realign_pleayer_inventory_parts(40)
 	
@@ -39,12 +39,20 @@ func _process(delta: float) -> void:
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
 
-func _on_inventory_changed(inventory:Inventory)->void:
+func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
 		var total_value: int = 0
 		for key in inventory.items.keys():
 			total_value += inventory.items[key].value
 		player_inventory.title_label.text = str(total_value)+" €"
+	
+	if inventory in [player_weapon,player_armor,player_accessory]:
+		var character: Node = get_node("/root/Main/PlayerHud").character
+		match event_cause:
+			"add":
+				item._on_equip(character)
+			"remove":
+				item._on_unequip(character)
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
