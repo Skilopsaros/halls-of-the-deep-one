@@ -17,6 +17,9 @@ var texture_size: Vector2i
 func _ready()->void:
 	_derive_occupancy()
 	_derive_bounding_box()
+	texture_size = (bounding_box*30)-Vector2i(10,10)
+	texture_size = Vector2i(texture_size.y,texture_size.x)
+	print(texture_size)
 	_derive_offet()
 
 func _derive_occupancy()->void:
@@ -36,9 +39,6 @@ func _derive_occupancy()->void:
 func _derive_bounding_box()->void:
 	bounding_box.x = len(occupancy)
 	bounding_box.y = len(occupancy[0])
-	texture_size = (bounding_box*30)-Vector2i(10,10)
-	texture_size = Vector2i(texture_size.y,texture_size.x)
-	print(texture_size)
 
 func _derive_offet()->void:
 	var first_line:Array[int] = occupancy[0]
