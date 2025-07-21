@@ -11,13 +11,13 @@ var offset: int
 var bounding_box: Vector2i
 var rotation: int = 0
 
-var draw_offset: Vector2i
-
+var draw_offset: Vector2
 
 func _ready()->void:
 	_derive_occupancy()
 	_derive_bounding_box()
 	_derive_offet()
+	_derive_draw_offset()
 
 func _derive_occupancy()->void:
 	var occupancy_temp:Array = []
@@ -58,8 +58,23 @@ func rotate()->void:
 		new_occupancy[i] = new_row
 	rotation += 1
 	rotation %= 4
-	
-	
 	occupancy = new_occupancy
 	_derive_bounding_box()
 	_derive_offet()
+	_derive_draw_offset()
+		
+func _derive_draw_offset()->void:
+	draw_offset = Vector2(0,0)
+	match rotation:
+		0:
+			pass
+		1:
+			draw_offset += Vector2((bounding_box.y)*40,0)
+			draw_offset += Vector2((bounding_box.y-1)*20,0)
+		2:
+			draw_offset += Vector2((bounding_box.y)*40,(bounding_box.x)*40)
+			draw_offset += Vector2((bounding_box.y-1)*20,(bounding_box.x-1)*20)
+		3:
+			draw_offset += Vector2(0,(bounding_box.x)*40)
+			draw_offset += Vector2(0,(bounding_box.x-1)*20)
+	draw_offset -= Vector2(offset*60,0)	
