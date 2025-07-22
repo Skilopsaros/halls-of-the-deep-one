@@ -24,9 +24,9 @@ func _ready() -> void:
 		inventory_view_order.append(inventory)
 		inventory.inventory_changed.connect(_on_inventory_changed)
 
-	_realign_pleayer_inventory_parts(40)
+	_realign_player_inventory_parts(40)
 	
-func _realign_pleayer_inventory_parts(player_UI_spacing: int) -> void:
+func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
 	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y)
 	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
@@ -66,8 +66,7 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
 			var item_index:int = inventory.occupancy_positions[slot_index]
-			if item_index != -1:
-				# space is already occupied
+			if item_index != -1: # space is already occupied
 				return
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:

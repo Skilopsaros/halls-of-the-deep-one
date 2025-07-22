@@ -13,6 +13,7 @@ func _ready() -> void:
 	# example content to try functionality
 	player_inventory.add_item(ItemManager.get_item_by_name("coin"),9)
 	player_inventory.add_item(ItemManager.get_item_by_name("gem"),6)
+	player_inventory.add_item(ItemManager.get_item_by_name("gem"),7)
 	player_inventory.add_item(ItemManager.get_item_by_name("amulet"),2)
 	player_inventory.add_item(ItemManager.get_item_by_name("frog"),0)
 	player_inventory.add_item(ItemManager.get_item_by_name("knife"),15)

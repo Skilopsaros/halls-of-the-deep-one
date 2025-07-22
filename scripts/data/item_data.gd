@@ -3,7 +3,7 @@ class_name Item
 
 @export var name: String
 @export var texture: Texture
-@export_multiline var occupation_matrix: String
+@export_multiline var occupancy_matrix: String
 @export var tags: Array[String]
 @export_group("Equip stat modifiers")
 @export var power_modifier: int = 0
@@ -13,12 +13,11 @@ class_name Item
 @export_group("Various")
 @export var value: int
 @export var movable: bool = true
-var occupancy: Array = []
-var offset: int
+var occupancy: Array = [] # Array[Array[int]]
+var offset: int # in inventory containers
+var draw_offset: Vector2 # in screen pixels
 var bounding_box: Vector2i
-var rotation: int = 0
-
-var draw_offset: Vector2
+var rotation: int = 0 # in multiplees of 90° clockwise
 
 func _ready()->void:
 	_derive_occupancy()
@@ -28,7 +27,9 @@ func _ready()->void:
 
 func _derive_occupancy()->void:
 	var occupancy_temp:Array = []
-	var rows: PackedStringArray = occupation_matrix.split("\n")
+	var rows: PackedStringArray = occupancy_matrix.split("\n")
+	if rows[-1] == "": # in case there is an extra newline character at the end
+		rows = rows.slice(0,-1)
 	for row in rows:
 		occupancy_temp.append(row.split(","))
 	
@@ -63,7 +64,7 @@ func rotate()->void:
 			new_row[j] = occupancy[j][i]
 		new_row.reverse()
 		new_occupancy[i] = new_row
-	rotation += 1
+	rotation += 1 # keep track of where we are
 	rotation %= 4
 	occupancy = new_occupancy
 	_derive_bounding_box()

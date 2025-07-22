@@ -7,7 +7,12 @@
 script = ExtResource("1_h0edt")
 name = "sword"
 texture = ExtResource("2_otrck")
+occupancy_matrix = "1,1"
 tags = Array[String](["weapon"])
+power_modifier = 0
+agility_modifier = 0
+perception_modifier = 0
+occult_modifier = 0
 value = 20
-occupation_matrix = "1,1"
+movable = true
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

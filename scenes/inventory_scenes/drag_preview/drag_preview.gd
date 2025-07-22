@@ -13,8 +13,7 @@ func _update_visuals() -> void:
 	if dragged_item:
 		item_icon.texture = dragged_item.texture
 		item_icon.rotation = PI/2*dragged_item.rotation
-		item_icon.position = Vector2(-20,-20)
-		item_icon.position += dragged_item.draw_offset
+		item_icon.position = Vector2(-20,-20) + dragged_item.draw_offset
 	else:
 		item_icon.texture = null
 
@@ -24,15 +23,3 @@ func _process(delta: float) -> void:
 		if dragged_item:
 			dragged_item.rotate()
 			_update_visuals()
-
-func pick_up_item(item: Item) -> bool:
-	if !dragged_item:
-		return false
-	else:
-		dragged_item = item
-		return true
-	
-func put_down_item() -> Item:
-	var previous_item: Item = dragged_item
-	dragged_item = null
-	return previous_item

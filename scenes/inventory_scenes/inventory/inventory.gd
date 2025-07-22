@@ -76,7 +76,7 @@ func _calculate_reshaped_occupancy(item: Item) -> Array[int]:
 	buffer.resize(buffer_length)
 	buffer.fill(0)
 	for row in occupied_spaces:
-		reshaped_occupied_spaces.append_array(row) # using array.resize and then assigning would be more performant probably
+		reshaped_occupied_spaces.append_array(row)
 		reshaped_occupied_spaces.append_array(buffer)
 	reshaped_occupied_spaces.reverse() # it's not pretty but it works
 	for i in range(buffer_length):
@@ -122,7 +122,7 @@ func add_item(item: Item, index: int) -> bool:
 	inventory_changed.emit(self,item,"add")
 	return true
 
-func remove_item(index: int):
+func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 	items.erase(index)
