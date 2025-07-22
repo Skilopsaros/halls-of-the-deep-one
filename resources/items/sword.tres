@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b8cvve82acx1u"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_h0edt"]
+[ext_resource type="Texture2D" uid="uid://d1uxbe1ahk76b" path="res://graphics/items/sword.png" id="2_otrck"]
+
+[resource]
+script = ExtResource("1_h0edt")
+name = "sword"
+texture = ExtResource("2_otrck")
+occupancy_matrix = "1,1"
+tags = Array[String](["weapon"])
+power_modifier = 0
+agility_modifier = 0
+perception_modifier = 0
+occult_modifier = 0
+value = 20
+movable = true
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

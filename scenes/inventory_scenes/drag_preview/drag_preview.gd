@@ -1,31 +1,25 @@
 extends Control
 
-var dragged_item: Dictionary = {}:
+var dragged_item: Item = null:
 	set = set_dragged_item
 	
 @onready var item_icon := $ItemIcon
 
-func set_dragged_item(item: Dictionary) -> void:
+func set_dragged_item(item: Item) -> void:
 	dragged_item = item
+	_update_visuals()
+
+func _update_visuals() -> void:
 	if dragged_item:
-		item_icon.texture = load("res://graphics/items/%s" % dragged_item.icon)
-		item_icon.position.x = -20-dragged_item.offset*60
-		item_icon.position.y = -20
+		item_icon.texture = dragged_item.texture
+		item_icon.rotation = PI/2*dragged_item.rotation
+		item_icon.position = Vector2(-20,-20) + dragged_item.draw_offset
 	else:
 		item_icon.texture = null
-		item_icon.size = Vector2(0,0)
 
 func _process(delta: float) -> void:
 	position = get_global_mouse_position()
-
-func pick_up_item(item: Dictionary) -> bool:
-	if dragged_item != {}:
-		return false
-	else:
-		dragged_item = item
-		return true
-	
-func put_down_item() -> Dictionary:
-	var previous_item: Dictionary = dragged_item
-	dragged_item = {}
-	return previous_item
+	if Input.is_action_just_pressed("rotate_item"):
+		if dragged_item:
+			dragged_item.rotate()
+			_update_visuals()

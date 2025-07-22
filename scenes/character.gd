@@ -43,3 +43,14 @@ func heal_insanity(d:int):
 	if current_insanity < 0:
 		current_insanity = 0
 	emit_signal("insanity_changed")
+
+func _to_string() -> String:
+	var text:String = "----------\n"
+	text += "Health: %s/%s\n" % [current_health,max_health]
+	text += "Insanity: %s/%s\n" % [current_insanity,max_insanity]
+	text += "Power: %s\n" % power
+	text += "Agility: %s\n" % agility
+	text += "Perception: %s\n" % perception
+	text += "Occult: %s" % occult
+	return text
+	

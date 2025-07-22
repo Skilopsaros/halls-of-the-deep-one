@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var player_armor:= $Inventories/EquipmentArmor
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
-const Inventory := preload("res://scenes/inventory_scenes/inventory.gd")
+const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
 const starting_z_index: int = 2
 
 @onready var inventory_view_order:Array[Inventory] = []
@@ -16,16 +16,17 @@ const starting_z_index: int = 2
 # to generate a new inventory somewhere use this syntax
 	#var chest := inventory_manager.add_inventory(5,3,"Chest")
 # to add items to an existing inventory use this
-	#chest.add_item(Global.get_item_by_key("coin"),0)
+	#chest.add_item(ItemManager.get_item_by_name("coin"),0)
 
 func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
+		inventory.inventory_changed.connect(_on_inventory_changed)
+
+	_realign_player_inventory_parts(40)
 	
-	_realign_pleayer_inventory_parts(40)
-	
-func _realign_pleayer_inventory_parts(player_UI_spacing: int) -> void:
+func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
 	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y)
 	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
@@ -38,24 +39,38 @@ func _process(delta: float) -> void:
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
 
+func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
+	if inventory == player_inventory:
+		var total_value: int = 0
+		for key in inventory.items.keys():
+			total_value += inventory.items[key].value
+		player_inventory.title_label.text = str(total_value)+" €"
+	
+	if inventory in [player_weapon,player_armor,player_accessory]:
+		var character: Node = get_node("/root/Main/PlayerHud").character
+		match event_cause:
+			"add":
+				item._on_equip(character)
+			"remove":
+				item._on_unequip(character)
+
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == {}:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == null:
 			var item_index:int = inventory.occupancy_positions[slot_index]
-			var clicked_item:Dictionary = inventory._find_item_by_index(item_index)
+			var clicked_item:Item = inventory._find_item_by_index(item_index)
 			if !clicked_item:
 				return
 			print(clicked_item.name)
 			inventory.remove_item(item_index)
 			drag_preview.dragged_item = clicked_item
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != {}:
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
 			var item_index:int = inventory.occupancy_positions[slot_index]
-			if item_index != -1:
-				# space is already occupied
+			if item_index != -1: # space is already occupied
 				return
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:
-				drag_preview.dragged_item = {}
+				drag_preview.dragged_item = null
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
