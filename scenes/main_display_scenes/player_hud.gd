@@ -4,6 +4,12 @@ class_name PlayerHud
 @onready var character := $Character
 @onready var health_label := $Background/Health
 @onready var insanity_label := $Background/Insanity
+@onready var stats_values := {
+	"power" = $Background/Stats/Power/Value,
+	"agility" = $Background/Stats/Agility/Value,
+	"perception" = $Background/Stats/Perception/Value,
+	"occult" = $Background/Stats/Occult/Value
+}
 
 func _ready() -> void:
 	character.init_character()
@@ -14,3 +20,7 @@ func _on_character_health_changed() -> void:
 
 func _on_character_insanity_changed() -> void:
 	insanity_label.text = str(character.current_insanity) + "/" + str(character.max_insanity)
+
+func _on_character_stats_changed() -> void:
+	for stat in stats_values:
+		stats_values[stat].text =  str(character.stats[stat])
