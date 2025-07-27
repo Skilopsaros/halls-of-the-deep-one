@@ -10,4 +10,6 @@ script = ExtResource("1_56ygq")
 
 [node name="ItemIcon" type="TextureRect" parent="."]
 layout_mode = 0
+scale = Vector2(2, 2)
 mouse_filter = 2
+stretch_mode = 2
