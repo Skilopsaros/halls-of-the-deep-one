@@ -1,7 +1,9 @@
 extends Node2D
 class_name Inventory
 
-const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
+signal inventory_changed
+
+const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
 @onready var foreground := $Foreground
 @onready var background_rect := $BackgroundRect
@@ -46,6 +48,7 @@ func _ready() -> void:
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
 	background_rect.connect("gui_input", _on_inventory_background_input)
+	inventory_changed.emit(self,null,"ready")
 
 @export var draggable:bool = true
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
@@ -64,16 +67,16 @@ func _process(delta: float) -> void:
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
 
-func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
-	var bounding_box:Array = item.bounding_box
-	var occupied_spaces:Array = item.occupied_spaces # :Array[Array[float]]
-	var reshaped_occupied_spaces:Array[float] = []
+func _calculate_reshaped_occupancy(item: Item) -> Array[int]:
+	var bounding_box:Vector2i = item.bounding_box
+	var occupied_spaces:Array = item.occupancy # :Array[Array[int]]
+	var reshaped_occupied_spaces:Array[int] = []
 	var buffer_length:int = int(cols - bounding_box[1])
 	var buffer:Array[int] = []
 	buffer.resize(buffer_length)
 	buffer.fill(0)
 	for row in occupied_spaces:
-		reshaped_occupied_spaces.append_array(row) # using array.resize and then assigning would be more performant probably
+		reshaped_occupied_spaces.append_array(row)
 		reshaped_occupied_spaces.append_array(buffer)
 	reshaped_occupied_spaces.reverse() # it's not pretty but it works
 	for i in range(buffer_length):
@@ -81,25 +84,25 @@ func _calculate_reshaped_occupancy(item: Dictionary) -> Array[float]:
 	reshaped_occupied_spaces.reverse()
 	return reshaped_occupied_spaces
 
-func _check_filter_ok(item: Dictionary) -> bool:
+func _check_filter_ok(item: Item) -> bool:
 	for filter in filters:
-		if filter not in item["tags"]:
+		if filter not in item.tags:
 			return false
 	return true
 
-func add_item(item: Dictionary, index: int) -> bool:
+func add_item(item: Item, index: int) -> bool:
 	if not _check_filter_ok(item):
 		return false
 		
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 
 	# does the bounding box fit?
-	var bounding_box:Array = item.bounding_box
-	if (index%cols - item.offset + bounding_box[1]) > cols:
+	var bounding_box:Vector2i = item.bounding_box
+	if (index%cols - item.offset + bounding_box.y) > cols:
 		return false
 	if (index%cols - item.offset) < 0:
 		return false
-	if (int(index/cols)) + bounding_box[0] > rows:
+	if (int(index/cols)) + bounding_box.x > rows:
 		return false
 	
 	# does it collide with other items?
@@ -116,9 +119,10 @@ func add_item(item: Dictionary, index: int) -> bool:
 	items[index] = item
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
+	inventory_changed.emit(self,item,"add")
 	return true
 
-func remove_item(index: int):
+func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
 	var reshaped_occupancy := _calculate_reshaped_occupancy(item)
 	items.erase(index)
@@ -128,13 +132,14 @@ func remove_item(index: int):
 			occupancy_positions[i+index-item.offset] = -1
 	foreground.remove_item(index)
 	foreground.update_occupancy(occupancy)
+	inventory_changed.emit(self,item,"remove")
 	return item
 
-func _find_item_by_index(index: int) -> Dictionary:
+func _find_item_by_index(index: int) -> Item:
 	if index in items.keys():
 		return items[index]
 	else:
-		return {}
+		return null
 
 func _recalculate_decoration() -> void:
 	decoration_ctrl.size = background_rect.size
@@ -148,6 +153,4 @@ func _recalculate_decoration() -> void:
 		border_tl.hide()
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
-	
-	
 	

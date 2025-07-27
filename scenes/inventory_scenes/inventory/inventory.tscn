@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=9 format=3 uid="uid://bj12l8y8dx1bi"]
 
-[ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
-[ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/foreground.gd" id="2_xeujj"]
+[ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory/inventory.gd" id="1_uov6c"]
+[ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/inventory/foreground.gd" id="2_xeujj"]
 [ext_resource type="PackedScene" uid="uid://c8vgvyfg85i2" path="res://scenes/inventory_scenes/item_slot/item_slot.tscn" id="3_h75hr"]
 [ext_resource type="Texture2D" uid="uid://dyerufpv7tey4" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TL.tres" id="4_10cjv"]
-[ext_resource type="Script" uid="uid://b8p7vwpab48cd" path="res://scenes/inventory_scenes/decoration.gd" id="4_s6irk"]
 [ext_resource type="Texture2D" uid="uid://d3sejw41nl4qm" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TR.tres" id="5_10cjv"]
 [ext_resource type="Texture2D" uid="uid://d1t37r6js5nn7" path="res://graphics/inventory/border_tl.png" id="5_vln77"]
 [ext_resource type="Texture2D" uid="uid://clx07yk58lj3d" path="res://graphics/inventory/border_tr.png" id="6_vln77"]
@@ -49,7 +48,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-script = ExtResource("4_s6irk")
 
 [node name="BorderTL" type="TextureRect" parent="Decoration"]
 layout_mode = 1

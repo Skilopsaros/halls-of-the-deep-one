@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cg38sgqysbfu4"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_ftqtd"]
+[ext_resource type="Texture2D" uid="uid://gf42a4on7jxn" path="res://graphics/items/knife.png" id="2_rvh1q"]
+
+[resource]
+script = ExtResource("1_ftqtd")
+name = "knife"
+texture = ExtResource("2_rvh1q")
+occupancy_matrix = "1
+1"
+tags = Array[String](["weapon"])
+power_modifier = 0
+agility_modifier = 0
+perception_modifier = 0
+occult_modifier = 0
+value = 5
+movable = true
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

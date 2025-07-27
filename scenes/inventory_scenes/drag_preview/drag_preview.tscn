@@ -8,8 +8,6 @@ anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_56ygq")
 
-[node name="ItemIcon" type="TextureRect" parent="."]
-layout_mode = 0
+[node name="ItemIcon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
-mouse_filter = 2
-stretch_mode = 2
+centered = false
