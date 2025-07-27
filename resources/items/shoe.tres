@@ -11,10 +11,12 @@ occupancy_matrix = "0,1
 1,1
 "
 tags = Array[String](["armor"])
-power_modifier = 0
-agility_modifier = 0
-perception_modifier = 0
-occult_modifier = 0
+stat_modifiers = Dictionary[String, int]({
+"agility": 1,
+"occult": 0,
+"perception": 0,
+"power": 0
+})
 value = 3
 movable = true
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

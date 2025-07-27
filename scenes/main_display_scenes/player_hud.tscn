@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c7015tuyqysh8"]
 
-[ext_resource type="Script" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
+[ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
 [ext_resource type="PackedScene" uid="uid://vwcpmy2hi2qc" path="res://scenes/character.tscn" id="3_ldeky"]
 

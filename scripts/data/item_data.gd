@@ -6,10 +6,12 @@ class_name Item
 @export_multiline var occupancy_matrix: String
 @export var tags: Array[String]
 @export_group("Equip stat modifiers")
-@export var power_modifier: int = 0
-@export var agility_modifier: int = 0
-@export var perception_modifier: int = 0
-@export var occult_modifier: int = 0
+@export var stat_modifiers: Dictionary[String, int] = {
+	"power" = 0,
+	"agility" = 0,
+	"perception" = 0,
+	"occult" = 0
+}
 @export_group("Various")
 @export var value: int
 @export var movable: bool = true
@@ -88,15 +90,10 @@ func _derive_draw_offset()->void:
 	draw_offset -= Vector2(offset*60,0)	
 
 func _on_equip(character: Character):
-	character.power += power_modifier
-	character.agility += agility_modifier
-	character.perception += perception_modifier
-	character.occult += occult_modifier
-	print(character)
+	for stat in stat_modifiers:
+		print("in on equip")
+		character.change_stat(stat, stat_modifiers[stat])
 
 func _on_unequip(character: Character):
-	character.power -= power_modifier
-	character.agility -= agility_modifier
-	character.perception -= perception_modifier
-	character.occult -= occult_modifier
-	print(character)
+	for stat in stat_modifiers:
+		character.change_stat(stat, -stat_modifiers[stat])
