@@ -53,3 +53,12 @@ func heal_insanity(d:int):
 	if current_insanity < 0:
 		current_insanity = 0
 	emit_signal("insanity_changed")
+
+func change_stat(stat:String, change:int):
+	stats[stat] += change
+	emit_signal("stats_changed")
+	
+func set_stat(stat:String, value:int):
+	stats[stat] = value
+	emit_signal("stats_changed")
+	
