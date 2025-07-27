@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func requirement_to_skip():
 	var character = get_node("/root/Main/PlayerHud").character
-	if character.agility > 12:
+	if character.stats["agility"]  > 14:
 		return(true)
 	return(false)
 
