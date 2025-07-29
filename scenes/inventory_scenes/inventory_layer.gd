@@ -23,7 +23,7 @@ func _ready() -> void:
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
 		inventory.inventory_changed.connect(_on_inventory_changed)
-
+	
 	_realign_player_inventory_parts(40)
 	
 func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
@@ -76,8 +76,7 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
 	inventory_view_order.append(inventory)
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
-	for i in range(len(inventory_view_order)):
-		inventory_view_order[i].z_index = starting_z_index + 2*i
+	_update_view_order()
 
 func add_inventory(cols: int, rows: int, title: String) -> Inventory:
 	var new_inventory := Inventory.constructor(cols,rows,title)
@@ -88,8 +87,21 @@ func add_inventory(cols: int, rows: int, title: String) -> Inventory:
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
 	return new_inventory
 
+func _update_view_order() -> void:
+	for i in range(len(inventory_view_order)):
+		inventory_view_order[i].z_index = starting_z_index + 2*i
+	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
+		
+func remove_inventory(event: InputEvent, inventory: Inventory) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		inventory_view_order.erase(inventory)
+		inventory.queue_free()
+		_update_view_order()
+
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
+	var closing_x := inventory.closing_x
+	closing_x.connect("gui_input", remove_inventory.bind(inventory))
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
