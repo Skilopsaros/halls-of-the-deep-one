@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var drag_preview := $DragPreview
+@onready var trash := $Trash
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
 @onready var player_weapon:= $Inventories/EquipmentWeapon
@@ -23,7 +24,7 @@ func _ready() -> void:
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
 		inventory.inventory_changed.connect(_on_inventory_changed)
-	
+	trash.connect("gui_input", _trash_item)
 	_realign_player_inventory_parts(40)
 	
 func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
@@ -38,6 +39,7 @@ func _process(delta: float) -> void:
 		player_weapon.visible = player_inventory.visible
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
+		trash.visible = player_inventory.visible
 
 func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -53,6 +55,12 @@ func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->
 				item._on_equip(character)
 			"remove":
 				item._on_unequip(character)
+
+func _trash_item(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			if 0 < event.position.x and event.position.x < 30 and 0 < event.position.y and event.position.y < 30:
+				drag_preview.dragged_item = null
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
