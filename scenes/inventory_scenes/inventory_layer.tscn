@@ -13,6 +13,7 @@ script = ExtResource("1_uskig")
 z_index = 2
 cols = 10
 title = "Inventory"
+closeable = false
 draggable = false
 
 [node name="EquipmentWeapon" parent="Inventories" instance=ExtResource("3_s2ubw")]
@@ -20,6 +21,7 @@ cols = 2
 rows = 2
 title = "Weapon"
 filters = Array[String](["weapon"])
+closeable = false
 draggable = false
 
 [node name="EquipmentArmor" parent="Inventories" instance=ExtResource("3_s2ubw")]
@@ -27,6 +29,7 @@ cols = 2
 rows = 2
 title = "Armor"
 filters = Array[String](["armor"])
+closeable = false
 draggable = false
 
 [node name="EquipmentAccessory" parent="Inventories" instance=ExtResource("3_s2ubw")]
@@ -34,6 +37,7 @@ cols = 2
 rows = 2
 title = "Accessory"
 filters = Array[String](["accessory"])
+closeable = false
 draggable = false
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
