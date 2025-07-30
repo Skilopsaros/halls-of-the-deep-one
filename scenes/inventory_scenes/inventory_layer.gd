@@ -43,6 +43,35 @@ func _process(delta: float) -> void:
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
 		trash.visible = player_inventory.visible
+	if hovering_item != null:
+		hover_counter += delta
+	if Input.get_last_mouse_velocity() != Vector2(0,0):
+		hover_counter = 0
+	if hover_counter > 0.5 and last_hovering_item != hovering_item:
+		last_hovering_item = hovering_item
+		hover_info.display_item_data(hovering_item)
+		hover_info.position = hover_info.get_global_mouse_position()
+		_update_view_order()
+		hover_info.visible = true
+	
+var hover_counter:float = 0
+var hovering_item:Item = null
+var last_hovering_item:Item = null
+
+func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String) -> void:
+	match event:
+		"enter":
+			hover_counter = 0
+			var item_index:int = inventory.occupancy_positions[slot_index]
+			var item:Item = inventory._find_item_by_index(item_index)
+			if !item:
+				return
+			hovering_item = item
+		"exit":
+			hover_counter = 0
+			hovering_item = null
+			last_hovering_item = null
+			hover_info.visible = false
 
 func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -82,16 +111,6 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:
 				drag_preview.dragged_item = null
-		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
-			var item_index:int = inventory.occupancy_positions[slot_index]
-			var clicked_item:Item = inventory._find_item_by_index(item_index)
-			if !clicked_item:
-				return
-			print(clicked_item.name)
-			hover_info.display_item_data(clicked_item)
-			hover_info.position = inventory.get_global_mouse_position()
-			_update_view_order()
-			hover_info.visible = true
 
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
@@ -128,3 +147,5 @@ func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+		item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
+		item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))

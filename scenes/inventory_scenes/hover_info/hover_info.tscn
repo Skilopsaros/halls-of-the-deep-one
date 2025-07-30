@@ -11,6 +11,7 @@ offset_right = -1080.0
 offset_bottom = -520.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_p6m4f")
 
 [node name="BackgroundBorder" type="ColorRect" parent="."]
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.133941, 0.0860002, 0.0208671, 1)
 
 [node name="Background" type="ColorRect" parent="."]
@@ -35,6 +37,7 @@ offset_right = 98.0
 offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.334271, 0.214775, 0.102991, 1)
 
 [node name="TextLabel" type="Label" parent="."]
