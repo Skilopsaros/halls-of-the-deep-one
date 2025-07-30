@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var drag_preview := $DragPreview
+@onready var hover_info := $HoverInfo
 @onready var trash := $Trash
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
@@ -9,9 +10,11 @@ extends CanvasLayer
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
 const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
+const HoverInfo := preload("res://scenes/inventory_scenes/hover_info/hover_info.gd")
 const starting_z_index: int = 2
 
 @onready var inventory_view_order:Array[Inventory] = []
+
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
@@ -40,6 +43,35 @@ func _process(delta: float) -> void:
 		player_armor.visible = player_inventory.visible
 		player_accessory.visible = player_inventory.visible
 		trash.visible = player_inventory.visible
+	if hovering_item != null:
+		hover_counter += delta
+	if Input.get_last_mouse_velocity() != Vector2(0,0):
+		hover_counter = 0
+	if hover_counter > 0.5 and last_hovering_item != hovering_item:
+		last_hovering_item = hovering_item
+		hover_info.display_item_data(hovering_item)
+		hover_info.position = hover_info.get_global_mouse_position()
+		_update_view_order()
+		hover_info.visible = true
+	
+var hover_counter:float = 0
+var hovering_item:Item = null
+var last_hovering_item:Item = null
+
+func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String) -> void:
+	match event:
+		"enter":
+			hover_counter = 0
+			var item_index:int = inventory.occupancy_positions[slot_index]
+			var item:Item = inventory._find_item_by_index(item_index)
+			if !item:
+				return
+			hovering_item = item
+		"exit":
+			hover_counter = 0
+			hovering_item = null
+			last_hovering_item = null
+			hover_info.visible = false
 
 func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -80,6 +112,7 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			if success:
 				drag_preview.dragged_item = null
 
+
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
 	inventory_view_order.append(inventory)
@@ -97,14 +130,17 @@ func add_inventory(cols: int, rows: int, title: String) -> Inventory:
 
 func _update_view_order() -> void:
 	for i in range(len(inventory_view_order)):
-		inventory_view_order[i].z_index = starting_z_index + 2*i
+		if inventory_view_order[i] != null: # no clue why this is even necessary
+			inventory_view_order[i].z_index = starting_z_index + 2*i
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
+	hover_info.z_index = drag_preview.z_index
 		
 func remove_inventory(event: InputEvent, inventory: Inventory) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		inventory_view_order.erase(inventory)
 		inventory.queue_free()
 		_update_view_order()
+		print(inventory_view_order)
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
@@ -113,3 +149,5 @@ func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+		item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
+		item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
