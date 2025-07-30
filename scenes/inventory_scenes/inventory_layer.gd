@@ -130,7 +130,8 @@ func add_inventory(cols: int, rows: int, title: String) -> Inventory:
 
 func _update_view_order() -> void:
 	for i in range(len(inventory_view_order)):
-		inventory_view_order[i].z_index = starting_z_index + 2*i
+		if inventory_view_order[i] != null: # no clue why this is even necessary
+			inventory_view_order[i].z_index = starting_z_index + 2*i
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
 	hover_info.z_index = drag_preview.z_index
 		
@@ -139,6 +140,7 @@ func remove_inventory(event: InputEvent, inventory: Inventory) -> void:
 		inventory_view_order.erase(inventory)
 		inventory.queue_free()
 		_update_view_order()
+		print(inventory_view_order)
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()

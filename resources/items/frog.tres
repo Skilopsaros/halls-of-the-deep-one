@@ -11,7 +11,7 @@ texture = ExtResource("2_wn6uh")
 occupancy_matrix = "1,1
 1,1
 1,1"
-tags = Array[String]([])
+tags = Array[String](["weapon", "armor"])
 stat_modifiers = Dictionary[String, int]({
 "agility": 0,
 "occult": 0,
