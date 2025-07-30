@@ -6,14 +6,17 @@
 [resource]
 script = ExtResource("1_2bghf")
 name = "gem"
+title = ""
 texture = ExtResource("2_vshvr")
 occupancy_matrix = "1
 1"
 tags = Array[String]([])
-power_modifier = 0
-agility_modifier = 0
-perception_modifier = 0
-occult_modifier = 0
+stat_modifiers = Dictionary[String, int]({
+"agility": 0,
+"occult": 0,
+"perception": 0,
+"power": 0
+})
 value = 100
 movable = true
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

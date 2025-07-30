@@ -1,7 +1,8 @@
 extends Resource
 class_name Item
 
-@export var name: String
+@export var name: String # in code reference name
+@export var title: String # in game display name
 @export var texture: Texture
 @export_multiline var occupancy_matrix: String
 @export var tags: Array[String]
@@ -15,6 +16,7 @@ class_name Item
 @export_group("Various")
 @export var value: int
 @export var movable: bool = true
+@export_multiline var flavour_text:String
 var occupancy: Array = [] # Array[Array[int]]
 var offset: int # in inventory containers
 var draw_offset: Vector2 # in screen pixels

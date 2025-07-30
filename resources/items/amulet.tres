@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_88kns")
 name = "amulet"
+title = "Amulet"
 texture = ExtResource("2_0aa8d")
 occupancy_matrix = "1,1
 1,0"
@@ -18,4 +19,5 @@ stat_modifiers = Dictionary[String, int]({
 })
 value = 32
 movable = true
+flavour_text = ""
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

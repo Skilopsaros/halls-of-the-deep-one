@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_v0upb")
-name = ""
+name = "coin"
 texture = ExtResource("3_v0upb")
 occupancy_matrix = "1"
 tags = Array[String]([])

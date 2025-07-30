@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var drag_preview := $DragPreview
+@onready var hover_info := $HoverInfo
 @onready var trash := $Trash
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
@@ -9,9 +10,11 @@ extends CanvasLayer
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
 const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
+const HoverInfo := preload("res://scenes/inventory_scenes/hover_info/hover_info.gd")
 const starting_z_index: int = 2
 
 @onready var inventory_view_order:Array[Inventory] = []
+
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
@@ -79,6 +82,17 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:
 				drag_preview.dragged_item = null
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
+			var item_index:int = inventory.occupancy_positions[slot_index]
+			var clicked_item:Item = inventory._find_item_by_index(item_index)
+			if !clicked_item:
+				return
+			print(clicked_item.name)
+			hover_info.display_item_data(clicked_item)
+			hover_info.position = inventory.get_global_mouse_position()
+			_update_view_order()
+			hover_info.visible = true
+
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
@@ -99,6 +113,7 @@ func _update_view_order() -> void:
 	for i in range(len(inventory_view_order)):
 		inventory_view_order[i].z_index = starting_z_index + 2*i
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
+	hover_info.z_index = drag_preview.z_index
 		
 func remove_inventory(event: InputEvent, inventory: Inventory) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

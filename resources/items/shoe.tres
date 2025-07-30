@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_bpp6t")
 name = "shoe"
+title = ""
 texture = ExtResource("2_gs51p")
 occupancy_matrix = "0,1
 1,1
