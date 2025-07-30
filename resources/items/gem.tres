@@ -19,5 +19,5 @@ stat_modifiers = Dictionary[String, int]({
 })
 value = 100
 movable = true
-flavour_text = "so shiny..."
+flavour_text = "shiny"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_h0edt")
 name = "sword"
-title = ""
+title = "Sword"
 texture = ExtResource("2_otrck")
 occupancy_matrix = "1,1"
 tags = Array[String](["weapon"])
@@ -18,5 +18,5 @@ stat_modifiers = Dictionary[String, int]({
 })
 value = 20
 movable = true
-flavour_text = ""
+flavour_text = "Has seen better days"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

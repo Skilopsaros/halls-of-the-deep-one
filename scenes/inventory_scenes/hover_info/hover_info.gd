@@ -1,26 +1,22 @@
 extends Control
 
-@onready var label := $TextLabel
-@export var text:String = ""
-var displayed_item:Item
+@onready var title_label := $TitleLabel
+@onready var text_label := $TextLabel
+@onready var flavour_label := $FlavourLabel
 
 func _ready() -> void:
 	visible = false
 
-func display(text_to_display:String) -> void:
-	text = text_to_display
-	label.text = text
-	visible = true
-
 func display_item_data(item:Item) -> void:
-	displayed_item = item
 	var text_to_display: String 
 	if item.title != "":
-		text_to_display = "-" + item.title + "-\n"
+		title_label.text = "[b]" + item.title 
 	else:
-		text_to_display = "-" + item.name + "-\n"
+		title_label.text = "[b]" + item.name
 		
 	for key in item.stat_modifiers.keys():
 		text_to_display += key + ": " + str(item.stat_modifiers[key]) + "\n"
 	text_to_display += "\nvalue: " + str(item.value)
-	display(text_to_display)
+	text_label.text = text_to_display
+	
+	flavour_label.text = "[i]" + item.flavour_text

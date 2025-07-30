@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ftqtd")
 name = "knife"
-title = ""
+title = "Knife"
 texture = ExtResource("2_rvh1q")
 occupancy_matrix = "1
 1"
@@ -19,5 +19,5 @@ stat_modifiers = Dictionary[String, int]({
 })
 value = 5
 movable = true
-flavour_text = ""
+flavour_text = "trusty kitchen tool"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"
