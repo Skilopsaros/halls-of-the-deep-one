@@ -48,10 +48,10 @@ func init_next_room() -> void:
 func _on_entity_clicked(options_list:Array[Dictionary]) -> void:
 	choices_container.add_options_from_options_list(options_list)
 
-func roll_dice(add:int=0, target:int=7):
+func roll_dice(add:int=0, target:int=7) -> bool:
 	dice_layer.show()
 	var dice_results: Array[int] = [0,0]
-	var sum:int = add
+	var sum: int = add
 	for i in range(2):
 		dice_results[i] = dice[i].roll()
 		sum += dice_results[i]
@@ -66,7 +66,7 @@ func roll_dice(add:int=0, target:int=7):
 	await get_tree().create_timer(4.000).timeout
 	dice_results_label.hide()
 	dice_layer.hide()
-	pass
+	return pass_check
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_key"):

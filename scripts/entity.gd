@@ -11,6 +11,7 @@ signal clear_entity
 signal entity_clicked
 
 func _ready():
+	custom_minimum_size = Vector2(160,220)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	var sprite := Sprite2D.new()
