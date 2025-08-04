@@ -1,11 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7mms8twfmadh"]
+[gd_scene load_steps=6 format=3 uid="uid://c7mms8twfmadh"]
 
 [ext_resource type="Script" uid="uid://cims2i3fch8na" path="res://scenes/inventory_scenes/inventory_layer.gd" id="1_uskig"]
+[ext_resource type="Texture2D" uid="uid://cfjuafjuck32p" path="res://graphics/inventory/inventory_1_maps/inventory_trashcan.tres" id="2_j1u2o"]
 [ext_resource type="PackedScene" uid="uid://cbpdimsir0pk6" path="res://scenes/inventory_scenes/drag_preview/drag_preview.tscn" id="2_s2ubw"]
 [ext_resource type="PackedScene" uid="uid://bj12l8y8dx1bi" path="res://scenes/inventory_scenes/inventory/inventory.tscn" id="3_s2ubw"]
+[ext_resource type="PackedScene" uid="uid://d4bwde7tln134" path="res://scenes/inventory_scenes/hover_info/hover_info.tscn" id="5_as3bf"]
 
 [node name="InventoryLayer" type="CanvasLayer"]
 script = ExtResource("1_uskig")
+
+[node name="Trash" type="TextureRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("2_j1u2o")
+stretch_mode = 2
 
 [node name="Inventories" type="Node" parent="."]
 
@@ -42,3 +60,5 @@ draggable = false
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
 z_index = 4
+
+[node name="HoverInfo" parent="." instance=ExtResource("5_as3bf")]
