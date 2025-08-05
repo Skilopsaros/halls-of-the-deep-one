@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EntityChestData" load_steps=3 format=3 uid="uid://daaqxmhmbjw30"]
+
+[ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="1_8xtvh"]
+[ext_resource type="Texture2D" uid="uid://hfrh7jfalgw" path="res://graphics/entities/chest.png" id="2_d3spn"]
+
+[resource]
+script = ExtResource("1_8xtvh")
+test = "hello"
+skin = ExtResource("2_d3spn")
+metadata/_custom_type_script = "uid://db60q7a4kbp17"

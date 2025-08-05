@@ -45,8 +45,8 @@ func init_next_room() -> void:
 	room_container.init_room(room_data[next_room])
 	next_room += 1
 
-func _on_entity_clicked(options_list:Array[Dictionary]) -> void:
-	choices_container.add_options_from_options_list(options_list)
+func _on_entity_clicked(options_list:Array[Dictionary], entity:Entity) -> void:
+	choices_container.add_options_from_options_list(options_list, entity)
 
 func roll_dice(add:int=0, target:int=7) -> bool:
 	dice_layer.show()

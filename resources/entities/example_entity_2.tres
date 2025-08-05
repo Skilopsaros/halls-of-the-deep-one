@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EntityExampleEntityTwoData" load_steps=3 format=3 uid="uid://dmh85f1mccfjg"]
+
+[ext_resource type="Script" uid="uid://cd08v80ub2suo" path="res://resources/entities/example_entity_2.gd" id="1_wvuen"]
+[ext_resource type="Texture2D" uid="uid://kvbnoaw3ypu8" path="res://graphics/entities/master_poisoner_advanced.png" id="2_u66lo"]
+
+[resource]
+script = ExtResource("1_wvuen")
+skin = ExtResource("2_u66lo")
+metadata/_custom_type_script = "uid://cd08v80ub2suo"

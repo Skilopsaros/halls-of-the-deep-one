@@ -1,24 +1,19 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=9 format=3 uid="uid://dtmffwssln3sh"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=8 format=3 uid="uid://dtmffwssln3sh"]
 
 [ext_resource type="Texture2D" uid="uid://cpxox0rfmovcb" path="res://graphics/room_art/sample_room_art.png" id="1_a3kpb"]
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_a3kpb"]
-[ext_resource type="Script" uid="uid://cgw8h3t0mqmvs" path="res://scripts/entities/example_entity.gd" id="2_vxjqw"]
-[ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://scripts/entities/door.gd" id="3_vxjqw"]
-[ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://scripts/entities/chest.gd" id="4_h2x6q"]
+[ext_resource type="Script" uid="uid://bxbo5y40w44t4" path="res://scripts/data/entity_data.gd" id="2_h2x6q"]
+[ext_resource type="Resource" uid="uid://bhdy7wg1bpfla" path="res://resources/entities/example_entity.tres" id="3_kqdnn"]
+[ext_resource type="Resource" uid="uid://4nuuxm0dkdb" path="res://resources/entities/door.tres" id="4_64vp4"]
 
-[sub_resource type="Resource" id="Resource_7n5jb"]
+[sub_resource type="Resource" id="Resource_ougq4"]
 script = ExtResource("1_nvqwu")
-entities = Array[GDScript]([ExtResource("2_vxjqw"), ExtResource("3_vxjqw")])
-metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
-
-[sub_resource type="Resource" id="Resource_kqdnn"]
-script = ExtResource("1_nvqwu")
-entities = Array[GDScript]([ExtResource("4_h2x6q")])
+entities = Array[ExtResource("2_h2x6q")]([ExtResource("3_kqdnn"), ExtResource("4_64vp4")])
 metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [resource]
 script = ExtResource("2_a3kpb")
 room_art = ExtResource("1_a3kpb")
-entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_7n5jb"), SubResource("Resource_kqdnn")])
+entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4")])
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"
