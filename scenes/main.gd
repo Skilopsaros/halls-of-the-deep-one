@@ -14,7 +14,6 @@ var next_room: int = 0
 
 func _ready() -> void:
 	var player_inventory:Inventory = inventory_manager.player_inventory
-  
 	# example content to try functionality
 	player_inventory.add_item(ItemManager.get_item_by_name("coin"),9)
 	player_inventory.add_item(ItemManager.get_item_by_name("gem"),6)
@@ -23,7 +22,8 @@ func _ready() -> void:
 	player_inventory.add_item(ItemManager.get_item_by_name("frog"),0)
 	player_inventory.add_item(ItemManager.get_item_by_name("knife"),15)
 	player_inventory.add_item(ItemManager.get_item_by_name("shoe"),18)
-
+	
+	var chest:Inventory = inventory_manager.add_inventory(4,5,"goodies")
   
 	start_game()
 	pass

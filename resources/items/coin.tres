@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_v0upb")
-name = ""
+name = "coin"
+title = "Coin"
 texture = ExtResource("3_v0upb")
 occupancy_matrix = "1"
 tags = Array[String]([])
@@ -17,4 +18,5 @@ stat_modifiers = Dictionary[String, int]({
 })
 value = 10
 movable = true
+flavour_text = ""
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

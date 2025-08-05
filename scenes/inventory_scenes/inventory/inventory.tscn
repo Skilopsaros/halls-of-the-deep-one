@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=10 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory/inventory.gd" id="1_uov6c"]
+[ext_resource type="Texture2D" uid="uid://br22v3jqhxxvo" path="res://graphics/inventory/inventory_1_maps/inventory_X.tres" id="2_h2c38"]
 [ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/inventory/foreground.gd" id="2_xeujj"]
 [ext_resource type="PackedScene" uid="uid://c8vgvyfg85i2" path="res://scenes/inventory_scenes/item_slot/item_slot.tscn" id="3_h75hr"]
 [ext_resource type="Texture2D" uid="uid://dyerufpv7tey4" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TL.tres" id="4_10cjv"]
@@ -34,6 +35,14 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ClosingX" type="TextureRect" parent="BackgroundRect"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_h2c38")
+stretch_mode = 2
+
 [node name="Foreground" type="GridContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -43,6 +52,7 @@ script = ExtResource("2_xeujj")
 ItemSlot = ExtResource("3_h75hr")
 
 [node name="Decoration" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

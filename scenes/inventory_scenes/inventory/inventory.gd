@@ -9,6 +9,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @onready var background_rect := $BackgroundRect
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
+@onready var closing_x := $BackgroundRect/ClosingX
 
 @onready var decoration_ctrl := $Decoration
 
@@ -17,6 +18,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var title:String = ""
 @export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
+@export var closeable:bool = true
 var slots:int
 var items:Dictionary = {}
 
@@ -44,6 +46,8 @@ func _ready() -> void:
 	foreground.initialize_item_slots(rows,cols)
 	foreground.position.y = 40
 	foreground.position.x = 2
+	if !closeable:
+		closing_x.hide()
 	_recalculate_decoration()
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
