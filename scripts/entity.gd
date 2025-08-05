@@ -4,7 +4,7 @@ class_name Entity
 @export var data: EntityData
 
 @onready var skin: Texture = data.skin
-@onready var choices: Array[Dictionary] = data.choices
+@onready var choices: Array[Dictionary] = data.get_choices()
 
 var index: int
 

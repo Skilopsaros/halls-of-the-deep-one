@@ -5,5 +5,8 @@
 
 [resource]
 script = ExtResource("1_ndi2w")
+damage = 1
+insanity = 1
+sneak_threshold = 6
 skin = ExtResource("2_vjd3o")
 metadata/_custom_type_script = "uid://cgw8h3t0mqmvs"

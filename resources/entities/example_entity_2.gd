@@ -2,24 +2,26 @@ extends EntityData
 class_name EntityExampleEntityTwoData
 
 # self.skin = load("res://graphics/entities/master_poisoner_advanced.png")
-var choices: Array[Dictionary] = [
-	{
-		"title": "Lose Health",
-		"text": "Lose 3 health",
-		"action": lose_health
-	},
-	{
-		"title": "Gain Insanity",
-		"text": "Gain 3 insanity",
-		"action": gain_insanity
-	},
-	{
-		"title": "Sneak by",
-		"text": "skip this monster",
-		"action": sneak_by,
-		"requirement":requirement_to_skip
-	}
-]
+func get_choices() -> Array[Dictionary]:
+	var choices: Array[Dictionary] = [
+		{
+			"title": "Lose Health",
+			"text": "Lose 3 health",
+			"action": lose_health
+		},
+		{
+			"title": "Gain Insanity",
+			"text": "Gain 3 insanity",
+			"action": gain_insanity
+		},
+		{
+			"title": "Sneak by",
+			"text": "skip this monster",
+			"action": sneak_by,
+			"requirement":requirement_to_skip
+		}
+	]
+	return(choices)
 
 func requirement_to_skip(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character

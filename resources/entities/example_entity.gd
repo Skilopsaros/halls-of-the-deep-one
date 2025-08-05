@@ -1,31 +1,35 @@
 extends EntityData
 class_name EntityExampleEntityData
 
-
+@export var damage: int = 2
+@export var insanity: int = 2
+@export var sneak_threshold: int = 6
 #self.skin = load("res://graphics/entities/master_poisoner.png")
 
-var choices: Array[Dictionary] = [
-	{
-		"title": "Lose Health",
-		"text": "Lose 2 health",
-		"action": lose_health
-	},
-	{
-		"title": "Gain Insanity",
-		"text": "Gain 2 insanity",
-		"action": gain_insanity
-	},
-	{
-		"title": "Sneak by",
-		"text": "skip this monster",
-		"action": sneak_by,
-		"requirement":requirement_to_skip
-	}
-]
+func get_choices() -> Array[Dictionary]:
+	var choices: Array[Dictionary] = [
+		{
+			"title": "Lose Health",
+			"text": "Lose " + str(damage) + " health",
+			"action": lose_health
+		},
+		{
+			"title": "Gain Insanity",
+			"text": "Gain " + str(insanity) + " insanity",
+			"action": gain_insanity
+		},
+		{
+			"title": "Sneak by",
+			"text": "skip this monster",
+			"action": sneak_by,
+			"requirement":requirement_to_skip
+		}
+	]
+	return(choices)
 
 func requirement_to_skip(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	if character.stats["agility"] > 6:
+	if character.stats["agility"] > sneak_threshold:
 		return(true)
 	return(false)
 
@@ -34,10 +38,10 @@ func sneak_by(entity_node:Entity):
 
 func lose_health(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	character.take_damage(2)
+	character.take_damage(damage)
 	entity_node.clear_self()
 
 func gain_insanity(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	character.take_insanity(2)
+	character.take_insanity(insanity)
 	entity_node.clear_self()
