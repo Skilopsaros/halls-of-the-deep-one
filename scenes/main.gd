@@ -32,6 +32,7 @@ func game_over() -> void:
 	game_over_layer.show()
 
 func start_game() -> void:
+	choices_container.clear_options()
 	game_over_layer.hide()
 	await player_hud.new_character()
 	var character = get_node("/root/Main/PlayerHud").character
