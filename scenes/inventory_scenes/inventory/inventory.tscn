@@ -120,3 +120,5 @@ grow_horizontal = 2
 scale = Vector2(2, 2)
 texture = ExtResource("6_wj4uu")
 stretch_mode = 2
+
+[connection signal="gui_input" from="BackgroundRect/ClosingX" to="." method="_closing_x_pressed"]

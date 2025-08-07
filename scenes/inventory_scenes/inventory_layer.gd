@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+class_name InventoryManager
+
 @onready var drag_preview := $DragPreview
 @onready var hover_info := $HoverInfo
 @onready var trash := $Trash
@@ -135,17 +137,14 @@ func _update_view_order() -> void:
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
 	hover_info.z_index = drag_preview.z_index
 		
-func remove_inventory(event: InputEvent, inventory: Inventory) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		inventory_view_order.erase(inventory)
-		inventory.queue_free()
-		_update_view_order()
-		print(inventory_view_order)
+func remove_inventory(inventory: Inventory) -> void:
+	inventory_view_order.erase(inventory)
+	inventory.queue_free()
+	_update_view_order()
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
-	var closing_x := inventory.closing_x
-	closing_x.connect("gui_input", remove_inventory.bind(inventory))
+	inventory.connect("inventory_closing", remove_inventory)
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))

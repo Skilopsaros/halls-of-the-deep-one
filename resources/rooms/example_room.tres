@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=8 format=3 uid="uid://dtmffwssln3sh"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=12 format=3 uid="uid://dtmffwssln3sh"]
 
 [ext_resource type="Texture2D" uid="uid://cpxox0rfmovcb" path="res://graphics/room_art/sample_room_art.png" id="1_a3kpb"]
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
@@ -6,14 +6,30 @@
 [ext_resource type="Script" uid="uid://bxbo5y40w44t4" path="res://scripts/data/entity_data.gd" id="2_h2x6q"]
 [ext_resource type="Resource" uid="uid://bhdy7wg1bpfla" path="res://resources/entities/example_entity.tres" id="3_kqdnn"]
 [ext_resource type="Resource" uid="uid://4nuuxm0dkdb" path="res://resources/entities/door.tres" id="4_64vp4"]
+[ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="5_64vp4"]
+[ext_resource type="Texture2D" uid="uid://hfrh7jfalgw" path="res://graphics/entities/chest.png" id="6_ougq4"]
 
 [sub_resource type="Resource" id="Resource_ougq4"]
 script = ExtResource("1_nvqwu")
 entities = Array[ExtResource("2_h2x6q")]([ExtResource("3_kqdnn"), ExtResource("4_64vp4")])
 metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
+[sub_resource type="Resource" id="Resource_dhmbg"]
+script = ExtResource("5_64vp4")
+chest_size = Vector2(3, 3)
+items = Dictionary[String, int]({
+"gem": 0
+})
+skin = ExtResource("6_ougq4")
+metadata/_custom_type_script = "uid://db60q7a4kbp17"
+
+[sub_resource type="Resource" id="Resource_vujl7"]
+script = ExtResource("1_nvqwu")
+entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_dhmbg")])
+metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
+
 [resource]
 script = ExtResource("2_a3kpb")
 room_art = ExtResource("1_a3kpb")
-entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4")])
+entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4"), SubResource("Resource_vujl7")])
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"

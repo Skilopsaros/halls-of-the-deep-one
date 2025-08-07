@@ -1,7 +1,8 @@
 extends EntityData
 class_name EntityChestData
 
-@export var test: String = "hello"
+@export var chest_size: Vector2 = Vector2(5,5)
+@export var items: Dictionary[String, int] = {"coin":0}
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
@@ -46,7 +47,10 @@ func check_for_traps(entity_node:Entity):
 	else:
 		character.take_insanity(4)
 		
-
 func open_chest(entity_node:Entity):
 	print("open")
+	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
+	var chest := inventory_manager.add_inventory(chest_size.x,chest_size.y,"Chest")
+	for item in items:
+		chest.add_item(ItemManager.get_item_by_name(item), items[item])
 	entity_node.clear_self()

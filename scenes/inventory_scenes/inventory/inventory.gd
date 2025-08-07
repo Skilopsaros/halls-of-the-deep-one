@@ -2,6 +2,7 @@ extends Node2D
 class_name Inventory
 
 signal inventory_changed
+signal inventory_closing
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
@@ -158,3 +159,6 @@ func _recalculate_decoration() -> void:
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
 	
+func _closing_x_pressed(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		emit_signal("inventory_closing", self)
