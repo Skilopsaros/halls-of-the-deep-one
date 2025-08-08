@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7015tuyqysh8"]
+[gd_scene load_steps=7 format=3 uid="uid://c7015tuyqysh8"]
 
 [ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
 [ext_resource type="PackedScene" uid="uid://vwcpmy2hi2qc" path="res://scenes/character.tscn" id="3_ldeky"]
+[ext_resource type="Shader" uid="uid://bfa8wcaiwgme8" path="res://graphics/shaders/chromatic.gdshader" id="3_wyxmm"]
+[ext_resource type="Texture2D" uid="uid://b6ft2tdu2jpwg" path="res://graphics/huds/player_hud_shine.png" id="4_2wdk6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54cq0"]
+shader = ExtResource("3_wyxmm")
 
 [node name="PlayerHud" type="CanvasLayer"]
 script = ExtResource("1_dnds5")
@@ -35,9 +40,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -370.0
+offset_left = -371.0
 offset_top = -71.0
-offset_right = -327.0
+offset_right = -328.0
 offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -46,26 +51,21 @@ text = "20/20"
 horizontal_alignment = 1
 
 [node name="Stats" type="HBoxContainer" parent="Background"]
-anchors_preset = -1
-anchor_left = -0.155
-anchor_top = 0.245
-anchor_right = -0.155
-anchor_bottom = 0.245
-offset_left = -133.8
-offset_top = -33.475
-offset_right = 83.2
-offset_bottom = 16.525
-grow_vertical = 2
+offset_left = -286.0
+offset_top = -16.0
+offset_right = 68.0
+offset_bottom = 38.0
 scale = Vector2(0.7, 0.7)
-theme_override_constants/separation = 25
+theme_override_constants/separation = 28
 alignment = 1
 
 [node name="Perception" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Name" type="Label" parent="Background/Stats/Perception"]
 layout_mode = 2
-text = "PERC"
+text = "PRC"
 horizontal_alignment = 1
 
 [node name="Value" type="Label" parent="Background/Stats/Perception"]
@@ -75,6 +75,7 @@ horizontal_alignment = 1
 
 [node name="Occult" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Name" type="Label" parent="Background/Stats/Occult"]
 layout_mode = 2
@@ -88,6 +89,7 @@ horizontal_alignment = 1
 
 [node name="Agility" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Name" type="Label" parent="Background/Stats/Agility"]
 layout_mode = 2
@@ -101,6 +103,7 @@ horizontal_alignment = 1
 
 [node name="Power" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Name" type="Label" parent="Background/Stats/Power"]
 layout_mode = 2
@@ -111,6 +114,11 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "10"
 horizontal_alignment = 1
+
+[node name="Shine" type="Sprite2D" parent="Background"]
+material = SubResource("ShaderMaterial_54cq0")
+position = Vector2(0, -3)
+texture = ExtResource("4_2wdk6")
 
 [node name="Character" parent="." instance=ExtResource("3_ldeky")]
 
