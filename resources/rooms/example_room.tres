@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=12 format=3 uid="uid://dtmffwssln3sh"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=14 format=3 uid="uid://dtmffwssln3sh"]
 
 [ext_resource type="Texture2D" uid="uid://cpxox0rfmovcb" path="res://graphics/room_art/sample_room_art.png" id="1_a3kpb"]
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
@@ -20,12 +20,48 @@ chest_size = Vector2(3, 3)
 items = Dictionary[String, int]({
 "gem": 0
 })
+trapped = true
+damage = 15
+threshold = 10
+disarm_threshold = 10
+insanity = 4
+detected_damage = 10
+skin = ExtResource("6_ougq4")
+metadata/_custom_type_script = "uid://db60q7a4kbp17"
+
+[sub_resource type="Resource" id="Resource_64vp4"]
+script = ExtResource("5_64vp4")
+chest_size = Vector2(5, 5)
+items = Dictionary[String, int]({
+"coin": 0
+})
+trapped = true
+damage = 15
+threshold = 15
+disarm_threshold = 15
+insanity = 4
+detected_damage = 10
+skin = ExtResource("6_ougq4")
+metadata/_custom_type_script = "uid://db60q7a4kbp17"
+
+[sub_resource type="Resource" id="Resource_1gfuh"]
+script = ExtResource("5_64vp4")
+chest_size = Vector2(5, 5)
+items = Dictionary[String, int]({
+"coin": 0
+})
+trapped = true
+damage = 15
+threshold = 15
+disarm_threshold = 15
+insanity = 4
+detected_damage = 10
 skin = ExtResource("6_ougq4")
 metadata/_custom_type_script = "uid://db60q7a4kbp17"
 
 [sub_resource type="Resource" id="Resource_vujl7"]
 script = ExtResource("1_nvqwu")
-entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_dhmbg")])
+entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_dhmbg"), SubResource("Resource_64vp4"), SubResource("Resource_1gfuh")])
 metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [resource]

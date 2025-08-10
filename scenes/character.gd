@@ -8,8 +8,8 @@ signal stats_changed
 signal died
 signal insane
 
-@export var max_health: int = 5
-@export var max_insanity: int = 5
+@export var max_health: int = 50
+@export var max_insanity: int = 50
 @export var stats: Dictionary[String, int] ={
 	"power" = 12,
 	"agility" = 8,
