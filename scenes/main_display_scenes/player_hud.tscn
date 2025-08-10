@@ -1,13 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7015tuyqysh8"]
+[gd_scene load_steps=11 format=3 uid="uid://c7015tuyqysh8"]
 
 [ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
 [ext_resource type="PackedScene" uid="uid://vwcpmy2hi2qc" path="res://scenes/character.tscn" id="3_ldeky"]
+[ext_resource type="Theme" uid="uid://duhun5q5swqyn" path="res://graphics/themes/big.tres" id="3_qlvr2"]
 [ext_resource type="Shader" uid="uid://bfa8wcaiwgme8" path="res://graphics/shaders/chromatic.gdshader" id="3_wyxmm"]
+[ext_resource type="Theme" uid="uid://bmb6alj3b355v" path="res://graphics/themes/small.tres" id="4_0uiy3"]
 [ext_resource type="Texture2D" uid="uid://b6ft2tdu2jpwg" path="res://graphics/huds/player_hud_shine.png" id="4_2wdk6"]
+[ext_resource type="Shader" uid="uid://do1l2ql4uka3s" path="res://graphics/shaders/pixelation.gdshader" id="5_2wdk6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54cq0"]
 shader = ExtResource("3_wyxmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlvr2"]
+shader = ExtResource("5_2wdk6")
 
 [node name="PlayerHud" type="CanvasLayer"]
 script = ExtResource("1_dnds5")
@@ -18,100 +24,138 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_w4b2m")
 offset = Vector2(0, -3)
 
-[node name="Health" type="Label" parent="Background"]
+[node name="Health_Cur" type="Label" parent="Background"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -307.0
-offset_top = -71.0
-offset_right = -264.0
-offset_bottom = -48.0
+offset_left = -311.5
+offset_top = -75.5
+offset_right = -265.5
+offset_bottom = -45.5
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.9, 0.9)
-text = "20/20"
+theme = ExtResource("3_qlvr2")
+text = "20"
 horizontal_alignment = 1
 
-[node name="Insanity" type="Label" parent="Background"]
+[node name="Health_Max" type="Label" parent="Background"]
+offset_left = 24.5
+offset_top = 2.0
+offset_right = 39.5
+offset_bottom = 15.0
+theme = ExtResource("4_0uiy3")
+text = "/20"
+horizontal_alignment = 1
+
+[node name="Insanity_Cur" type="Label" parent="Background"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -371.0
-offset_top = -71.0
-offset_right = -328.0
-offset_bottom = -48.0
+offset_left = -375.0
+offset_top = -75.0
+offset_right = -329.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.9, 0.9)
-text = "20/20"
+theme = ExtResource("3_qlvr2")
+text = "20"
 horizontal_alignment = 1
 
-[node name="Stats" type="HBoxContainer" parent="Background"]
-offset_left = -286.0
-offset_top = -16.0
-offset_right = 68.0
-offset_bottom = 38.0
-scale = Vector2(0.7, 0.7)
-theme_override_constants/separation = 28
-alignment = 1
+[node name="Insanity_Max" type="Label" parent="Background"]
+offset_left = -39.5
+offset_top = 2.0
+offset_right = -24.5
+offset_bottom = 15.0
+theme = ExtResource("4_0uiy3")
+text = "/20"
+horizontal_alignment = 1
+
+[node name="Stats" type="Control" parent="Background"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -246.0
+offset_top = -17.0
+offset_right = -83.0
+offset_bottom = 37.0
+size_flags_horizontal = 0
 
 [node name="Perception" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
-theme_override_constants/separation = -1
+offset_left = 6.0
+offset_right = 31.0
+offset_bottom = 54.0
+theme_override_constants/separation = -5
 
 [node name="Name" type="Label" parent="Background/Stats/Perception"]
 layout_mode = 2
+theme = ExtResource("4_0uiy3")
 text = "PRC"
 horizontal_alignment = 1
 
 [node name="Value" type="Label" parent="Background/Stats/Perception"]
 layout_mode = 2
+theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
 [node name="Occult" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
-theme_override_constants/separation = -1
+offset_left = 48.0
+offset_right = 73.0
+offset_bottom = 54.0
+theme_override_constants/separation = -5
 
 [node name="Name" type="Label" parent="Background/Stats/Occult"]
 layout_mode = 2
+theme = ExtResource("4_0uiy3")
 text = "OCC"
 horizontal_alignment = 1
 
 [node name="Value" type="Label" parent="Background/Stats/Occult"]
 layout_mode = 2
+theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
 [node name="Agility" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
-theme_override_constants/separation = -1
+offset_left = 90.0
+offset_right = 115.0
+offset_bottom = 54.0
+theme_override_constants/separation = -5
 
 [node name="Name" type="Label" parent="Background/Stats/Agility"]
 layout_mode = 2
+theme = ExtResource("4_0uiy3")
 text = "AGL"
 horizontal_alignment = 1
 
 [node name="Value" type="Label" parent="Background/Stats/Agility"]
 layout_mode = 2
+theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
 [node name="Power" type="VBoxContainer" parent="Background/Stats"]
 layout_mode = 2
-theme_override_constants/separation = -1
+offset_left = 132.0
+offset_right = 157.0
+offset_bottom = 54.0
+theme_override_constants/separation = -5
 
 [node name="Name" type="Label" parent="Background/Stats/Power"]
 layout_mode = 2
+theme = ExtResource("4_0uiy3")
 text = "POW"
 horizontal_alignment = 1
 
 [node name="Value" type="Label" parent="Background/Stats/Power"]
 layout_mode = 2
+theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
@@ -119,6 +163,20 @@ horizontal_alignment = 1
 material = SubResource("ShaderMaterial_54cq0")
 position = Vector2(0, -3)
 texture = ExtResource("4_2wdk6")
+
+[node name="PixelShaderApplicator" type="ColorRect" parent="Background"]
+visible = false
+material = SubResource("ShaderMaterial_qlvr2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -31.0
+offset_right = -320.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="Character" parent="." instance=ExtResource("3_ldeky")]
 

@@ -32,9 +32,9 @@ func _ready() -> void:
 	
 func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
-	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y)
-	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
-	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x+player_armor.background_rect.size.x,player_UI_spacing*2+player_inventory.background_rect.size.y)
+	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armor.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
