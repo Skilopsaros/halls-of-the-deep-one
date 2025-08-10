@@ -11,9 +11,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54cq0"]
 shader = ExtResource("3_wyxmm")
+shader_parameter/strength = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qlvr2"]
 shader = ExtResource("5_2wdk6")
+shader_parameter/pixelation_size = 2.0
 
 [node name="PlayerHud" type="CanvasLayer"]
 script = ExtResource("1_dnds5")

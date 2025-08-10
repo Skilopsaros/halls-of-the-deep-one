@@ -1,12 +1,15 @@
 shader_type canvas_item;
 
+uniform float strength = 1.;
+
 void fragment() {
-	// Called for every pixel the material is visible on.
-	//COLOR = vec4(0.4, 0.6, 0.9, 1.0);
+	if (strength == 0.){
+		;
+	}else{
 	float h_offset = FRAGCOORD.x - 640.;
 	float v_offset = FRAGCOORD.y - 360.;
-	float strength_s = .006;
-	float strength_t = .002;
+	float strength_s = .006*strength;
+	float strength_t = .002*strength;
 	float time_speed = 10.;
 
 	vec2 offset_from_position = vec2(h_offset*TEXTURE_PIXEL_SIZE.x*strength_s,v_offset*TEXTURE_PIXEL_SIZE.y*strength_s);
@@ -25,4 +28,5 @@ void fragment() {
 	}
 	float transparency = image1.a+image2.a+image3.a;
 	COLOR = vec4(image1.r,image2.g,image3.b,transparency*0.6);
+	}
 }
