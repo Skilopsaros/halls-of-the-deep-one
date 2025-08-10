@@ -1,7 +1,8 @@
 extends EntityData
 class_name EntityExampleEntityTwoData
 
-# self.skin = load("res://graphics/entities/master_poisoner_advanced.png")
+@export var skin: Texture = load("res://graphics/entities/master_poisoner_advanced.png")
+
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
 		{

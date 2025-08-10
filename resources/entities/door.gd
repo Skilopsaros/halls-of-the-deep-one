@@ -1,7 +1,8 @@
 extends EntityData
 class_name EntityDoorData
 
-#self.skin = load("res://graphics/entities/door.png")
+
+@export var skin: Texture = load("res://graphics/entities/door.png")
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [

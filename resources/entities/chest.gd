@@ -1,6 +1,7 @@
 extends EntityData
 class_name EntityChestData
 
+@export var skin: Texture = load("res://graphics/entities/chest.png")
 @export var chest_size: Vector2 = Vector2(5,5)
 @export var items: Dictionary[String, int] = {"coin":0}
 @export var trapped: bool = false

@@ -1,10 +1,10 @@
 extends EntityData
 class_name EntityExampleEntityData
 
+@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
 @export var damage: int = 2
 @export var insanity: int = 2
 @export var sneak_threshold: int = 6
-#self.skin = load("res://graphics/entities/master_poisoner.png")
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EntityDoorData" load_steps=3 format=3 uid="uid://4nuuxm0dkdb"]
-
-[ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://resources/entities/door.gd" id="1_fhs1u"]
-[ext_resource type="Texture2D" uid="uid://bshdiq71oxir1" path="res://graphics/entities/door.png" id="2_ryvw4"]
-
-[resource]
-script = ExtResource("1_fhs1u")
-skin = ExtResource("2_ryvw4")
-metadata/_custom_type_script = "uid://dl30yyc200fx2"
