@@ -183,43 +183,36 @@ texture = ExtResource("4_2wdk6")
 
 [node name="Candle1" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 1.0
 position = Vector2(69, -4)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle2" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 2.0
 position = Vector2(79.5, 9.5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle3" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 4.0
 position = Vector2(-72.5, 6.5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle4" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 5.0
 position = Vector2(-302.5, -25.5)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle5" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 0.0
 position = Vector2(-292.5, -5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle8" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 7.0
 position = Vector2(299, -7)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle7" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-instance_shader_parameters/offset = 8.0
 position = Vector2(303, -29.5)
 texture = ExtResource("9_5hmf3")
 
