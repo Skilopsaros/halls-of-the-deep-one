@@ -167,3 +167,8 @@ func get_contained_tags() -> Array[String]:
 				tags.append(tag)
 	return tags
 	
+func get_total_value() -> int:
+	var total_value: int = 0
+	for key in items.keys():
+		total_value += items[key].value
+	return total_value

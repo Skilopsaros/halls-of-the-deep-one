@@ -87,9 +87,7 @@ func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String)
 
 func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
-		var total_value: int = 0
-		for key in inventory.items.keys():
-			total_value += inventory.items[key].value
+		var total_value: int = inventory.get_total_value()
 		player_inventory.title_label.text = str(total_value)+" €"
 	
 	if inventory in [player_weapon,player_armor,player_accessory]:
