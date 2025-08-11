@@ -157,4 +157,18 @@ func _recalculate_decoration() -> void:
 		border_tl.hide()
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
+
+func get_contained_tags() -> Array[String]:
+	var tags:Array[String] = []
+	for key in items.keys():
+		var item:Item = items[key]
+		for tag in item.tags:
+			if not tag in tags:
+				tags.append(tag)
+	return tags
 	
+func get_total_value() -> int:
+	var total_value: int = 0
+	for key in items.keys():
+		total_value += items[key].value
+	return total_value
