@@ -29,6 +29,7 @@ func _ready() -> void:
 		inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
 	_realign_player_inventory_parts(40)
+	toggle_inventory_visibility()
 	
 func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
@@ -36,13 +37,16 @@ func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armor.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	
+func toggle_inventory_visibility() -> void:
+	player_inventory.visible = not player_inventory.visible
+	player_weapon.visible = player_inventory.visible
+	player_armor.visible = player_inventory.visible
+	player_accessory.visible = player_inventory.visible
+	trash.visible = player_inventory.visible
+	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
-		player_inventory.visible = not player_inventory.visible
-		player_weapon.visible = player_inventory.visible
-		player_armor.visible = player_inventory.visible
-		player_accessory.visible = player_inventory.visible
-		trash.visible = player_inventory.visible
+		toggle_inventory_visibility()
 	if hovering_item != null:
 		hover_counter += delta
 	if Input.get_last_mouse_velocity() != Vector2(0,0):

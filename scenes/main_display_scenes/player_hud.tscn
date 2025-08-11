@@ -1,17 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7015tuyqysh8"]
+[gd_scene load_steps=12 format=3 uid="uid://c7015tuyqysh8"]
 
 [ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
 [ext_resource type="PackedScene" uid="uid://vwcpmy2hi2qc" path="res://scenes/character.tscn" id="3_ldeky"]
 [ext_resource type="Theme" uid="uid://duhun5q5swqyn" path="res://graphics/themes/big.tres" id="3_qlvr2"]
-[ext_resource type="Shader" uid="uid://bfa8wcaiwgme8" path="res://graphics/shaders/chromatic.gdshader" id="3_wyxmm"]
 [ext_resource type="Theme" uid="uid://bmb6alj3b355v" path="res://graphics/themes/small.tres" id="4_0uiy3"]
 [ext_resource type="Texture2D" uid="uid://b6ft2tdu2jpwg" path="res://graphics/huds/player_hud_shine.png" id="4_2wdk6"]
 [ext_resource type="Shader" uid="uid://do1l2ql4uka3s" path="res://graphics/shaders/pixelation.gdshader" id="5_2wdk6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_54cq0"]
-shader = ExtResource("3_wyxmm")
-shader_parameter/strength = 0.0
+[ext_resource type="Material" uid="uid://dwflkaqsor3yi" path="res://graphics/shaders/Chromatic.tres" id="7_2ngfb"]
+[ext_resource type="Texture2D" uid="uid://b65rd0imtqgev" path="res://graphics/huds/candle_shine_1.png" id="8_0uiy3"]
+[ext_resource type="Texture2D" uid="uid://baf1orxpwhvtg" path="res://graphics/huds/candle_shine_2.png" id="9_5hmf3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qlvr2"]
 shader = ExtResource("5_2wdk6")
@@ -79,10 +77,10 @@ horizontal_alignment = 1
 [node name="Stats" type="Control" parent="Background"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -246.0
-offset_top = -17.0
-offset_right = -83.0
-offset_bottom = 37.0
+offset_left = -263.0
+offset_top = -17.5
+offset_right = -100.0
+offset_bottom = 36.5
 size_flags_horizontal = 0
 
 [node name="Perception" type="VBoxContainer" parent="Background/Stats"]
@@ -161,11 +159,6 @@ theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
-[node name="Shine" type="Sprite2D" parent="Background"]
-material = SubResource("ShaderMaterial_54cq0")
-position = Vector2(0, -3)
-texture = ExtResource("4_2wdk6")
-
 [node name="PixelShaderApplicator" type="ColorRect" parent="Background"]
 visible = false
 material = SubResource("ShaderMaterial_qlvr2")
@@ -179,6 +172,56 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="ChromaticSprites" type="Node2D" parent="Background"]
+material = ExtResource("7_2ngfb")
+
+[node name="Background" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+position = Vector2(0, -3)
+texture = ExtResource("4_2wdk6")
+
+[node name="Candle1" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 1.0
+position = Vector2(69, -4)
+texture = ExtResource("8_0uiy3")
+
+[node name="Candle2" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 2.0
+position = Vector2(79.5, 9.5)
+texture = ExtResource("9_5hmf3")
+
+[node name="Candle3" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 4.0
+position = Vector2(-72.5, 6.5)
+texture = ExtResource("9_5hmf3")
+
+[node name="Candle4" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 5.0
+position = Vector2(-302.5, -25.5)
+texture = ExtResource("8_0uiy3")
+
+[node name="Candle5" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 0.0
+position = Vector2(-292.5, -5)
+texture = ExtResource("9_5hmf3")
+
+[node name="Candle8" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 7.0
+position = Vector2(299, -7)
+texture = ExtResource("8_0uiy3")
+
+[node name="Candle7" type="Sprite2D" parent="Background/ChromaticSprites"]
+use_parent_material = true
+instance_shader_parameters/offset = 8.0
+position = Vector2(303, -29.5)
+texture = ExtResource("9_5hmf3")
 
 [node name="Character" parent="." instance=ExtResource("3_ldeky")]
 

@@ -7,6 +7,7 @@ var rng = RandomNumberGenerator.new()
 @onready var health_label_max := $Background/Health_Max
 @onready var insanity_label_cur := $Background/Insanity_Cur
 @onready var insanity_label_max := $Background/Insanity_Max
+@onready var chromatics := $Background/ChromaticSprites
 @onready var stats_values := {
 	"power" = $Background/Stats/Power/Value,
 	"agility" = $Background/Stats/Agility/Value,
@@ -26,6 +27,12 @@ func _on_character_health_changed() -> void:
 func _on_character_insanity_changed() -> void:
 	insanity_label_cur.text = str(character.current_insanity)
 	insanity_label_max.text = "/" + str(character.max_insanity)
+	if character.current_insanity < 0.5*character.max_insanity:
+		chromatics.material.set("shader_parameter/strength", 0.)
+	elif character.current_insanity < 0.8*character.max_insanity:
+		chromatics.material.set("shader_parameter/strength", 0.5)
+	else:
+		chromatics.material.set("shader_parameter/strength", 1.)
 
 func _on_character_stats_changed() -> void:
 	for stat in stats_values:
