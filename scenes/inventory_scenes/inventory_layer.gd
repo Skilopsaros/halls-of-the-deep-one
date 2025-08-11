@@ -22,6 +22,14 @@ const starting_z_index: int = 2
 # to add items to an existing inventory use this
 	#chest.add_item(ItemManager.get_item_by_name("coin"),0)
 
+func get_inventory_tags() -> Dictionary:
+	var dict:Dictionary = {}
+	dict["inventory"] = player_inventory.get_contained_tags()
+	dict["weapon"] = player_weapon.get_contained_tags()
+	dict["armor"] = player_armor.get_contained_tags()
+	dict["accessory"] = player_accessory.get_contained_tags()
+	return dict
+
 func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
@@ -79,9 +87,7 @@ func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String)
 
 func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
 	if inventory == player_inventory:
-		var total_value: int = 0
-		for key in inventory.items.keys():
-			total_value += inventory.items[key].value
+		var total_value: int = inventory.get_total_value()
 		player_inventory.title_label.text = str(total_value)+" €"
 	
 	if inventory in [player_weapon,player_armor,player_accessory]:
@@ -91,6 +97,8 @@ func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->
 				item._on_equip(character)
 			"remove":
 				item._on_unequip(character)
+	
+	print(get_inventory_tags())
 
 func _trash_item(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
