@@ -15,9 +15,9 @@
 script = ExtResource("1_tbgi4")
 room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu"), ExtResource("4_85g3d")])
 
-[node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
-
 [node name="ChoisesContainer" parent="." instance=ExtResource("2_0wfyh")]
+
+[node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
 
 [node name="RoomContainer" parent="." instance=ExtResource("3_sugp2")]
 room_scene = ExtResource("6_o6xl0")

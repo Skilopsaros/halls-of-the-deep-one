@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://da27tnlsb8mau"]
 
-[ext_resource type="Script" uid="uid://cgwj52fu0yj4" path="res://scenes/room.gd" id="1_ffxv4"]
+[ext_resource type="Script" path="res://scenes/room.gd" id="1_ffxv4"]
 [ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_ffxv4"]
 
 [node name="Room" type="Node2D"]
@@ -8,6 +8,7 @@ script = ExtResource("1_ffxv4")
 data = ExtResource("2_ffxv4")
 
 [node name="RoomArt" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_left = -640.0

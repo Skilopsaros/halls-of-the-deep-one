@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dwflkaqsor3yi"]
+
+[ext_resource type="Shader" uid="uid://bfa8wcaiwgme8" path="res://graphics/shaders/chromatic.gdshader" id="1_aryc1"]
+
+[resource]
+shader = ExtResource("1_aryc1")
+shader_parameter/strength = 0.0
