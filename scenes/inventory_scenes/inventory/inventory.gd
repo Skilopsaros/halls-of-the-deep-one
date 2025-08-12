@@ -19,6 +19,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
+@export var closes_on_item_placement:bool = false
+
 var slots:int
 var items:Dictionary = {}
 
@@ -124,6 +126,9 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
+	if closes_on_item_placement:
+		pass
+		# TODO emit signal to request closing to inventory layer
 	return true
 	
 func add_item_at_first_possible_position(item: Item) -> int:
