@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://fybyurw0axxw"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_d17os"]
+[ext_resource type="Texture2D" uid="uid://c3rw015oca0rw" path="res://graphics/items/gem.png" id="2_kdbb6"]
+
+[resource]
+script = ExtResource("1_d17os")
+name = "gem"
+title = "Gem"
+texture = ExtResource("2_kdbb6")
+occupancy_matrix = "1
+1"
+tags = Array[String]([])
+stat_modifiers = Dictionary[String, int]({
+"agility": 0,
+"occult": 0,
+"perception": 0,
+"power": 0
+})
+value = 100
+movable = true
+flavour_text = "shiny"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
