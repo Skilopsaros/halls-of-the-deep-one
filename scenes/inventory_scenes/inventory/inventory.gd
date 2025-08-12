@@ -135,7 +135,12 @@ func add_item_at_first_possible_position(item: Item) -> int:
 			return i
 			
 	return -1
-	
+
+func remove_item_by_name(name: String) -> Item:
+	for index in items.keys():
+		if items[index].name == name:
+			return remove_item(index)
+	return null
 
 func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
