@@ -125,6 +125,17 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
 	return true
+	
+func add_item_at_first_possible_position(item: Item) -> int:
+	if not _check_filter_ok(item):
+		return -1
+		
+	for i in range(cols*rows):
+		if add_item(item,i):
+			return i
+			
+	return -1
+	
 
 func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
