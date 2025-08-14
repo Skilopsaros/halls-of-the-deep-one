@@ -128,8 +128,7 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
 	if closes_on_item_placement:
-		pass
-		# TODO emit signal to request closing to inventory layer
+		emit_signal("inventory_closing", self)
 	return true
 	
 func add_item_at_first_possible_position(item: Item) -> int:
