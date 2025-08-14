@@ -1,18 +1,55 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=7 format=3 uid="uid://dtmffwssln3sh"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=13 format=3 uid="uid://dtmffwssln3sh"]
 
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_a3kpb"]
-[ext_resource type="Script" uid="uid://cgw8h3t0mqmvs" path="res://scripts/entities/example_entity.gd" id="2_vxjqw"]
-[ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://scripts/entities/door.gd" id="3_vxjqw"]
+
+[ext_resource type="Script" uid="uid://bxbo5y40w44t4" path="res://scripts/data/entity_data.gd" id="2_h2x6q"]
+[ext_resource type="Script" uid="uid://cgw8h3t0mqmvs" path="res://resources/entities/example_entity.gd" id="3_ougq4"]
+[ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="5_64vp4"]
+[ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://resources/entities/door.gd" id="5_vujl7"]
+
 [ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="4_vxjqw"]
 
-[sub_resource type="Resource" id="Resource_7n5jb"]
+
+[sub_resource type="Resource" id="Resource_kqdnn"]
+script = ExtResource("3_ougq4")
+damage = 2
+insanity = 2
+sneak_threshold = 6
+metadata/_custom_type_script = "uid://cgw8h3t0mqmvs"
+
+[sub_resource type="Resource" id="Resource_64vp4"]
+script = ExtResource("5_vujl7")
+metadata/_custom_type_script = "uid://dl30yyc200fx2"
+
+[sub_resource type="Resource" id="Resource_ougq4"]
 script = ExtResource("1_nvqwu")
-entities = Array[GDScript]([ExtResource("2_vxjqw"), ExtResource("3_vxjqw")])
+entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_kqdnn"), SubResource("Resource_64vp4")])
+metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
+
+[sub_resource type="Resource" id="Resource_dhmbg"]
+script = ExtResource("5_64vp4")
+chest_size = Vector2(5, 5)
+items = Dictionary[String, int]({
+"coin": 0
+})
+trapped = false
+damage = 15
+threshold = 15
+disarm_threshold = 15
+insanity = 4
+detected_damage = 10
+metadata/_custom_type_script = "uid://db60q7a4kbp17"
+
+[sub_resource type="Resource" id="Resource_vujl7"]
+script = ExtResource("1_nvqwu")
+entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_dhmbg")])
 metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [resource]
 script = ExtResource("2_a3kpb")
+
 room_art = ExtResource("4_vxjqw")
-entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_7n5jb")])
+entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4"), SubResource("Resource_vujl7")])
+
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"

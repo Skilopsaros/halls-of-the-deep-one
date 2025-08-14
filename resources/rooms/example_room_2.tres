@@ -1,17 +1,15 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=6 format=3 uid="uid://ckjapun58t78b"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=4 format=3 uid="uid://ckjapun58t78b"]
 
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_jrkic"]
+
 [ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="3_c51a4"]
 [ext_resource type="Script" uid="uid://cd08v80ub2suo" path="res://scripts/entities/example_entity_2.gd" id="3_d5v0v"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="5_r0att"]
 
-[sub_resource type="Resource" id="Resource_7n5jb"]
-script = ExtResource("1_jrkic")
-entities = Array[GDScript]([ExtResource("3_d5v0v")])
-metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
-
 [resource]
 script = ExtResource("5_r0att")
+
 room_art = ExtResource("3_c51a4")
-entities = Array[ExtResource("1_jrkic")]([SubResource("Resource_7n5jb")])
+entities = Array[ExtResource("1_jrkic")]([])
+
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"

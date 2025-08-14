@@ -2,6 +2,7 @@ extends Node2D
 class_name Inventory
 
 signal inventory_changed
+signal inventory_closing
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
@@ -188,6 +189,11 @@ func get_contained_tags() -> Array[String]:
 				tags.append(tag)
 	return tags
 	
+
+func _closing_x_pressed(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		emit_signal("inventory_closing", self)
+
 func get_total_value() -> int:
 	var total_value: int = 0
 	for key in items.keys():

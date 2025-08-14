@@ -46,7 +46,7 @@ func new_character() -> void:
 	character.insanity_changed.connect(_on_character_insanity_changed)
 	character.stats_changed.connect(_on_character_stats_changed)
 	for stat in character.stats:
-		character.stats[stat] = randi_range(1,6) + randi_range(1,6) + randi_range(1,6)
+		character.stats[stat] = (randi_range(1,6) + randi_range(1,6) + randi_range(1,6))/2
 	character.init_character()
 	add_child(character)
 	

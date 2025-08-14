@@ -1,9 +1,11 @@
 extends Control
 class_name Entity
 
-@export var skin: Texture
+@export var data: EntityData
 
-var choices: Array[Dictionary] = []
+@onready var skin: Texture = data.skin
+@onready var choices: Array[Dictionary] = data.get_choices()
+
 var index: int
 
 signal clear_entity
@@ -11,6 +13,7 @@ signal clear_entity
 signal entity_clicked
 
 func _ready():
+	custom_minimum_size = Vector2(160,220)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	var sprite := Sprite2D.new()
@@ -29,8 +32,7 @@ func _ready():
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		print(self)
-		emit_signal("entity_clicked", choices)
+		emit_signal("entity_clicked", choices, self)
 
 func clear_self():
 	emit_signal("clear_entity", index)
