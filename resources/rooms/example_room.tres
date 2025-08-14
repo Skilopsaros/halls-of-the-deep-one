@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_a3kpb"]
-
 [ext_resource type="Script" uid="uid://bxbo5y40w44t4" path="res://scripts/data/entity_data.gd" id="2_h2x6q"]
 [ext_resource type="Script" uid="uid://cgw8h3t0mqmvs" path="res://resources/entities/example_entity.gd" id="3_ougq4"]
+[ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="4_vxjqw"]
 [ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="5_64vp4"]
 [ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://resources/entities/door.gd" id="5_vujl7"]
-
-[ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="4_vxjqw"]
-
 
 [sub_resource type="Resource" id="Resource_kqdnn"]
 script = ExtResource("3_ougq4")
@@ -48,8 +45,6 @@ metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [resource]
 script = ExtResource("2_a3kpb")
-
 room_art = ExtResource("4_vxjqw")
 entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4"), SubResource("Resource_vujl7")])
-
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"

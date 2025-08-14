@@ -20,6 +20,8 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
+@export var closes_on_item_placement:bool = false
+
 var slots:int
 var items:Dictionary = {}
 
@@ -125,7 +127,25 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
+	if closes_on_item_placement:
+		emit_signal("inventory_closing", self)
 	return true
+	
+func add_item_at_first_possible_position(item: Item) -> int:
+	if not _check_filter_ok(item):
+		return -1
+		
+	for i in range(cols*rows):
+		if add_item(item,i):
+			return i
+			
+	return -1
+
+func remove_item_by_name(name: String) -> Item:
+	for index in items.keys():
+		if items[index].name == name:
+			return remove_item(index)
+	return null
 
 func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
