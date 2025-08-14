@@ -23,7 +23,7 @@ func _ready() -> void:
 	player_inventory.add_item(ItemManager.get_item_by_name("knife"),15)
 	player_inventory.add_item(ItemManager.get_item_by_name("shoe"),18)
 	
-	var chest:Inventory = inventory_manager.add_inventory(4,5,"goodies")
+	var chest:Inventory = inventory_manager.add_inventory(4,5,"CHEST")
   
 	start_game()
 	pass

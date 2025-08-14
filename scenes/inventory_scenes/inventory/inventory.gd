@@ -39,11 +39,11 @@ func _ready() -> void:
 		occupancy.append(0)
 		occupancy_positions.append(-1)
 	
-	var background_width:int = cols*60+4
-	var background_height:int = rows*60+42
+	var background_width:int = cols*30+2
+	var background_height:int = rows*30+21
 	background_rect.size = Vector2(background_width,background_height)
-	background_rect_inner_color.size = Vector2(background_rect.size.x - 4,36)
-	background_rect_inner_color.position = Vector2(2,2)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 2,18)
+	background_rect_inner_color.position = Vector2(1,1)
 	foreground.initialize_item_slots(rows,cols)
 	foreground.position.y = 40
 	foreground.position.x = 2
@@ -51,7 +51,7 @@ func _ready() -> void:
 		closing_x.hide()
 	_recalculate_decoration()
 	title_label.text = title
-	position = Vector2(get_viewport().size/2)-Vector2(background_width/2,background_height/2)
+	position = Vector2(get_viewport().size/2)-Vector2(background_width,background_height)
 	background_rect.connect("gui_input", _on_inventory_background_input)
 	inventory_changed.emit(self,null,"ready")
 
@@ -158,7 +158,23 @@ func _recalculate_decoration() -> void:
 		border_tl.hide()
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
+
+func get_contained_tags() -> Array[String]:
+	var tags:Array[String] = []
+	for key in items.keys():
+		var item:Item = items[key]
+		for tag in item.tags:
+			if not tag in tags:
+				tags.append(tag)
+	return tags
 	
+
 func _closing_x_pressed(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		emit_signal("inventory_closing", self)
+
+func get_total_value() -> int:
+	var total_value: int = 0
+	for key in items.keys():
+		total_value += items[key].value
+	return total_value
