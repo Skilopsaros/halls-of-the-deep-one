@@ -74,3 +74,6 @@ func roll_dice(add:int=0, target:int=7) -> bool:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_key"):
 		roll_dice()
+		
+func log(message: String) -> void:
+	menu_hud.add_message_to_log(message)
