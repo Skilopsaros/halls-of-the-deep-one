@@ -12,12 +12,7 @@ occupancy_matrix = "0,1
 1,1
 "
 tags = Array[int]([2])
-stat_modifiers = Dictionary[String, int]({
-"agility": 1,
-"occult": 0,
-"perception": 0,
-"power": 0
-})
+stat_modifiers = Dictionary[int, int]({})
 value = 3
 movable = true
 flavour_text = ""

@@ -29,7 +29,7 @@ func get_choices() -> Array[Dictionary]:
 
 func requirement_to_skip(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	if character.stats["agility"] > sneak_threshold:
+	if character.stats[Enums.stats.agility] > sneak_threshold:
 		return(true)
 	return(false)
 

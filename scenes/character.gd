@@ -10,11 +10,11 @@ signal insane
 
 @export var max_health: int = 50
 @export var max_insanity: int = 50
-@export var stats: Dictionary[String, int] ={
-	"power" = 12,
-	"agility" = 8,
-	"perception" = 9,
-	"occult" = 11
+@export var stats: Dictionary[Enums.stats, int] = {
+	Enums.stats.power:0,
+	Enums.stats.agility:0,
+	Enums.stats.perception:0,
+	Enums.stats.occult:0
 }
 
 var current_health: int
@@ -54,14 +54,14 @@ func heal_insanity(d:int):
 		current_insanity = 0
 	emit_signal("insanity_changed")
 
-func change_stat(stat:String, change:int):
+func change_stat(stat:Enums.stats, change:int):
 	print("in change stat")
 	print(change)
 	stats[stat] += change
 	print(stats[stat])
 	emit_signal("stats_changed")
 	
-func set_stat(stat:String, value:int):
+func set_stat(stat:Enums.stats, value:int):
 	stats[stat] = value
 	emit_signal("stats_changed")
 	

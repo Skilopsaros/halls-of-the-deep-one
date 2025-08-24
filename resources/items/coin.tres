@@ -10,12 +10,7 @@ title = "Coin"
 texture = ExtResource("3_v0upb")
 occupancy_matrix = "1"
 tags = Array[int]([])
-stat_modifiers = Dictionary[String, int]({
-"agility": 0,
-"occult": 0,
-"perception": 0,
-"power": 0
-})
+stat_modifiers = Dictionary[int, int]({})
 value = 10
 movable = true
 flavour_text = ""

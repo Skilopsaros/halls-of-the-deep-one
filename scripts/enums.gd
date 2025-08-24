@@ -5,3 +5,10 @@ enum item_tags {
 	accessory,
 	armour 
 }
+
+enum stats {
+	perception,
+	occult,
+	agility,
+	power
+}

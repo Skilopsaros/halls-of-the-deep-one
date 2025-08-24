@@ -37,7 +37,7 @@ func ignore(entity_node:Entity):
 
 func check_for_traps(entity_node:Entity):
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
-	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats["perception"], threshold)
+	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.perception], threshold)
 	if pass_check:
 		detected = true
 		var choices: Array[Dictionary]
@@ -78,9 +78,9 @@ func check_for_traps(entity_node:Entity):
 
 func disarm_traps(entity_node:Entity):
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
-	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats["agility"], disarm_threshold)
+	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.agility], disarm_threshold)
 	if not pass_check:
-		character.take_damage(damage-character.stats["power"])
+		character.take_damage(damage-character.stats[Enums.stats.power])
 	trapped = false
 	open_chest(entity_node)
 	pass
@@ -89,9 +89,9 @@ func open_chest(entity_node:Entity):
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	if trapped:
 		if detected:
-			character.take_damage(detected_damage-character.stats["agility"])
+			character.take_damage(detected_damage-character.stats[Enums.stats.agility])
 		else:
-			character.take_damage(damage-character.stats["agility"])
+			character.take_damage(damage-character.stats[Enums.stats.agility])
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(chest_size.x,chest_size.y,"Chest")
 	for item in items:
