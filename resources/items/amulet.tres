@@ -8,6 +8,7 @@ script = ExtResource("1_88kns")
 name = "amulet"
 title = "Amulet"
 texture = ExtResource("2_0aa8d")
+alternative_textures = Array[Texture]([])
 occupancy_matrix = "1,1
 1,0"
 tags = Array[int]([1])
