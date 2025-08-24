@@ -4,5 +4,6 @@
 
 # Art related ignores
 *.pxo
-*.kra~
+*~
+*.kra
 *.kra~autosave.kra
