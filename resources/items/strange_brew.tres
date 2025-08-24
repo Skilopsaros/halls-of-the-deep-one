@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bc8hutnakp1yy"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_midvd"]
+[ext_resource type="Texture2D" uid="uid://3yv0tkjp7vyl" path="res://graphics/items/strange_brew.png" id="2_midvd"]
+
+[resource]
+script = ExtResource("1_midvd")
+name = "strange_brew"
+title = "Strange Brew"
+texture = ExtResource("2_midvd")
+occupancy_matrix = "1"
+tags = Array[int]([3])
+stat_modifiers = Dictionary[int, int]({
+0: 0,
+1: 0,
+2: 0,
+3: 0
+})
+value = 101
+movable = true
+flavour_text = "ribbit"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

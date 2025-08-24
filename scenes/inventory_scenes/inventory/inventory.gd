@@ -23,7 +23,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var closes_on_item_placement:bool = false
 
 var slots:int
-var items:Dictionary = {}
+var items:Dictionary[int, Item] = {}
 
 var occupancy:Array[int] = [] # 0 if no item, 1 if item
 var occupancy_positions:Array[int] = [] # has the same shape as occupancy, information about the position of the item there

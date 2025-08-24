@@ -1,5 +1,5 @@
 extends EntityData
-class_name EntityDoorData
+class_name Door
 
 
 @export var skin: Texture = load("res://graphics/entities/door.png")

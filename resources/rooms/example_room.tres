@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RoomData" load_steps=13 format=3 uid="uid://dtmffwssln3sh"]
+[gd_resource type="Resource" script_class="RoomData" load_steps=16 format=3 uid="uid://dtmffwssln3sh"]
 
 [ext_resource type="Script" uid="uid://wrsyjmyr8h8k" path="res://scripts/entity_stack.gd" id="1_nvqwu"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_a3kpb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="4_vxjqw"]
 [ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="5_64vp4"]
 [ext_resource type="Script" uid="uid://dl30yyc200fx2" path="res://resources/entities/door.gd" id="5_vujl7"]
+[ext_resource type="Script" uid="uid://b71ju8mga347f" path="res://resources/entities/alchemy_table.gd" id="6_64vp4"]
 
 [sub_resource type="Resource" id="Resource_kqdnn"]
 script = ExtResource("3_ougq4")
@@ -28,7 +29,8 @@ metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 script = ExtResource("5_64vp4")
 chest_size = Vector2(5, 5)
 items = Dictionary[String, int]({
-"coin": 0
+"blood": 4,
+"strange_brew": 0
 })
 trapped = false
 damage = 15
@@ -43,8 +45,27 @@ script = ExtResource("1_nvqwu")
 entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_dhmbg")])
 metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
+[sub_resource type="Resource" id="Resource_1gfuh"]
+script = ExtResource("6_64vp4")
+pillage_inventory_size = Vector2(1, 1)
+pillage_items = Dictionary[String, int]({
+"empty_bottle": 0
+})
+experiment_threshold = 10
+experiment_inventory_size = Vector2(1, 1)
+experiment_items = Dictionary[String, int]({
+"strange_brew": 0
+})
+experiment_insanity = 4
+metadata/_custom_type_script = "uid://b71ju8mga347f"
+
+[sub_resource type="Resource" id="Resource_fuj2f"]
+script = ExtResource("1_nvqwu")
+entities = Array[ExtResource("2_h2x6q")]([SubResource("Resource_1gfuh")])
+metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
+
 [resource]
 script = ExtResource("2_a3kpb")
 room_art = ExtResource("4_vxjqw")
-entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4"), SubResource("Resource_vujl7")])
+entities = Array[ExtResource("1_nvqwu")]([SubResource("Resource_ougq4"), SubResource("Resource_vujl7"), SubResource("Resource_fuj2f")])
 metadata/_custom_type_script = "uid://dw7s26qp4bps6"
