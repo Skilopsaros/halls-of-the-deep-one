@@ -21,7 +21,8 @@ func _ready() -> void:
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("knife"))
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("shoe"))
 	player_inventory.remove_item_by_name("shoe")
-	
+	for i in range(20):
+		player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
 	menu_hud.clear_log()
 	menu_hud.add_message_to_log("A dark aura surrounds you")
 	menu_hud.add_message_to_log("You lost 15 health")

@@ -4,6 +4,7 @@ class_name Item
 @export var name: String # in code reference name
 @export var title: String # in game display name
 @export var texture: Texture
+@export var alternative_textures: Array[Texture]
 @export_multiline var occupancy_matrix: String
 @export var tags: Array[Enums.item_tags]
 @export_group("Equip stat modifiers")
