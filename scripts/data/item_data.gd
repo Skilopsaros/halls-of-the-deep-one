@@ -5,13 +5,13 @@ class_name Item
 @export var title: String # in game display name
 @export var texture: Texture
 @export_multiline var occupancy_matrix: String
-@export var tags: Array[String]
+@export var tags: Array[Enums.item_tags]
 @export_group("Equip stat modifiers")
-@export var stat_modifiers: Dictionary[String, int] = {
-	"power" = 0,
-	"agility" = 0,
-	"perception" = 0,
-	"occult" = 0
+@export var stat_modifiers: Dictionary[Enums.stats, int] = {
+	Enums.stats.power:0,
+	Enums.stats.agility:0,
+	Enums.stats.perception:0,
+	Enums.stats.occult:0
 }
 @export_group("Various")
 @export var value: int

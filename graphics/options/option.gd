@@ -5,6 +5,7 @@ class_name Option
 @onready var text := $OptionText
  
 var action: Callable = null_action
+var entity: Entity
 
 func _ready():
 	pass
@@ -15,7 +16,7 @@ func init_from_dict(init_dict:Dictionary) -> void:
 	action = init_dict["action"]
 
 func perform_action() -> void:
-	action.call()
+	action.call(entity)
 
 func null_action() -> void:
 	print("null_action")

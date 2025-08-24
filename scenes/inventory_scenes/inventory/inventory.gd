@@ -2,6 +2,7 @@ extends Node2D
 class_name Inventory
 
 signal inventory_changed
+signal inventory_closing
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
@@ -16,9 +17,11 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
-@export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
+@export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
+@export var closes_on_item_placement:bool = false
+
 var slots:int
 var items:Dictionary = {}
 
@@ -124,7 +127,25 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
+	if closes_on_item_placement:
+		emit_signal("inventory_closing", self)
 	return true
+	
+func add_item_at_first_possible_position(item: Item) -> int:
+	if not _check_filter_ok(item):
+		return -1
+		
+	for i in range(cols*rows):
+		if add_item(item,i):
+			return i
+			
+	return -1
+
+func remove_item_by_name(name: String) -> Item:
+	for index in items.keys():
+		if items[index].name == name:
+			return remove_item(index)
+	return null
 
 func remove_item(index: int) -> Item:
 	var item := _find_item_by_index(index)
@@ -158,8 +179,8 @@ func _recalculate_decoration() -> void:
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
 
-func get_contained_tags() -> Array[String]:
-	var tags:Array[String] = []
+func get_contained_tags() -> Array[Enums.item_tags]:
+	var tags:Array[Enums.item_tags] = []
 	for key in items.keys():
 		var item:Item = items[key]
 		for tag in item.tags:
@@ -167,6 +188,11 @@ func get_contained_tags() -> Array[String]:
 				tags.append(tag)
 	return tags
 	
+
+func _closing_x_pressed(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		emit_signal("inventory_closing", self)
+
 func get_total_value() -> int:
 	var total_value: int = 0
 	for key in items.keys():

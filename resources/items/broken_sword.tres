@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b8cvve82acx1u"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_poc6y"]
+[ext_resource type="Texture2D" uid="uid://d1uxbe1ahk76b" path="res://graphics/items/sword.png" id="2_yw6yr"]
+
+[resource]
+script = ExtResource("1_poc6y")
+name = "broken_sword"
+title = "Broken Sword"
+texture = ExtResource("2_yw6yr")
+occupancy_matrix = "1,1"
+tags = Array[int]([0])
+stat_modifiers = Dictionary[int, int]({
+3: 1
+})
+value = 20
+movable = true
+flavour_text = "Has seen better days"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
