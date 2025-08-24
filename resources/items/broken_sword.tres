@@ -9,12 +9,12 @@ name = "broken_sword"
 title = "Broken Sword"
 texture = ExtResource("2_yw6yr")
 occupancy_matrix = "1,1"
-tags = Array[String](["weapon"])
+tags = Array[int]([0])
 stat_modifiers = Dictionary[String, int]({
 "agility": 0,
 "occult": 0,
 "perception": 0,
-"power": 5
+"power": 2
 })
 value = 20
 movable = true

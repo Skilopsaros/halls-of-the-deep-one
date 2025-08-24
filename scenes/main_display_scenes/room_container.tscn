@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ce6l1qwo0u77n"]
 
 [ext_resource type="Texture2D" uid="uid://58wc08d2u8si" path="res://graphics/huds/room_container.png" id="1_27sec"]
-[ext_resource type="Script" path="res://scenes/main_display_scenes/room_container.gd" id="1_rbjdk"]
+[ext_resource type="Script" uid="uid://btvcr12wiwx2e" path="res://scenes/main_display_scenes/room_container.gd" id="1_rbjdk"]
 
 [node name="RoomContainer" type="CanvasLayer"]
 script = ExtResource("1_rbjdk")

@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://fybyurw0axxw"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_d17os"]
-[ext_resource type="Texture2D" uid="uid://c3rw015oca0rw" path="res://graphics/items/gem.png" id="2_kdbb6"]
+[ext_resource type="Texture2D" uid="uid://eivwwelkjwjr" path="res://graphics/items/torch.png" id="2_d17os"]
 
 [resource]
 script = ExtResource("1_d17os")
 name = "gem"
 title = "Gem"
-texture = ExtResource("2_kdbb6")
+texture = ExtResource("2_d17os")
 occupancy_matrix = "1
 1"
-tags = Array[String]([])
+tags = Array[int]([0])
 stat_modifiers = Dictionary[String, int]({
 "agility": 0,
 "occult": 0,

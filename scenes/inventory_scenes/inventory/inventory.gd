@@ -17,7 +17,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var cols:int = 9
 @export var rows:int = 3
 @export var title:String = ""
-@export var filters:Array[String] = [] # each element is a key that an item needs to have to be accepted
+@export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
 @export var closes_on_item_placement:bool = false
@@ -179,8 +179,8 @@ func _recalculate_decoration() -> void:
 		var border_tr:TextureRect = $Decoration/BorderTR
 		border_tr.hide()
 
-func get_contained_tags() -> Array[String]:
-	var tags:Array[String] = []
+func get_contained_tags() -> Array[Enums.item_tags]:
+	var tags:Array[Enums.item_tags] = []
 	for key in items.keys():
 		var item:Item = items[key]
 		for tag in item.tags:

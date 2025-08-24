@@ -9,7 +9,7 @@ name = "coin"
 title = "Coin"
 texture = ExtResource("3_v0upb")
 occupancy_matrix = "1"
-tags = Array[String]([])
+tags = Array[int]([])
 stat_modifiers = Dictionary[String, int]({
 "agility": 0,
 "occult": 0,

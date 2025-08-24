@@ -38,7 +38,7 @@ draggable = false
 cols = 2
 rows = 2
 title = "Weapon"
-filters = Array[String](["weapon"])
+filters = Array[int]([0])
 closeable = false
 draggable = false
 
@@ -46,7 +46,7 @@ draggable = false
 cols = 2
 rows = 2
 title = "Armor"
-filters = Array[String](["armor"])
+filters = Array[int]([2])
 closeable = false
 draggable = false
 
@@ -54,7 +54,7 @@ draggable = false
 cols = 2
 rows = 2
 title = "Accessory"
-filters = Array[String](["accessory"])
+filters = Array[int]([1])
 closeable = false
 draggable = false
 
