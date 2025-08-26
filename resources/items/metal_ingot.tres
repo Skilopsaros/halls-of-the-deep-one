@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cdoixew430cq8"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_gfj7n"]
+[ext_resource type="Texture2D" uid="uid://cwts7by44nvh0" path="res://graphics/items/ingot.png" id="2_gfj7n"]
+
+[resource]
+script = ExtResource("1_gfj7n")
+name = "metal_ingot"
+title = "Metal Ingot"
+texture = ExtResource("2_gfj7n")
+occupancy_matrix = "1,1"
+tags = Array[int]([5])
+stat_modifiers = Dictionary[int, int]({
+0: 0,
+1: 0,
+2: 0,
+3: 0
+})
+value = 100
+movable = true
+flavour_text = "shiny"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

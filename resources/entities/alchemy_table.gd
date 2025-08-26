@@ -61,7 +61,7 @@ func alchemise_after_closed_inventory(inventory, entity_node):
 	if inventory.items:
 		for item in inventory.items.values():
 			if item.name == "strange_brew":
-				pass
+				character.heal_insanity(5)
 			if item.name == "blood":
 				character.heal_damage(5)
 		entity_node.clear_self()

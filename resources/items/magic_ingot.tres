@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://d3f0sski36vxj"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_yim0o"]
+[ext_resource type="Texture2D" uid="uid://csytx14fp7mn6" path="res://graphics/items/magic_ingot.png" id="2_yim0o"]
+
+[resource]
+script = ExtResource("1_yim0o")
+name = "magic_ingot"
+title = "Magic Ingot"
+texture = ExtResource("2_yim0o")
+occupancy_matrix = "1,1"
+tags = Array[int]([5])
+stat_modifiers = Dictionary[int, int]({
+0: 0,
+1: 0,
+2: 0,
+3: 0
+})
+value = 100
+movable = true
+flavour_text = "shiny"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
