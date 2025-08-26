@@ -5,7 +5,9 @@ class_name Entity
 
 @onready var skin: Texture = data.skin
 @onready var choices: Array[Dictionary] = data.get_choices()
+@onready var outline_material = preload("res://graphics/shaders/Outlined.tres")
 
+var sprite: Sprite2D
 var index: int
 
 signal clear_entity
@@ -16,10 +18,11 @@ func _ready():
 	custom_minimum_size = Vector2(80,130)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	var sprite := Sprite2D.new()
+	sprite = Sprite2D.new()
 	sprite.texture = skin
 	sprite.scale = Vector2(2,2)
 	sprite.offset = Vector2i(20, 65)
+	sprite.material = outline_material
 	add_child(sprite)
 	
 	var area2d := Area2D.new()
