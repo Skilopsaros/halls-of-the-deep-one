@@ -1,7 +1,7 @@
 extends EntityData
 class_name Anvil
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/anvil.png")
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
