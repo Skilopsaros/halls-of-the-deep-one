@@ -46,8 +46,10 @@ func load_entity(index:int) -> void:
 	
 func highlight_correct_entity(options_list:Array[Dictionary], entity:Entity):
 	for other_entity in active_entities:
+		if not other_entity:
+			continue
 		if entity == other_entity:
-			entity.sprite.set("instance_shader_parameters/do_outline", true)
+			other_entity.sprite.set("instance_shader_parameters/do_outline", true)
 		else:
-			entity.sprite.set("instance_shader_parameters/do_outline",  false)
+			other_entity.sprite.set("instance_shader_parameters/do_outline",  false)
 	
