@@ -153,10 +153,20 @@ func remove_inventory(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
 	inventory.queue_free()
 	_update_view_order()
+	
+func _on_inventory_reshaped(inventory:Inventory) -> void:
+	var item_slots := inventory.foreground.get_children()
+	for index in range(len(item_slots)):
+		var item_slot := item_slots[index]
+		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+		item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
+		item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
 
+			
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
 	inventory.connect("inventory_closing", remove_inventory)
+	inventory.connect("inventory_reshaped", _on_inventory_reshaped)
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
 		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
