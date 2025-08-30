@@ -1,6 +1,5 @@
 extends TextureRect
 
-@onready var background := $ItemSlotBackground
 @onready var item_icon := $ItemIcon
 
 func display_item(item: Item):

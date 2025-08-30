@@ -3,6 +3,7 @@ class_name Inventory
 
 signal inventory_changed
 signal inventory_closing
+signal inventory_reshaped
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
@@ -136,8 +137,10 @@ func add_item_at_first_possible_position(item: Item) -> int:
 		return -1
 		
 	for i in range(cols*rows):
-		if add_item(item,i):
-			return i
+		for j in range(4):
+			if add_item(item,i):
+				return i
+			item.rotate()
 			
 	return -1
 
@@ -198,3 +201,49 @@ func get_total_value() -> int:
 	for key in items.keys():
 		total_value += items[key].value
 	return total_value
+
+func resize(new_rows:int,new_cols:int)->void:
+	# remove all items
+	var positions:Array[int] = []
+	var contained_items:Array[Item] = []
+	var worked:Array[bool] = []
+	for key in items.keys():
+		positions.append(key)
+		contained_items.append(items[key])
+		worked.append(false)
+		remove_item(key)
+	
+	var old_cols:int = cols
+	cols = new_cols
+	rows = new_rows
+	slots = cols * rows
+	occupancy = []
+	occupancy_positions = []
+	for i in range(slots):
+		occupancy.append(0)
+		occupancy_positions.append(-1)
+	foreground.reshape(new_rows,new_cols)
+	# update occupancy checks
+	# put them back
+	for index in range(len(positions)):
+		var pos := positions[index]
+		var item := contained_items[index]
+		var pos_x = pos%old_cols
+		var pos_y = floor(pos/old_cols)
+		
+		if new_cols > pos_x and new_rows > pos_y:
+			# we can try to put it back where it was
+			var new_pos = pos_y*new_cols+pos_x
+			var success = add_item(item,new_pos)
+			worked[index] = success
+	
+	# now put all the remaining ones in if possible
+	for index in range(len(positions)):
+		if not worked[index]:
+			add_item_at_first_possible_position(contained_items[index])
+	
+	var background_width:int = cols*30+2
+	var background_height:int = rows*30+21
+	background_rect.size = Vector2(background_width,background_height)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 2,18)
+	inventory_reshaped.emit(self)
