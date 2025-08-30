@@ -28,7 +28,7 @@ func get_inventory_tags() -> Dictionary:
 	var dict:Dictionary = {}
 	dict["inventory"] = player_inventory.get_contained_tags()
 	dict["weapon"] = player_weapon.get_contained_tags()
-	dict["armor"] = player_armour.get_contained_tags()
+	dict["armour"] = player_armour.get_contained_tags()
 	dict["accessory"] = player_accessory.get_contained_tags()
 	return dict
 
