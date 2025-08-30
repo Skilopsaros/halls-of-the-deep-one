@@ -241,5 +241,9 @@ func resize(new_rows:int,new_cols:int)->void:
 	for index in range(len(positions)):
 		if not worked[index]:
 			add_item_at_first_possible_position(contained_items[index])
-			
+	
+	var background_width:int = cols*30+2
+	var background_height:int = rows*30+21
+	background_rect.size = Vector2(background_width,background_height)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 2,18)
 	inventory_reshaped.emit(self)

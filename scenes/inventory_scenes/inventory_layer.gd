@@ -8,7 +8,7 @@ class_name InventoryManager
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
 @onready var player_weapon:= $Inventories/EquipmentWeapon
-@onready var player_armor:= $Inventories/EquipmentArmor
+@onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
 const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
@@ -28,7 +28,7 @@ func get_inventory_tags() -> Dictionary:
 	var dict:Dictionary = {}
 	dict["inventory"] = player_inventory.get_contained_tags()
 	dict["weapon"] = player_weapon.get_contained_tags()
-	dict["armor"] = player_armor.get_contained_tags()
+	dict["armor"] = player_armour.get_contained_tags()
 	dict["accessory"] = player_accessory.get_contained_tags()
 	return dict
 
@@ -44,13 +44,13 @@ func _ready() -> void:
 func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
 	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	player_armor.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armor.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	player_armour.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armour.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	
 func toggle_inventory_visibility() -> void:
 	player_inventory.visible = not player_inventory.visible
 	player_weapon.visible = player_inventory.visible
-	player_armor.visible = player_inventory.visible
+	player_armour.visible = player_inventory.visible
 	player_accessory.visible = player_inventory.visible
 	trash.visible = player_inventory.visible
 	
@@ -92,7 +92,7 @@ func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->
 		var total_value: int = inventory.get_total_value()
 		player_inventory.title_label.text = str(total_value)+" €"
 	
-	if inventory in [player_weapon,player_armor,player_accessory]:
+	if inventory in [player_weapon,player_armour,player_accessory]:
 		var character: Node = get_node("/root/Main/PlayerHud").character
 		match event_cause:
 			"add":
@@ -158,10 +158,11 @@ func _on_inventory_reshaped(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
 	for index in range(len(item_slots)):
 		var item_slot := item_slots[index]
-		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
-		item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
-		item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
-
+		if not item_slot.is_connected("gui_input", _on_inventory_slot_input.bind(inventory,index)):
+			item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+			item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
+			item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
+	_realign_player_inventory_parts(40)
 			
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()

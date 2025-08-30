@@ -42,10 +42,10 @@ filters = Array[int]([0])
 closeable = false
 draggable = false
 
-[node name="EquipmentArmor" parent="Inventories" instance=ExtResource("3_s2ubw")]
+[node name="EquipmentArmour" parent="Inventories" instance=ExtResource("3_s2ubw")]
 cols = 2
 rows = 2
-title = "Armor"
+title = "Armour"
 filters = Array[int]([2])
 closeable = false
 draggable = false
