@@ -9,4 +9,10 @@ func get_item_by_name(key:String)->Item:
 		if texture_selection != 0:
 			item.texture = item.alternative_textures[texture_selection-1]
 	item._ready()
+	if item is ContainerItem:
+		var inventory:Inventory = get_node("/root/Main").inventory_manager.add_inventory(item.cols,item.rows,item.title)
+		item.inventory = inventory
+		inventory.closeable = false
+		inventory.closing_x.hide()
+		inventory.hide()
 	return item

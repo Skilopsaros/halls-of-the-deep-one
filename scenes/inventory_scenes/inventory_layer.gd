@@ -14,6 +14,7 @@ class_name InventoryManager
 const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
 const HoverInfo := preload("res://scenes/inventory_scenes/hover_info/hover_info.gd")
 const starting_z_index: int = 2
+const player_UI_spacing: int = 40
 
 @onready var inventory_view_order:Array[Inventory] = []
 
@@ -38,10 +39,10 @@ func _ready() -> void:
 		inventory_view_order.append(inventory)
 		inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
-	_realign_player_inventory_parts(40)
+	_realign_player_inventory_parts()
 	toggle_inventory_visibility()
 	
-func _realign_player_inventory_parts(player_UI_spacing: int) -> void:
+func _realign_player_inventory_parts() -> void:
 	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
 	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	player_armour.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
@@ -125,6 +126,14 @@ func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index
 			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
 			if success:
 				drag_preview.dragged_item = null
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
+			var item_index:int = inventory.occupancy_positions[slot_index]
+			var clicked_item:Item = inventory._find_item_by_index(item_index)
+			if !clicked_item:
+				return
+			if not clicked_item is ContainerItem:
+				return
+			clicked_item.inventory.visible = not clicked_item.inventory.visible
 
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
@@ -162,7 +171,7 @@ func _on_inventory_reshaped(inventory:Inventory) -> void:
 			item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
 			item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
 			item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
-	_realign_player_inventory_parts(40)
+	_realign_player_inventory_parts()
 			
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	var item_slots := inventory.foreground.get_children()
