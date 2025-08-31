@@ -13,6 +13,8 @@ class_name Item
 	Enums.stats.perception:0,
 	Enums.stats.occult:0
 }
+@export var max_health_modifier: int = 0
+@export var max_insanity_modifier: int = 0
 @export_group("Various")
 @export var value: int
 @export var movable: bool = true
@@ -93,7 +95,6 @@ func _derive_draw_offset()->void:
 
 func _on_equip(character: Character):
 	for stat in stat_modifiers:
-		print("in on equip")
 		character.change_stat(stat, stat_modifiers[stat])
 
 func _on_unequip(character: Character):
