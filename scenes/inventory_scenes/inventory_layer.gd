@@ -142,8 +142,8 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
 	_update_view_order()
 
-func add_inventory(cols: int, rows: int, title: String) -> Inventory:
-	var new_inventory := Inventory.constructor(cols,rows,title)
+func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false) -> Inventory:
+	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	inventory_view_order.append(new_inventory)
