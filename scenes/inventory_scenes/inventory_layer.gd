@@ -107,6 +107,9 @@ func _trash_item(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			if 0 < event.position.x and event.position.x < 30 and 0 < event.position.y and event.position.y < 30:
+				var to_delete_item:Item = drag_preview.dragged_item
+				if to_delete_item is ContainerItem:
+					remove_inventory(to_delete_item.inventory)
 				drag_preview.dragged_item = null
 
 func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
