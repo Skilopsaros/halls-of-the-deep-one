@@ -99,8 +99,6 @@ func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->
 				item._on_equip(character)
 			"remove":
 				item._on_unequip(character)
-	
-	print(get_inventory_tags())
 
 func _trash_item(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

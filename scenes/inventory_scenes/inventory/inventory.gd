@@ -22,9 +22,10 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
 @export var closes_on_item_placement:bool = false
+var closing_check: Callable = default_close_condition
 
 var slots:int
-var items:Dictionary = {}
+var items:Dictionary[int, Item] = {}
 
 var occupancy:Array[int] = [] # 0 if no item, 1 if item
 var occupancy_positions:Array[int] = [] # has the same shape as occupancy, information about the position of the item there
@@ -98,6 +99,9 @@ func _check_filter_ok(item: Item) -> bool:
 			return false
 	return true
 
+func default_close_condition(inventory) -> bool:
+	return(true)
+
 func add_item(item: Item, index: int) -> bool:
 	if not _check_filter_ok(item):
 		return false
@@ -128,7 +132,7 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
-	if closes_on_item_placement:
+	if closes_on_item_placement and closing_check.call(self):
 		emit_signal("inventory_closing", self)
 	return true
 	

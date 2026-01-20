@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://chiway7raodgq"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_u6l1b"]
+[ext_resource type="Texture2D" uid="uid://l1qgmhp7jmfg" path="res://graphics/items/armour.png" id="2_u6l1b"]
+
+[resource]
+script = ExtResource("1_u6l1b")
+name = "chain_mail"
+title = "Chain Mail"
+texture = ExtResource("2_u6l1b")
+occupancy_matrix = "1,0,1
+1,1,1"
+tags = Array[int]([2])
+stat_modifiers = Dictionary[int, int]({
+2: -2,
+3: 4
+})
+value = 32
+movable = true
+flavour_text = "What an ominous aura"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
