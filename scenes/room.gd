@@ -38,7 +38,18 @@ func load_entity(index:int) -> void:
 	new_entity.data = entity_stacks[index].entities[active_entity_stack_indexes[index]]
 	#var new_entity : Entity = entity_stacks[index].entities[active_entity_stack_indexes[index]].new()
 	new_entity.entity_clicked.connect(get_node("/root/Main")._on_entity_clicked)
+	new_entity.entity_clicked.connect(highlight_correct_entity)
 	new_entity.clear_entity.connect(remove_entity)
 	hbox_container.add_child(new_entity)
 	active_entities[index] = new_entity
 	new_entity.index = index
+	
+func highlight_correct_entity(options_list:Array[Dictionary], entity:Entity):
+	for other_entity in active_entities:
+		if not other_entity:
+			continue
+		if entity == other_entity:
+			other_entity.sprite.set("instance_shader_parameters/do_outline", true)
+		else:
+			other_entity.sprite.set("instance_shader_parameters/do_outline",  false)
+	
