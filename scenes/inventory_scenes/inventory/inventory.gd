@@ -12,6 +12,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
 @onready var closing_x := $BackgroundRect/ClosingX
+@onready var minimizing_v := $BackgroundRect/MinimizingV
 
 @onready var decoration_ctrl := $Decoration
 
@@ -21,6 +22,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
+@export var minimizable:bool = false
 @export var closes_on_item_placement:bool = false
 var closing_check: Callable = default_close_condition
 
@@ -30,11 +32,13 @@ var items:Dictionary[int, Item] = {}
 var occupancy:Array[int] = [] # 0 if no item, 1 if item
 var occupancy_positions:Array[int] = [] # has the same shape as occupancy, information about the position of the item there
 
-static func constructor(cols: int, rows: int, title: String) -> Inventory:
+static func constructor(cols: int, rows: int, title: String, closable:bool, minimizable:bool) -> Inventory:
 	var obj := self_scene.instantiate()
 	obj.cols = cols
 	obj.rows = rows
 	obj.title = title
+	obj.closeable = closable
+	obj.minimizable = minimizable
 	return obj
 
 func _ready() -> void:
@@ -53,6 +57,8 @@ func _ready() -> void:
 	foreground.position.x = 2
 	if !closeable:
 		closing_x.hide()
+	if !minimizable:
+		minimizing_v.hide()
 	_recalculate_decoration()
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width,background_height)
@@ -199,6 +205,10 @@ func get_contained_tags() -> Array[Enums.item_tags]:
 func _closing_x_pressed(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		emit_signal("inventory_closing", self)
+
+func _minimizing_v_pressed(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		self.hide()
 
 func get_total_value() -> int:
 	var total_value: int = 0
