@@ -33,12 +33,13 @@ func requirement_to_harvest(entity_node:Entity) -> bool:
 			return(true)
 	return(false)
 
-func harvest(inventory, entity_node) -> void:
-	if inventory.items:
-		for item_key in inventory.items.keys():
-			if inventory.items[item_key].name == "empty_bottle":
-				inventory.remove_item(item_key)
-				inventory.add_item(ItemManager.get_item_by_name("blood"), item_key)
+func harvest(entity_node:Entity) -> void:
+	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
+	if player_inventory.items:
+		for item_key in player_inventory.items.keys():
+			if player_inventory.items[item_key].name == "empty_bottle":
+				player_inventory.remove_item(item_key)
+				player_inventory.add_item(ItemManager.get_item_by_name("blood"), item_key)
 				break
 		entity_node.clear_self()
  

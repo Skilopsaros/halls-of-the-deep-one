@@ -55,7 +55,7 @@ func alchemise(entity_node:Entity):
 	alchemy_table_inventory.closes_on_item_placement = true
 	alchemy_table_inventory.connect("inventory_closing", alchemise_after_closed_inventory.bind(entity_node))
 	
-func alchemise_after_closed_inventory(inventory, entity_node):
+func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	if inventory.items:
 		for item in inventory.items.values():

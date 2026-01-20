@@ -18,11 +18,6 @@ func get_choices() -> Array[Dictionary]:
 			"title": "Outrun",
 			"text": "Agility check. On success, skip the monster. On failure, take " + str(damage) + " damage.",
 			"action": outrun
-		},
-		{
-			"title": "Sneak by",
-			"text": "skip this monster",
-			"action": ""
 		}
 	]
 	return(choices)
