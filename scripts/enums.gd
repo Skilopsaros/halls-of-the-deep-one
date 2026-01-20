@@ -3,7 +3,10 @@ extends Node
 enum item_tags {
 	weapon,
 	accessory,
-	armour 
+	armour,
+	liquid,
+	broken,
+	ingot
 }
 
 enum stats {

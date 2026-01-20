@@ -9,7 +9,7 @@ name = "broken_sword"
 title = "Broken Sword"
 texture = ExtResource("2_yw6yr")
 occupancy_matrix = "1,1"
-tags = Array[int]([0])
+tags = Array[int]([0, 4])
 stat_modifiers = Dictionary[int, int]({
 3: 1
 })

@@ -12,24 +12,6 @@ mouse_filter = 0
 texture = ExtResource("1_c4kgk")
 script = ExtResource("1_86wqj")
 
-[node name="ItemSlotBackground" type="ColorRect" parent="."]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.341271, 0.181369, 0.351886, 1)
-
 [node name="ItemIcon" type="Sprite2D" parent="."]
 z_index = 1
 scale = Vector2(2, 2)

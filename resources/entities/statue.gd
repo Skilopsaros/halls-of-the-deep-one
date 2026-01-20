@@ -1,5 +1,5 @@
 extends EntityData
-class_name ExampleEntity
+class_name Statue
 
 @export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
 @export var damage: int = 2

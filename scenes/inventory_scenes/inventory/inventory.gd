@@ -3,6 +3,7 @@ class_name Inventory
 
 signal inventory_changed
 signal inventory_closing
+signal inventory_reshaped
 
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
@@ -11,6 +12,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @onready var background_rect_inner_color := $BackgroundRect/InnerColorRect
 @onready var title_label := $BackgroundRect/Title
 @onready var closing_x := $BackgroundRect/ClosingX
+@onready var minimizing_v := $BackgroundRect/MinimizingV
 
 @onready var decoration_ctrl := $Decoration
 
@@ -20,19 +22,23 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closeable:bool = true
+@export var minimizable:bool = false
 @export var closes_on_item_placement:bool = false
+var closing_check: Callable = default_close_condition
 
 var slots:int
-var items:Dictionary = {}
+var items:Dictionary[int, Item] = {}
 
 var occupancy:Array[int] = [] # 0 if no item, 1 if item
 var occupancy_positions:Array[int] = [] # has the same shape as occupancy, information about the position of the item there
 
-static func constructor(cols: int, rows: int, title: String) -> Inventory:
+static func constructor(cols: int, rows: int, title: String, closable:bool, minimizable:bool) -> Inventory:
 	var obj := self_scene.instantiate()
 	obj.cols = cols
 	obj.rows = rows
 	obj.title = title
+	obj.closeable = closable
+	obj.minimizable = minimizable
 	return obj
 
 func _ready() -> void:
@@ -51,6 +57,8 @@ func _ready() -> void:
 	foreground.position.x = 2
 	if !closeable:
 		closing_x.hide()
+	if !minimizable:
+		minimizing_v.hide()
 	_recalculate_decoration()
 	title_label.text = title
 	position = Vector2(get_viewport().size/2)-Vector2(background_width,background_height)
@@ -97,6 +105,9 @@ func _check_filter_ok(item: Item) -> bool:
 			return false
 	return true
 
+func default_close_condition(inventory) -> bool:
+	return(true)
+
 func add_item(item: Item, index: int) -> bool:
 	if not _check_filter_ok(item):
 		return false
@@ -127,7 +138,7 @@ func add_item(item: Item, index: int) -> bool:
 	foreground.add_item(index,item)
 	foreground.update_occupancy(occupancy)
 	inventory_changed.emit(self,item,"add")
-	if closes_on_item_placement:
+	if closes_on_item_placement and closing_check.call(self):
 		emit_signal("inventory_closing", self)
 	return true
 	
@@ -136,8 +147,10 @@ func add_item_at_first_possible_position(item: Item) -> int:
 		return -1
 		
 	for i in range(cols*rows):
-		if add_item(item,i):
-			return i
+		for j in range(4):
+			if add_item(item,i):
+				return i
+			item.rotate()
 			
 	return -1
 
@@ -193,8 +206,58 @@ func _closing_x_pressed(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		emit_signal("inventory_closing", self)
 
+func _minimizing_v_pressed(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		self.hide()
+
 func get_total_value() -> int:
 	var total_value: int = 0
 	for key in items.keys():
 		total_value += items[key].value
 	return total_value
+
+func resize(new_rows:int,new_cols:int)->void:
+	# remove all items
+	var positions:Array[int] = []
+	var contained_items:Array[Item] = []
+	var worked:Array[bool] = []
+	for key in items.keys():
+		positions.append(key)
+		contained_items.append(items[key])
+		worked.append(false)
+		remove_item(key)
+	
+	var old_cols:int = cols
+	cols = new_cols
+	rows = new_rows
+	slots = cols * rows
+	occupancy = []
+	occupancy_positions = []
+	for i in range(slots):
+		occupancy.append(0)
+		occupancy_positions.append(-1)
+	foreground.reshape(new_rows,new_cols)
+	# update occupancy checks
+	# put them back
+	for index in range(len(positions)):
+		var pos := positions[index]
+		var item := contained_items[index]
+		var pos_x = pos%old_cols
+		var pos_y = floor(pos/old_cols)
+		
+		if new_cols > pos_x and new_rows > pos_y:
+			# we can try to put it back where it was
+			var new_pos = pos_y*new_cols+pos_x
+			var success = add_item(item,new_pos)
+			worked[index] = success
+	
+	# now put all the remaining ones in if possible
+	for index in range(len(positions)):
+		if not worked[index]:
+			add_item_at_first_possible_position(contained_items[index])
+	
+	var background_width:int = cols*30+2
+	var background_height:int = rows*30+21
+	background_rect.size = Vector2(background_width,background_height)
+	background_rect_inner_color.size = Vector2(background_rect.size.x - 2,18)
+	inventory_reshaped.emit(self)

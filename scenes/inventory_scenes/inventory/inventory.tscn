@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=12 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory/inventory.gd" id="1_uov6c"]
 [ext_resource type="Theme" uid="uid://b6t8eigy6o4ce" path="res://graphics/themes/medium.tres" id="2_7t3m7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://idcyhr2pvx32" path="res://scenes/inventory_scenes/inventory/foreground.gd" id="2_xeujj"]
 [ext_resource type="PackedScene" uid="uid://c8vgvyfg85i2" path="res://scenes/inventory_scenes/item_slot/item_slot.tscn" id="3_h75hr"]
 [ext_resource type="Texture2D" uid="uid://dyerufpv7tey4" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TL.tres" id="4_10cjv"]
+[ext_resource type="Texture2D" uid="uid://bp2eyv2lwons0" path="res://graphics/inventory/inventory_1_maps/inventory_v.tres" id="4_jfspp"]
 [ext_resource type="Texture2D" uid="uid://d3sejw41nl4qm" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TR.tres" id="5_10cjv"]
 [ext_resource type="Texture2D" uid="uid://d1t37r6js5nn7" path="res://graphics/inventory/border_tl.png" id="5_vln77"]
 [ext_resource type="Texture2D" uid="uid://clx07yk58lj3d" path="res://graphics/inventory/border_tr.png" id="6_vln77"]
@@ -38,10 +39,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClosingX" type="TextureRect" parent="BackgroundRect"]
-layout_mode = 0
-offset_right = 20.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
 offset_bottom = 20.0
+grow_horizontal = 0
 texture = ExtResource("2_h2c38")
+stretch_mode = 2
+
+[node name="MinimizingV" type="TextureRect" parent="BackgroundRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+mouse_filter = 0
+texture = ExtResource("4_jfspp")
 stretch_mode = 2
 
 [node name="Foreground" type="GridContainer" parent="."]
@@ -123,3 +140,4 @@ texture = ExtResource("6_wj4uu")
 stretch_mode = 2
 
 [connection signal="gui_input" from="BackgroundRect/ClosingX" to="." method="_closing_x_pressed"]
+[connection signal="gui_input" from="BackgroundRect/MinimizingV" to="." method="_minimizing_v_pressed"]
