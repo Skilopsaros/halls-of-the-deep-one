@@ -47,7 +47,6 @@ func ignore(entity_node:Entity) -> void:
 	entity_node.clear_self()
 
 func craft(entity_node:Entity) -> void:
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var anvil_inventory := inventory_manager.add_inventory(4,4,"Add an Ingot")
 	anvil_inventory.filters = [Enums.item_tags.ingot]
@@ -55,7 +54,6 @@ func craft(entity_node:Entity) -> void:
 	anvil_inventory.connect("inventory_closing", craft_after_closed_inventory.bind(entity_node))
 
 func repair(entity_node:Entity) -> void:
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var anvil_table_inventory := inventory_manager.add_inventory(8,8,"Ingot and Broken equipment")
 	anvil_table_inventory.filters = [Enums.item_tags.ingot]

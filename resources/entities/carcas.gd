@@ -34,9 +34,7 @@ func requirement_to_harvest(entity_node:Entity) -> bool:
 	return(false)
 
 func harvest(inventory, entity_node) -> void:
-	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
 	if inventory.items:
-		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		for item_key in inventory.items.keys():
 			if inventory.items[item_key].name == "empty_bottle":
 				inventory.remove_item(item_key)
