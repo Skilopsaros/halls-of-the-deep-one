@@ -14,7 +14,7 @@ func clear_log() -> void:
 	log_line.text = ""
 	log_block.text = ""
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_log"):
 		toggle_log()
 

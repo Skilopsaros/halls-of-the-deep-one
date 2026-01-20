@@ -44,7 +44,7 @@ func load_entity(index:int) -> void:
 	active_entities[index] = new_entity
 	new_entity.index = index
 	
-func highlight_correct_entity(options_list:Array[Dictionary], entity:Entity):
+func highlight_correct_entity(_options_list:Array[Dictionary], entity:Entity):
 	for other_entity in active_entities:
 		if not other_entity:
 			continue

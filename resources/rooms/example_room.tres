@@ -11,9 +11,6 @@
 
 [sub_resource type="Resource" id="Resource_kqdnn"]
 script = ExtResource("3_ougq4")
-damage = 2
-insanity = 2
-sneak_threshold = 6
 metadata/_custom_type_script = "uid://cgw8h3t0mqmvs"
 
 [sub_resource type="Resource" id="Resource_64vp4"]
@@ -27,17 +24,10 @@ metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [sub_resource type="Resource" id="Resource_dhmbg"]
 script = ExtResource("5_64vp4")
-chest_size = Vector2(5, 5)
 items = Dictionary[String, int]({
 "blood": 4,
 "strange_brew": 0
 })
-trapped = false
-damage = 15
-threshold = 15
-disarm_threshold = 15
-insanity = 4
-detected_damage = 10
 metadata/_custom_type_script = "uid://db60q7a4kbp17"
 
 [sub_resource type="Resource" id="Resource_vujl7"]
@@ -47,16 +37,6 @@ metadata/_custom_type_script = "uid://wrsyjmyr8h8k"
 
 [sub_resource type="Resource" id="Resource_1gfuh"]
 script = ExtResource("6_64vp4")
-pillage_inventory_size = Vector2(1, 1)
-pillage_items = Dictionary[String, int]({
-"empty_bottle": 0
-})
-experiment_threshold = 10
-experiment_inventory_size = Vector2(1, 1)
-experiment_items = Dictionary[String, int]({
-"strange_brew": 0
-})
-experiment_insanity = 4
 metadata/_custom_type_script = "uid://b71ju8mga347f"
 
 [sub_resource type="Resource" id="Resource_fuj2f"]

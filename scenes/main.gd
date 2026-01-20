@@ -72,7 +72,7 @@ func roll_dice(add:int=0, target:int=7) -> bool:
 	dice_layer.hide()
 	return pass_check
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_key"):
 		roll_dice()
 		
