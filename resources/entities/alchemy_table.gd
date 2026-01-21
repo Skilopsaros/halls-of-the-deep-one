@@ -1,7 +1,7 @@
 extends EntityData
 class_name AlchemyTable
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/alchemy_table.png")
 @export var pillage_inventory_size: Vector2i = Vector2i(1,1)
 @export var pillage_items: Dictionary[String, int] = {"empty_bottle":0}
 @export var experiment_threshold: int = 10

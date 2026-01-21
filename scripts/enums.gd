@@ -6,7 +6,8 @@ enum item_tags {
 	armour,
 	liquid,
 	broken,
-	ingot
+	ingot,
+	deep
 }
 
 enum stats {

@@ -12,6 +12,7 @@ title = "Suspicious Eyeball"
 texture = ExtResource("4_gba0e")
 alternative_textures = Array[Texture]([ExtResource("1_on1v2"), ExtResource("2_ghr6d")])
 occupancy_matrix = "1"
+tags = Array[int]([6])
 stat_modifiers = Dictionary[int, int]({})
 value = 10
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"
