@@ -11,13 +11,10 @@ class_name InventoryManager
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
-const Inventory := preload("res://scenes/inventory_scenes/inventory/inventory.gd")
-const HoverInfo := preload("res://scenes/inventory_scenes/hover_info/hover_info.gd")
 const starting_z_index: int = 2
 const player_UI_spacing: int = 40
 
 @onready var inventory_view_order:Array[Inventory] = []
-
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
