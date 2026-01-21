@@ -78,7 +78,7 @@ func _on_inventory_background_input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and dragging:
 			dragging = false
 			
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
 
@@ -105,7 +105,7 @@ func _check_filter_ok(item: Item) -> bool:
 			return false
 	return true
 
-func default_close_condition(inventory) -> bool:
+func default_close_condition(_inventory:Inventory) -> bool:
 	return(true)
 
 func add_item(item: Item, index: int) -> bool:
