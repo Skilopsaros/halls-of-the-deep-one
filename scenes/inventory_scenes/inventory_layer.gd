@@ -87,9 +87,9 @@ func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String)
 			hover_info.visible = false
 
 func _on_inventory_changed(inventory:Inventory, item:ItemObject, event_cause:String)->void:
-	#if inventory == player_inventory:
-		#var total_value: int = inventory.get_total_value()
-		#player_inventory.title_label.text = str(total_value)+" €"
+	if inventory == player_inventory:
+		var total_value: int = inventory.get_total_value()
+		player_inventory.title_label.text = str(total_value)+" €"
 	
 	if inventory in [player_weapon,player_armour,player_accessory]:
 		var character: Node = get_node("/root/Main/PlayerHud").character
@@ -141,7 +141,7 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	_update_view_order()
 
 func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false) -> Inventory:
-	var new_inventory := Inventory.constructor(cols,rows)
+	var new_inventory := Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	inventory_view_order.append(new_inventory)

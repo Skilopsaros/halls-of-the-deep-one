@@ -2,6 +2,7 @@ extends TileMapLayer
 class_name Inventory
 
 @onready var items:Node = $Items
+@onready var title_label:Label = $Label
 
 signal cell_clicked
 signal inventory_changed
@@ -12,15 +13,19 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var rows:int = 6
 @export var cols:int = 6
 @export var input_supressed = false
+@export var title:String
+@export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
+# if multiple keys are given all of them need to be fulfilled
 enum TILES {OCCUPIED,FREE,INACTIVE}
 
 var occupancy_dict:Dictionary = {}
 var active_list:Array[Vector2i] = []
 
-static func constructor(new_rows: int, new_cols: int, initial_active_list:Array[Vector2i]=[]) -> Inventory:
+static func constructor(new_rows: int, new_cols: int, new_title:String, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	var obj:Inventory = self_scene.instantiate()
 	obj.rows = new_rows
 	obj.cols = new_cols
+	obj.title = new_title
 	obj.active_list = initial_active_list.duplicate() # we do not want any call by reference bugs
 	return obj
 
@@ -35,6 +40,7 @@ func _unhandled_input(event:InputEvent) -> void:
 				cell_clicked.emit(event,pos_clicked,self)
 
 func _ready() -> void:
+	title_label.text = title
 	for i:int in range(cols):
 		for j:int in range(rows):
 			var coordinate := Vector2i(i,j)
@@ -53,7 +59,7 @@ func check_placement(item:ItemObject,coordinate:Vector2i) -> bool:
 		for i in range(item.orientation):
 			position_vector = Vector2i(-position_vector[1],position_vector[0])
 		var global_coordinate = coordinate + position_vector
-		if get_cell_tile_data(global_coordinate) == null or get_cell_tile_data(global_coordinate).terrain_set != 1:
+		if get_cell_tile_data(global_coordinate) == null or get_cell_tile_data(global_coordinate).terrain_set != TILES.FREE:
 			# out of bounds or inactive inventory slot
 			return false
 		if global_coordinate in occupancy_dict and occupancy_dict[global_coordinate] != null:
@@ -61,8 +67,14 @@ func check_placement(item:ItemObject,coordinate:Vector2i) -> bool:
 			return false
 	return true
 
+func _check_filter_ok(item: ItemObject) -> bool:
+	for filter in filters:
+		if filter not in item.data.tags:
+			return false
+	return true
+
 func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
-	if not check_placement(item,coordinate):
+	if not check_placement(item,coordinate) or not _check_filter_ok(item):
 		return false
 	# if so update everything
 	item.location = coordinate
@@ -79,8 +91,8 @@ func remove_item(coordinate:Vector2i) -> ItemObject:
 	var item:ItemObject = occupancy_dict[coordinate]
 	remove_occupancy(item)
 	update_inventory_tiles()
-	inventory_changed.emit(self,item,"remove")
 	items.remove_child(item)
+	inventory_changed.emit(self,item,"remove")
 	return item
 
 func update_item_position(item:ItemObject) -> void:
@@ -125,3 +137,11 @@ func get_total_value() -> int:
 	for item in items.get_children():
 		total_value += item.data.value
 	return total_value
+
+func get_contained_tags() -> Array[Enums.item_tags]:
+	var tags:Array[Enums.item_tags] = []
+	for item:ItemObject in items.get_children():
+		for tag in item.data.tags:
+			if not tag in tags:
+				tags.append(tag)
+	return tags
