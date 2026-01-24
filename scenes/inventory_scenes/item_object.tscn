@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqtipaietq3lm"]
+
+[ext_resource type="Script" uid="uid://d0h6ja7qitdu" path="res://scenes/inventory_scenes/item_object.gd" id="1_uu01i"]
+
+[node name="ItemObject" type="Sprite2D"]
+scale = Vector2(2, 2)
+centered = false
+script = ExtResource("1_uu01i")

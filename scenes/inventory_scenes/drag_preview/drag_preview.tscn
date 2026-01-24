@@ -11,3 +11,5 @@ script = ExtResource("1_56ygq")
 [node name="ItemIcon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 centered = false
+
+[node name="DraggedItemParent" type="Node" parent="."]

@@ -34,16 +34,17 @@ func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 		inventory_view_order.append(inventory)
-		inventory.inventory_changed.connect(_on_inventory_changed)
+		#inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
 	_realign_player_inventory_parts()
 	toggle_inventory_visibility()
 	
 func _realign_player_inventory_parts() -> void:
-	player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
-	player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	player_armour.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armour.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	pass
+	#player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
+	#player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	#player_armour.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
+	#player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armour.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
 	
 func toggle_inventory_visibility() -> void:
 	player_inventory.visible = not player_inventory.visible
@@ -85,10 +86,10 @@ func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String)
 			last_hovering_item = null
 			hover_info.visible = false
 
-func _on_inventory_changed(inventory:Inventory, item:Item, event_cause:String)->void:
-	if inventory == player_inventory:
-		var total_value: int = inventory.get_total_value()
-		player_inventory.title_label.text = str(total_value)+" €"
+func _on_inventory_changed(inventory:Inventory, item:ItemObject, event_cause:String)->void:
+	#if inventory == player_inventory:
+		#var total_value: int = inventory.get_total_value()
+		#player_inventory.title_label.text = str(total_value)+" €"
 	
 	if inventory in [player_weapon,player_armour,player_accessory]:
 		var character: Node = get_node("/root/Main/PlayerHud").character
@@ -102,37 +103,36 @@ func _trash_item(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			if 0 < event.position.x and event.position.x < 30 and 0 < event.position.y and event.position.y < 30:
-				var to_delete_item:Item = drag_preview.dragged_item
-				if to_delete_item is ContainerItem:
-					remove_inventory(to_delete_item.inventory)
+				var to_delete_item:ItemObject = drag_preview.dragged_item
+				if to_delete_item.data is ContainerItem:
+					remove_inventory(to_delete_item.data.inventory)
 				drag_preview.dragged_item = null
+				to_delete_item.queue_free()
+				
+func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:Inventory) -> void:
 
-func _on_inventory_slot_input(event: InputEvent, inventory:Inventory, slot_index:int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == null:
-			var item_index:int = inventory.occupancy_positions[slot_index]
-			var clicked_item:Item = inventory._find_item_by_index(item_index)
+			if not coordinate in inventory.occupancy_dict.keys():
+				return
+			var clicked_item:ItemObject = inventory.occupancy_dict[coordinate]
 			if !clicked_item:
 				return
 			print(clicked_item.name)
-			inventory.remove_item(item_index)
+			inventory.remove_item(coordinate)
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
-			var item_index:int = inventory.occupancy_positions[slot_index]
-			if item_index != -1: # space is already occupied
-				return
-			var success:bool = inventory.add_item(drag_preview.dragged_item,slot_index)
+			var success:bool = inventory.add_item(drag_preview.dragged_item,coordinate)
 			if success:
 				drag_preview.dragged_item = null
-		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
-			var item_index:int = inventory.occupancy_positions[slot_index]
-			var clicked_item:Item = inventory._find_item_by_index(item_index)
-			if !clicked_item:
-				return
-			if not clicked_item is ContainerItem:
-				return
-			clicked_item.inventory.visible = not clicked_item.inventory.visible
-
+		#elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
+			#var item_index:int = inventory.occupancy_positions[slot_index]
+			#var clicked_item:Item = inventory._find_item_by_index(item_index)
+			#if !clicked_item:
+				#return
+			#if not clicked_item is ContainerItem:
+				#return
+			#clicked_item.inventory.visible = not clicked_item.inventory.visible
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
@@ -141,7 +141,7 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	_update_view_order()
 
 func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false) -> Inventory:
-	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable)
+	var new_inventory := Inventory.constructor(cols,rows)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	inventory_view_order.append(new_inventory)
@@ -161,22 +161,15 @@ func remove_inventory(inventory: Inventory) -> void:
 	inventory.queue_free()
 	_update_view_order()
 	
-func _on_inventory_reshaped(inventory:Inventory) -> void:
-	var item_slots := inventory.foreground.get_children()
-	for index in range(len(item_slots)):
-		var item_slot := item_slots[index]
-		if not item_slot.is_connected("gui_input", _on_inventory_slot_input.bind(inventory,index)):
-			item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
-			item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
-			item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
-	_realign_player_inventory_parts()
 			
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
-	var item_slots := inventory.foreground.get_children()
-	inventory.connect("inventory_closing", remove_inventory)
-	inventory.connect("inventory_reshaped", _on_inventory_reshaped)
-	for index in range(len(item_slots)):
-		var item_slot := item_slots[index]
-		item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
-		item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
-		item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
+	inventory.connect("cell_clicked", _on_inventory_slot_input)
+	inventory.connect("inventory_changed", _on_inventory_changed)
+		#var item_slots := inventory.foreground.get_children()
+		#inventory.connect("inventory_closing", remove_inventory)
+		#inventory.connect("inventory_reshaped", _on_inventory_reshaped)
+		#for index in range(len(item_slots)):
+			#var item_slot := item_slots[index]
+			#item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
+			#item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
+			#item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))
