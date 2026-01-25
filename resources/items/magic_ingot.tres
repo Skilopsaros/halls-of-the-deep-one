@@ -10,13 +10,6 @@ title = "Magic Ingot"
 texture = ExtResource("2_yim0o")
 occupancy_matrix = "1,1"
 tags = Array[int]([5])
-stat_modifiers = Dictionary[int, int]({
-0: 0,
-1: 0,
-2: 0,
-3: 0
-})
-value = 100
-movable = true
+value = 50
 flavour_text = "shiny"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

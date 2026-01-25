@@ -10,6 +10,5 @@ title = "Empty Bottle"
 texture = ExtResource("2_le5cv")
 occupancy_matrix = "1
 1"
-value = 101
 flavour_text = "ribbit"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

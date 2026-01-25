@@ -49,15 +49,21 @@ func fill_cup(entity_node:Entity):
 	
 func fill_cup_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	if inventory.items:
+		var bottle_inventory := inventory_manager.add_inventory(2,2,"Eldritch Altar")
+		bottle_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"), 0)
 		for item in inventory.items.values():
 			if item.name == "strange_brew":
-				var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-				var chest := inventory_manager.add_inventory(1,1,"Altar remains")
-				chest.add_item(ItemManager.get_item_by_name("suspicious_eyeball"), 0)
+				bottle_inventory.add_item(ItemManager.get_item_by_name("suspicious_eyeball"), 3)
 			if item.name == "blood":
 				character.heal_damage(damage)
 				character.take_insanity(insanity)
+			if item.name == "acid":
+				character.take_damage(damage)
+				character.heal_insanity(insanity)
+			if item.name == "ectoplasm":
+				pass # give inventory space
 		entity_node.clear_self()
 
 func break_altar(entity_node:Entity):

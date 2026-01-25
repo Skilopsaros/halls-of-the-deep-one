@@ -7,7 +7,8 @@ enum item_tags {
 	liquid,
 	broken,
 	ingot,
-	deep
+	deep,
+	treasure
 }
 
 enum stats {
