@@ -17,13 +17,13 @@ func _ready() -> void:
 	var player_inventory:Inventory = inventory_manager.player_inventory
 	# example content to try functionality
 	var new_item:ItemObject = ItemManager.get_item_by_name("shoe")
-	player_inventory.add_item(new_item,Vector2i(2,2))
+	player_inventory.add_item(new_item,Vector2i(1,0))
 	
 	new_item = ItemManager.get_item_by_name("gem")
 	player_inventory.add_item(new_item,Vector2i(6,2))
 	
-	new_item = ItemManager.get_item_by_name("coin")
-	player_inventory.add_item(new_item,Vector2i(9,2))
+	new_item = ItemManager.get_item_by_name("gem")
+	player_inventory.add_item_at_first_possible_position(new_item)
 	#player_inventory.add_item(ItemManager.get_item_by_name("amulet"),2)
 	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
 	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
@@ -34,7 +34,7 @@ func _ready() -> void:
 	#menu_hud.add_message_to_log("A dark aura surrounds you")
 	#menu_hud.add_message_to_log("You lost 15 health")
 	#var chest:Inventory = inventory_manager.add_inventory(4,5,"CHEST")
-	inventory_manager.toggle_inventory_visibility()
+	#inventory_manager.toggle_inventory_visibility()
 	start_game()
 	pass
 

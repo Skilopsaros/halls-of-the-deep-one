@@ -3,7 +3,6 @@ extends CanvasLayer
 class_name InventoryManager
 
 @onready var drag_preview := $DragPreview
-@onready var hover_info := $HoverInfo
 @onready var trash := $Trash
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
@@ -36,55 +35,20 @@ func _ready() -> void:
 		inventory_view_order.append(inventory)
 		#inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
-	_realign_player_inventory_parts()
-	toggle_inventory_visibility()
-	
-func _realign_player_inventory_parts() -> void:
-	pass
-	#player_inventory.position = Vector2(player_UI_spacing,player_UI_spacing)
-	#player_weapon.position = Vector2(player_UI_spacing,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	#player_armour.position = Vector2(player_UI_spacing*2+player_weapon.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	#player_accessory.position = Vector2(player_UI_spacing*3+player_weapon.background_rect.size.x*2+player_armour.background_rect.size.x*2,player_UI_spacing*2+player_inventory.background_rect.size.y*2)
-	
+	self.propagate_call("set_visible", [false])
+
 func toggle_inventory_visibility() -> void:
-	player_inventory.visible = not player_inventory.visible
-	player_weapon.visible = player_inventory.visible
-	player_armour.visible = player_inventory.visible
-	player_accessory.visible = player_inventory.visible
-	trash.visible = player_inventory.visible
+	self.propagate_call("set_visible", [not self.visible])
+	# this is really strange but will be gone after the UI overhaul anyways
+	#player_inventory.visible = not player_inventory.visible
+	#player_weapon.visible = player_inventory.visible
+	#player_armour.visible = player_inventory.visible
+	#player_accessory.visible = player_inventory.visible
+	#trash.visible = player_inventory.visible
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
 		toggle_inventory_visibility()
-	if hovering_item != null:
-		hover_counter += delta
-	if Input.get_last_mouse_velocity() != Vector2(0,0):
-		hover_counter = 0
-	if hover_counter > 0.5 and last_hovering_item != hovering_item:
-		last_hovering_item = hovering_item
-		hover_info.display_item_data(hovering_item)
-		hover_info.position = hover_info.get_global_mouse_position()
-		_update_view_order()
-		hover_info.visible = true
-	
-var hover_counter:float = 0
-var hovering_item:Item = null
-var last_hovering_item:Item = null
-
-func _on_inventory_slot_hover(inventory:Inventory, slot_index:int, event:String) -> void:
-	match event:
-		"enter":
-			hover_counter = 0
-			var item_index:int = inventory.occupancy_positions[slot_index]
-			var item:Item = inventory._find_item_by_index(item_index)
-			if !item:
-				return
-			hovering_item = item
-		"exit":
-			hover_counter = 0
-			hovering_item = null
-			last_hovering_item = null
-			hover_info.visible = false
 
 func _on_inventory_changed(inventory:Inventory, item:ItemObject, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -119,7 +83,7 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			if !clicked_item:
 				return
 			print(clicked_item.name)
-			inventory.remove_item(coordinate)
+			inventory.remove_item(clicked_item)
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
 			var success:bool = inventory.add_item(drag_preview.dragged_item,coordinate)
@@ -141,6 +105,7 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	_update_view_order()
 
 func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false) -> Inventory:
+	# this should work tecnically but maybe it's not helpful
 	var new_inventory := Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
@@ -154,22 +119,12 @@ func _update_view_order() -> void:
 		if inventory_view_order[i] != null: # no clue why this is even necessary
 			inventory_view_order[i].z_index = starting_z_index + 2*i
 	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
-	hover_info.z_index = drag_preview.z_index
-		
+
 func remove_inventory(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
 	inventory.queue_free()
 	_update_view_order()
-	
-			
+
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	inventory.connect("cell_clicked", _on_inventory_slot_input)
 	inventory.connect("inventory_changed", _on_inventory_changed)
-		#var item_slots := inventory.foreground.get_children()
-		#inventory.connect("inventory_closing", remove_inventory)
-		#inventory.connect("inventory_reshaped", _on_inventory_reshaped)
-		#for index in range(len(item_slots)):
-			#var item_slot := item_slots[index]
-			#item_slot.connect("gui_input", _on_inventory_slot_input.bind(inventory,index))
-			#item_slot.connect("mouse_entered",  _on_inventory_slot_hover.bind(inventory,index,"enter"))
-			#item_slot.connect("mouse_exited",  _on_inventory_slot_hover.bind(inventory,index,"exit"))

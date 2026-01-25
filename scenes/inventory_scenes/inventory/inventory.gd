@@ -83,17 +83,42 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	item.reparent(items)
 	update_inventory_tiles()
 	inventory_changed.emit(self,item,"add")
+	if not visible:
+		item.visible = false
 	return true
-
-func remove_item(coordinate:Vector2i) -> ItemObject:
+	
+func remove_item(item_to_remove:ItemObject) -> ItemObject:
+	remove_occupancy(item_to_remove)
+	update_inventory_tiles()
+	items.remove_child(item_to_remove)
+	inventory_changed.emit(self,item_to_remove,"remove")
+	return item_to_remove
+	
+func remove_item_by_name(item_name: String) -> ItemObject:
+	for item in items.get_children():
+		if item.data.name == item_name:
+			return remove_item(item)
+	return null
+	
+func remove_item_by_coordinate(coordinate:Vector2i) -> ItemObject:
 	if not coordinate in occupancy_dict or occupancy_dict[coordinate] == null:
 		return null
 	var item:ItemObject = occupancy_dict[coordinate]
-	remove_occupancy(item)
-	update_inventory_tiles()
-	items.remove_child(item)
-	inventory_changed.emit(self,item,"remove")
+	remove_item(item)
 	return item
+
+func add_item_at_first_possible_position(item: ItemObject) -> Vector2i:
+	if not _check_filter_ok(item):
+		return Vector2i(-1,-1)
+		
+	for i in range(cols):
+		for j in range(rows):
+			for k in range(4):
+				if add_item(item,Vector2i(i,j)):
+					return Vector2i(i,j)
+				item.rotate_90()
+	return Vector2i(-1,-1)
+
 
 func update_item_position(item:ItemObject) -> void:
 	var rotated_origin = item.origin # vectors are copied by value by default

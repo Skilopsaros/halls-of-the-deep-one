@@ -1,8 +1,9 @@
 extends Control
+class_name HoverInfo
 
-@onready var title_label := $TitleLabel
-@onready var text_label := $TextLabel
-@onready var flavour_label := $FlavourLabel
+@onready var title_label := $VBoxContainer/TitleLabel
+@onready var text_label := $VBoxContainer/Container/TextLabel
+@onready var flavour_label := $VBoxContainer/FlavourLabel
 
 func _ready() -> void:
 	visible = false
