@@ -6,9 +6,10 @@ class_name Inventory
 
 signal cell_clicked
 signal inventory_changed
+signal inventory_closing
 
 const world_atlas_id:int = 0
-const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory_window.tscn")
+const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
 
 @export var rows:int = 6
 @export var cols:int = 6
@@ -16,6 +17,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var title:String
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
+@export var closes_on_item_placement:bool = false
 enum TILES {OCCUPIED,FREE,INACTIVE}
 
 var occupancy_dict:Dictionary = {}
@@ -29,7 +31,7 @@ static func constructor(new_rows: int, new_cols: int, new_title:String, initial_
 	obj.active_list = initial_active_list.duplicate() # we do not want any call by reference bugs
 	return obj
 
-func _unhandled_input(event:InputEvent) -> void:
+func _input(event:InputEvent) -> void:
 	if input_supressed:
 		return
 	if event is InputEventMouseButton:
@@ -85,6 +87,8 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	inventory_changed.emit(self,item,"add")
 	if not visible:
 		item.visible = false
+	if closes_on_item_placement:
+		emit_signal("inventory_closing", self)
 	return true
 	
 func remove_item(item_to_remove:ItemObject) -> ItemObject:

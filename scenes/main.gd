@@ -50,7 +50,7 @@ func start_game() -> void:
 	character.insane.connect(game_over)
 	character.init_character()
 	next_room = 0
-	#init_next_room()
+	init_next_room()
 
 func init_next_room() -> void:
 	room_container.init_room(room_data[next_room])

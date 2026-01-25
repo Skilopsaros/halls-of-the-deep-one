@@ -36,15 +36,11 @@ func _ready() -> void:
 		#inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
 	self.propagate_call("set_visible", [false])
+	toggle_inventory_visibility()
 
 func toggle_inventory_visibility() -> void:
-	self.propagate_call("set_visible", [not self.visible])
-	# this is really strange but will be gone after the UI overhaul anyways
-	#player_inventory.visible = not player_inventory.visible
-	#player_weapon.visible = player_inventory.visible
-	#player_armour.visible = player_inventory.visible
-	#player_accessory.visible = player_inventory.visible
-	#trash.visible = player_inventory.visible
+	if not drag_preview.dragged_item:
+		self.propagate_call("set_visible", [not self.visible])
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
@@ -72,9 +68,8 @@ func _trash_item(event: InputEvent) -> void:
 					remove_inventory(to_delete_item.data.inventory)
 				drag_preview.dragged_item = null
 				to_delete_item.queue_free()
-				
-func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:Inventory) -> void:
 
+func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:Inventory) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item == null:
 			if not coordinate in inventory.occupancy_dict.keys():
@@ -104,7 +99,7 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
 	_update_view_order()
 
-func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false) -> Inventory:
+func add_inventory(cols: int, rows: int, title: String, _closable:bool = true, _minimizable:bool = false) -> Inventory:
 	# this should work tecnically but maybe it's not helpful
 	var new_inventory := Inventory.constructor(cols,rows,title)
 	inventories.add_child(new_inventory)
@@ -128,3 +123,4 @@ func remove_inventory(inventory: Inventory) -> void:
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	inventory.connect("cell_clicked", _on_inventory_slot_input)
 	inventory.connect("inventory_changed", _on_inventory_changed)
+	inventory.connect("inventory_closing", remove_inventory)

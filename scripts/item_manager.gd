@@ -4,7 +4,7 @@ extends Node
 # and make it a dictionary where based on a key defined in the item ressource we can fetch the respective item data
 # to end the time of having the file name used
 
-func get_item_by_name(key:String)->ItemObject:
+func get_item_by_name(key:String) -> ItemObject:
 	var item:Item = load("res://resources/items/%s.tres" % key) as Item
 	var item_object := ItemObject.constructor(item)
 	if len(item.alternative_textures) != 0:

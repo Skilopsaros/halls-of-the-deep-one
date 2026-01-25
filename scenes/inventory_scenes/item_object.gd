@@ -32,6 +32,7 @@ func _process(delta:float) -> void:
 		hover_counter += delta
 	if Input.get_last_mouse_velocity() != Vector2(0,0):
 		hover_counter = 0
+		disable_hover_info()
 	var grandparent:Node = self.get_parent().get_parent()
 	if hover_info.visible and not grandparent is Inventory:
 		disable_hover_info()
