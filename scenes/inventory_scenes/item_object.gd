@@ -12,6 +12,8 @@ var origin:Vector2i # the point in the item where it will be grabbed and from wh
 var occupancy:Array[Vector2i]
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/item_object.tscn")
 
+var inventory:Inventory = null # only used for container items
+
 var hover_counter:float
 var hovering:bool = false
 

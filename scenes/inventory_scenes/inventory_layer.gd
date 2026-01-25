@@ -84,14 +84,16 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			var success:bool = inventory.add_item(drag_preview.dragged_item,coordinate)
 			if success:
 				drag_preview.dragged_item = null
-		#elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
-			#var item_index:int = inventory.occupancy_positions[slot_index]
-			#var clicked_item:Item = inventory._find_item_by_index(item_index)
-			#if !clicked_item:
-				#return
-			#if not clicked_item is ContainerItem:
-				#return
-			#clicked_item.inventory.visible = not clicked_item.inventory.visible
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
+			if not coordinate in inventory.occupancy_dict.keys():
+				return
+			var clicked_item:ItemObject = inventory.occupancy_dict[coordinate]
+			if !clicked_item:
+				return
+			if !clicked_item.inventory:
+				return
+			clicked_item.inventory.visible = not clicked_item.inventory.visible
+			clicked_item.inventory.position = clicked_item.inventory.get_global_mouse_position()
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)
@@ -99,21 +101,21 @@ func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
 	_update_view_order()
 
-func add_inventory(cols: int, rows: int, title: String, _closable:bool = true, _minimizable:bool = false) -> Inventory:
+func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	# this should work tecnically but maybe it's not helpful
-	var new_inventory := Inventory.constructor(cols,rows,title)
+	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable,initial_active_list)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	inventory_view_order.append(new_inventory)
-	new_inventory.z_index = starting_z_index+2*len(inventory_view_order)-2
-	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
+	_update_view_order()
 	return new_inventory
 
 func _update_view_order() -> void:
-	for i in range(len(inventory_view_order)):
-		if inventory_view_order[i] != null: # no clue why this is even necessary
-			inventory_view_order[i].z_index = starting_z_index + 2*i
-	drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
+	pass
+	#for i in range(len(inventory_view_order)):
+		#if inventory_view_order[i] != null: # no clue why this is even necessary
+			#inventory_view_order[i].z_index = starting_z_index + 2*i
+	#drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
 
 func remove_inventory(inventory: Inventory) -> void:
 	inventory_view_order.erase(inventory)

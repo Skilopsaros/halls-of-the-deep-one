@@ -14,10 +14,10 @@ func get_item_by_name(key:String) -> ItemObject:
 			item_object.texture = item.alternative_textures[texture_selection-1]
 		else:
 			item_object.texture = item.texture
-	# TODO fix
-	#if item is ContainerItem:
-		#var inventory:Inventory = get_node("/root/Main").inventory_manager.add_inventory(item.cols,item.rows,item.title,false,true)
-		#item.inventory = inventory
-		#inventory.hide()
+	
+	if item is ContainerItem:
+		var inventory:Inventory = get_node("/root/Main").inventory_manager.add_inventory(item.cols,item.rows,item.title,false,true)
+		item_object.inventory = inventory
+		inventory.hide()
 	self.add_child(item_object) # so it's ready function is called and it has a parent to be re-parented from
 	return item_object

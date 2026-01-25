@@ -53,4 +53,3 @@ title = "Accessory"
 filters = Array[int]([1])
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
-z_index = 4
