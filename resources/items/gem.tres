@@ -10,14 +10,7 @@ title = "Gem"
 texture = ExtResource("2_vshvr")
 occupancy_matrix = "1
 1"
-tags = Array[int]([])
-stat_modifiers = Dictionary[int, int]({
-0: 0,
-1: 0,
-2: 0,
-3: 0
-})
+tags = Array[int]([7])
 value = 100
-movable = true
 flavour_text = "shiny"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

@@ -11,14 +11,5 @@ texture = ExtResource("2_wn6uh")
 occupancy_matrix = "1,1
 1,1
 1,1"
-tags = Array[int]([])
-stat_modifiers = Dictionary[int, int]({
-0: 0,
-1: 0,
-2: 0,
-3: 0
-})
-value = 101
-movable = true
 flavour_text = "ribbit"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

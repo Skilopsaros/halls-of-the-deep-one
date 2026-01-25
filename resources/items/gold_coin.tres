@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://ba3lfgupcp2y1"]
+
+[ext_resource type="Texture2D" uid="uid://c7qdogw57g8kp" path="res://graphics/items/coin1.png" id="1_mpkbb"]
+[ext_resource type="Texture2D" uid="uid://bu4whwvc3ma78" path="res://graphics/items/coin2.png" id="2_dtxjy"]
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="3_md514"]
+[ext_resource type="Texture2D" uid="uid://coh1u0xgarg15" path="res://graphics/items/coin.png" id="4_ffoxm"]
+
+[resource]
+script = ExtResource("3_md514")
+name = "gold_coin"
+title = "Coin"
+texture = ExtResource("4_ffoxm")
+alternative_textures = Array[Texture]([ExtResource("1_mpkbb"), ExtResource("2_dtxjy")])
+occupancy_matrix = "1"
+tags = Array[int]([7])
+stat_modifiers = Dictionary[int, int]({})
+value = 25
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

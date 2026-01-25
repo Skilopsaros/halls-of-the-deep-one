@@ -55,10 +55,7 @@ func heal_insanity(d:int):
 	emit_signal("insanity_changed")
 
 func change_stat(stat:Enums.stats, change:int):
-	print("in change stat")
-	print(change)
 	stats[stat] += change
-	print(stats[stat])
 	emit_signal("stats_changed")
 	
 func set_stat(stat:Enums.stats, value:int):

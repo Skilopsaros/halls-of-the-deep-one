@@ -47,7 +47,6 @@ func ignore(entity_node:Entity) -> void:
 	entity_node.clear_self()
 
 func craft(entity_node:Entity) -> void:
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var anvil_inventory := inventory_manager.add_inventory(4,4,"Add an Ingot")
 	anvil_inventory.filters = [Enums.item_tags.ingot]
@@ -55,7 +54,6 @@ func craft(entity_node:Entity) -> void:
 	anvil_inventory.connect("inventory_closing", craft_after_closed_inventory.bind(entity_node))
 
 func repair(entity_node:Entity) -> void:
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var anvil_table_inventory := inventory_manager.add_inventory(8,8,"Ingot and Broken equipment")
 	anvil_table_inventory.filters = [Enums.item_tags.ingot]
@@ -64,11 +62,11 @@ func repair(entity_node:Entity) -> void:
 	anvil_table_inventory.connect("inventory_closing", repair_after_closed_inventory.bind(entity_node))
 
 
-func repair_close_check(inventory) -> bool:
+func repair_close_check(inventory:Inventory) -> bool:
 	var tags = inventory.get_contained_tags()
 	return((Enums.item_tags.ingot in tags) and (Enums.item_tags.broken in tags))
 
-func craft_after_closed_inventory(inventory, entity_node) -> void:
+func craft_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		for item in inventory.items.values():
@@ -80,7 +78,7 @@ func craft_after_closed_inventory(inventory, entity_node) -> void:
 				craft_inventory.add_item(ItemManager.get_item_by_name("chain_mail"), 0)
 		entity_node.clear_self()
 
-func repair_after_closed_inventory(inventory, entity_node) -> void:
+func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var ingot_type = ""

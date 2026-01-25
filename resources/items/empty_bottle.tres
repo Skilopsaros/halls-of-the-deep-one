@@ -1,22 +1,14 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://7645kdoxbjsw"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_le5cv"]
-[ext_resource type="Texture2D" uid="uid://ohrxthoxem6t" path="res://graphics/items/empty_bottle.png" id="2_le5cv"]
+[ext_resource type="Texture2D" uid="uid://7oojlmpsfko6" path="res://graphics/items/bottle.png" id="2_le5cv"]
 
 [resource]
 script = ExtResource("1_le5cv")
 name = "empty_bottle"
 title = "Empty Bottle"
 texture = ExtResource("2_le5cv")
-occupancy_matrix = "1"
-tags = Array[int]([])
-stat_modifiers = Dictionary[int, int]({
-0: 0,
-1: 0,
-2: 0,
-3: 0
-})
-value = 101
-movable = true
+occupancy_matrix = "1
+1"
 flavour_text = "ribbit"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

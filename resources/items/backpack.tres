@@ -5,22 +5,9 @@
 
 [resource]
 script = ExtResource("1_glfrs")
-cols = 3
-rows = 3
 name = "backpack"
 title = "Backpack"
 texture = ExtResource("2_bpykh")
-alternative_textures = Array[Texture]([])
 occupancy_matrix = "1,1
 1,1"
-tags = Array[int]([])
-stat_modifiers = Dictionary[int, int]({
-0: 0,
-1: 0,
-2: 0,
-3: 0
-})
-value = 30
-movable = true
-flavour_text = ""
 metadata/_custom_type_script = "uid://d4f80khp8dgn2"

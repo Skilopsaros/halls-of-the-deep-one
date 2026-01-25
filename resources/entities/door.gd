@@ -15,5 +15,11 @@ func get_choices() -> Array[Dictionary]:
 	return(choices)
 
 func next_room(entity_node:Entity):
+	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
+	if player_inventory.items:
+		for item_key in player_inventory.items.keys():
+			if Enums.item_tags.liquid in player_inventory.items[item_key].tags:
+				character.take_insanity(1)
 	entity_node.get_node("/root/Main").init_next_room()
 	entity_node.clear_self()

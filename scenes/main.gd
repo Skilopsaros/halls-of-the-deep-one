@@ -16,8 +16,8 @@ var next_room: int = 0
 func _ready() -> void:
 	var player_inventory:Inventory = inventory_manager.player_inventory
 	# example content to try functionality
-	player_inventory.add_item(ItemManager.get_item_by_name("gem"),7)
-	player_inventory.add_item(ItemManager.get_item_by_name("amulet"),2)
+	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),7)
+	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),2)
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
 	#for i in range(20):
