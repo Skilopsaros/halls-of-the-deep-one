@@ -63,7 +63,7 @@ layout_mode = 0
 offset_top = -23.0
 offset_right = 140.0
 offset_bottom = 0.5
-color = Color(0.2745626, 0.21794814, 0.17320588, 1)
+color = Color(0.1708, 0.18718001, 0.28, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -86,5 +86,6 @@ texture_normal = SubResource("AtlasTexture_rbfvr")
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="HBoxContainer/MovementHandle" to="." method="_on_movement_handle_gui_input"]
 [connection signal="pressed" from="HBoxContainer/ClosingX" to="." method="_on_closing_x_pressed"]
 [connection signal="pressed" from="HBoxContainer/MinimizingV" to="." method="_on_minimizing_v_pressed"]

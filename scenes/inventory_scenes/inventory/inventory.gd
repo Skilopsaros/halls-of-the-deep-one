@@ -64,6 +64,22 @@ func _ready() -> void:
 	size.y = rows*30
 	$ColorRect.size.x = cols*30
 
+var window_drag_offset:Vector2 = Vector2(0.0,0.0)
+var dragging:bool = false
+
+func _on_movement_handle_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if movable and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not dragging:
+			self.get_parent().get_parent().move_inventory_to_foreground(self)
+			dragging = true
+			window_drag_offset = position - get_global_mouse_position()
+		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and dragging:
+			dragging = false
+			
+func _process(_delta: float) -> void:
+	if dragging:
+		position = get_global_mouse_position() + window_drag_offset
+
 func check_placement(item:ItemObject,coordinate:Vector2i) -> bool:
 	for position_vector in item.occupancy: # vectors in godot are value types.
 		# rotate position_vector
