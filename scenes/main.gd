@@ -17,6 +17,7 @@ func _ready() -> void:
 	# example content to show functionality
 	var player_inventory:Inventory = inventory_manager.player_inventory
 	
+	# Setting active slots:
 	# best only done on an empty inventory, otherwise behaviour get's strange when you disable occupied slots
 	# player_inventory.set_active_list([Vector2i(0,0),Vector2i(1,0),Vector2i(1,1),Vector2i(4,4)])
 	

@@ -13,8 +13,6 @@ class_name InventoryManager
 const starting_z_index: int = 2
 const player_UI_spacing: int = 40
 
-@onready var inventory_view_order:Array[Inventory] = []
-
 #### How to use:
 # to generate a new inventory somewhere use this syntax
 	#var chest := inventory_manager.add_inventory(5,3,"Chest")
@@ -32,13 +30,12 @@ func get_inventory_tags() -> Dictionary:
 func _ready() -> void:
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
-		inventory_view_order.append(inventory)
-		#inventory.inventory_changed.connect(_on_inventory_changed)
 	trash.connect("gui_input", _trash_item)
 	self.propagate_call("set_visible", [false])
-	toggle_inventory_visibility()
 
 func toggle_inventory_visibility() -> void:
+	if drag_preview.dragged_item:
+		return
 	if not drag_preview.dragged_item:
 		self.propagate_call("set_visible", [not self.visible])
 	
@@ -96,32 +93,18 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			clicked_item.inventory.position = clicked_item.inventory.get_global_mouse_position()
 
 func move_inventory_to_foreground(inventory: Inventory) -> void:
-	inventory_view_order.erase(inventory)
-	inventory_view_order.append(inventory)
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
-	_update_view_order()
 
 func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false, movable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	# this should work tecnically but maybe it's not helpful
 	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable,movable,initial_active_list)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
-	inventory_view_order.append(new_inventory)
-	_update_view_order()
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 
-func _update_view_order() -> void:
-	pass
-	#for i in range(len(inventory_view_order)):
-		#if inventory_view_order[i] != null: # no clue why this is even necessary
-			#inventory_view_order[i].z_index = starting_z_index + 2*i
-	#drag_preview.z_index = starting_z_index+2*len(inventory_view_order)
-
 func remove_inventory(inventory: Inventory) -> void:
-	inventory_view_order.erase(inventory)
 	inventory.queue_free()
-	_update_view_order()
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	inventory.connect("cell_clicked", _on_inventory_slot_input)
