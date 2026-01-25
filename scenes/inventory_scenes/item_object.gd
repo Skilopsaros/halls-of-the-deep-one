@@ -120,3 +120,5 @@ func _transpose(arr) -> Array[Array]:
 func _on_visibility_changed() -> void:
 	if hover_info:
 		hover_info.visible = false
+	if inventory:
+		inventory.visible = false

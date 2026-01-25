@@ -1,15 +1,31 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj12l8y8dx1bi"]
+[gd_scene load_steps=12 format=3 uid="uid://bj12l8y8dx1bi"]
 
 [ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory/inventory_window.gd" id="1_uu43u"]
 [ext_resource type="Theme" uid="uid://b6t8eigy6o4ce" path="res://graphics/themes/medium.tres" id="2_xt5h7"]
-[ext_resource type="Texture2D" uid="uid://br22v3jqhxxvo" path="res://graphics/inventory/inventory_1_maps/inventory_X.tres" id="3_e4u0x"]
-[ext_resource type="Texture2D" uid="uid://bp2eyv2lwons0" path="res://graphics/inventory/inventory_1_maps/inventory_v.tres" id="4_i8ndu"]
+[ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="3_a1j6j"]
 [ext_resource type="PackedScene" uid="uid://cb0s16p8l2v27" path="res://scenes/inventory_scenes/inventory/inventory.tscn" id="5_h12tj"]
 [ext_resource type="Texture2D" uid="uid://d1t37r6js5nn7" path="res://graphics/inventory/border_tl.png" id="7_gnmjf"]
 [ext_resource type="Texture2D" uid="uid://clx07yk58lj3d" path="res://graphics/inventory/border_tr.png" id="8_s3mah"]
-[ext_resource type="Texture2D" uid="uid://dyerufpv7tey4" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TL.tres" id="9_drvh5"]
-[ext_resource type="Texture2D" uid="uid://d3sejw41nl4qm" path="res://graphics/inventory/inventory_1_maps/inventory_corner_TR.tres" id="10_0dndn"]
-[ext_resource type="Texture2D" uid="uid://by8er07op0ewk" path="res://graphics/inventory/inventory_1_maps/inventory_flourish_top.tres" id="11_pujvh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv05t"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(0, 80, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyph2"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(20, 80, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhanp"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(0, 0, 40, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h12tj"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(60, 0, 40, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu43u"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(39, 0, 22, 12)
 
 [node name="InventoryWindow" type="Node2D"]
 script = ExtResource("1_uu43u")
@@ -45,7 +61,7 @@ anchor_right = 1.0
 offset_left = -20.0
 offset_bottom = 20.0
 grow_horizontal = 0
-texture = ExtResource("3_e4u0x")
+texture = SubResource("AtlasTexture_cv05t")
 stretch_mode = 2
 
 [node name="MinimizingV" type="TextureRect" parent="BackgroundRect"]
@@ -57,7 +73,7 @@ offset_left = -20.0
 offset_bottom = 20.0
 grow_horizontal = 0
 mouse_filter = 0
-texture = ExtResource("4_i8ndu")
+texture = SubResource("AtlasTexture_cyph2")
 stretch_mode = 2
 
 [node name="Inventory" parent="." instance=ExtResource("5_h12tj")]
@@ -101,7 +117,7 @@ offset_right = 25.0
 offset_bottom = 32.0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("9_drvh5")
+texture = SubResource("AtlasTexture_nhanp")
 stretch_mode = 2
 
 [node name="CornerTR" type="TextureRect" parent="Decoration"]
@@ -116,7 +132,7 @@ offset_bottom = 32.0
 grow_horizontal = 0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("10_0dndn")
+texture = SubResource("AtlasTexture_h12tj")
 stretch_mode = 2
 
 [node name="CenterTop" type="TextureRect" parent="Decoration"]
@@ -129,7 +145,7 @@ offset_top = -10.0
 offset_bottom = 2.0
 grow_horizontal = 2
 scale = Vector2(2, 2)
-texture = ExtResource("11_pujvh")
+texture = SubResource("AtlasTexture_uu43u")
 stretch_mode = 2
 
 [connection signal="gui_input" from="BackgroundRect/ClosingX" to="." method="_closing_x_pressed"]

@@ -4,8 +4,6 @@ extends Control
 
 var dragged_item: ItemObject = null:
 	set = set_dragged_item
-	
-@onready var item_icon := $ItemIcon
 
 func set_dragged_item(item: ItemObject) -> void:
 	dragged_item = item
@@ -18,7 +16,7 @@ func set_dragged_item(item: ItemObject) -> void:
 func _process(_delta: float) -> void:
 	if not dragged_item:
 		return
-	dragged_item.position = get_global_mouse_position()
+	dragged_item.position = get_global_mouse_position()/scale.x
 	if Input.is_action_just_pressed("rotate_item"):
 		if dragged_item:
 			dragged_item.rotate_90()

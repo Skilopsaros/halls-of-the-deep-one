@@ -2,8 +2,11 @@ extends Control
 class_name Inventory
 
 @onready var items:Node = $InventoryLayer/Items
-@onready var title_label:Label = $Label
-@onready var inventory_layer = $InventoryLayer
+@onready var title_label:Label = $HBoxContainer/Label
+@onready var inventory_layer:TileMapLayer = $InventoryLayer
+@onready var closing_x:TextureButton = $HBoxContainer/ClosingX
+@onready var minimizing_v:TextureButton = $HBoxContainer/MinimizingV
+@onready var movement_handle:TextureRect = $HBoxContainer/MovementHandle
 
 signal cell_clicked
 signal inventory_changed
@@ -19,39 +22,30 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closes_on_item_placement:bool = false
-@export var closable:bool
-@export var minimizable:bool
+@export var closable:bool = false
+@export var minimizable:bool = false
+@export var movable:bool = false
 enum TILES {OCCUPIED,FREE,INACTIVE}
 
 var occupancy_dict:Dictionary = {}
 var active_list:Array[Vector2i] = []
 
-static func constructor(new_rows: int, new_cols: int, new_title:String, new_closable:bool ,new_minimizable:bool, initial_active_list:Array[Vector2i]=[]) -> Inventory:
+static func constructor(new_rows: int, new_cols: int, new_title:String, new_closable:bool ,new_minimizable:bool, new_movable:bool = true, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	var obj:Inventory = self_scene.instantiate()
 	obj.rows = new_rows
 	obj.cols = new_cols
 	obj.title = new_title
 	obj.closable = new_closable
 	obj.minimizable = new_minimizable
+	obj.movable = new_movable
 	obj.active_list = initial_active_list.duplicate() # we do not want any call by reference bugs
 	return obj
 
 func set_active_list(new_active_list:Array[Vector2i]) -> void:
 	active_list = new_active_list.duplicate()
 	update_inventory_tiles()
-#
-#func update_active_cells() -> void:
-	#for i:int in range(cols):
-		#for j:int in range(rows):
-			#var coordinate := Vector2i(i,j)
-			#var tile_coordinate:Vector2i
-			#if coordinate in active_list or len(active_list) == 0:
-				#tile_coordinate = inventory_layer.tile_set.get_source(world_atlas_id).get_tile_id(TILES.FREE)
-			#else:
-				#tile_coordinate = inventory_layer.tile_set.get_source(world_atlas_id).get_tile_id(TILES.INACTIVE)
-			#inventory_layer.set_cell(Vector2(i,j),world_atlas_id,tile_coordinate)
 
-func _input(event:InputEvent) -> void:
+func _gui_input(event:InputEvent) -> void:
 	if input_supressed:
 		return
 	if event is InputEventMouseButton:
@@ -65,8 +59,10 @@ func _input(event:InputEvent) -> void:
 func _ready() -> void:
 	title_label.text = title
 	update_inventory_tiles()
+	update_top_bar_tools_visibility()
 	size.x = cols*30
 	size.y = rows*30
+	$ColorRect.size.x = cols*30
 
 func check_placement(item:ItemObject,coordinate:Vector2i) -> bool:
 	for position_vector in item.occupancy: # vectors in godot are value types.
@@ -96,8 +92,8 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	# if so update everything
 	item.location = coordinate
 	add_occupancy(item)
-	update_item_position(item)
 	item.reparent(items)
+	update_item_position(item)
 	update_inventory_tiles()
 	inventory_changed.emit(self,item,"add")
 	if not visible:
@@ -142,7 +138,7 @@ func update_item_position(item:ItemObject) -> void:
 	var rotated_origin = item.origin # vectors are copied by value by default
 	for _i in range(item.orientation):
 		rotated_origin = Vector2i(-rotated_origin[1],rotated_origin[0])
-	var world_position:Vector2 = inventory_layer.to_global(inventory_layer.map_to_local(item.location))
+	var world_position:Vector2 = inventory_layer.map_to_local(item.location)
 	item.position = world_position
 
 func add_occupancy(item:ItemObject) -> void:
@@ -191,6 +187,19 @@ func get_contained_tags() -> Array[Enums.item_tags]:
 
 func _on_visibility_changed() -> void:
 	self.propagate_call("set_visible", [self.visible])
-	#if self.visible and items:
-		#for item in items.get_children():
-			#update_item_position(item)
+	update_top_bar_tools_visibility()
+
+func update_top_bar_tools_visibility() -> void:
+	if not closable and closing_x:
+		closing_x.hide()
+	if not minimizable and minimizing_v:
+		minimizing_v.hide()
+	if not movable and movement_handle:
+		movement_handle.hide()
+
+func _on_closing_x_pressed() -> void:
+	self.inventory_closing.emit(self)
+
+
+func _on_minimizing_v_pressed() -> void:
+	self.visible = false
