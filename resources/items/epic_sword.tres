@@ -14,7 +14,6 @@ stat_modifiers = Dictionary[int, int]({
 1: 3,
 3: 5
 })
-value = 20
-movable = true
+value = 125
 flavour_text = "Has seen better days"
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

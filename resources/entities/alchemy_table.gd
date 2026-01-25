@@ -1,11 +1,11 @@
 extends EntityData
 class_name AlchemyTable
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
-@export var pillage_inventory_size: Vector2i = Vector2i(1,1)
+@export var skin: Texture = load("res://graphics/entities/alchemy_table.png")
+@export var pillage_inventory_size: Vector2i = Vector2i(1,2)
 @export var pillage_items: Dictionary[String, int] = {"empty_bottle":0}
 @export var experiment_threshold: int = 10
-@export var experiment_inventory_size: Vector2i = Vector2i(1,1)
+@export var experiment_inventory_size: Vector2i = Vector2i(1,2)
 @export var experiment_items: Dictionary[String, int] = {"strange_brew":0}
 @export var experiment_insanity: int = 4
 
@@ -55,14 +55,21 @@ func alchemise(entity_node:Entity):
 	alchemy_table_inventory.closes_on_item_placement = true
 	alchemy_table_inventory.connect("inventory_closing", alchemise_after_closed_inventory.bind(entity_node))
 	
-func alchemise_after_closed_inventory(inventory, entity_node):
+func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	if inventory.items:
 		for item in inventory.items.values():
 			if item.name == "strange_brew":
-				character.heal_insanity(5)
+				character.change_stats(Enums.stats.occult, 1)
+			if item.name == "acid":
+				character.heal_insanity(10)
 			if item.name == "blood":
-				character.heal_damage(5)
+				character.heal_damage(10)
+			if item.name == "ectoplasm":
+				character.change_stats(Enums.stats.perception, 1)
+		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
+		var alchemy_table_inventory := inventory_manager.add_inventory(1,2,"Alchemy Table")
+		alchemy_table_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"), 0)
 		entity_node.clear_self()
 
 

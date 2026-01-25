@@ -16,22 +16,16 @@ var next_room: int = 0
 func _ready() -> void:
 	# example content to show functionality
 	var player_inventory:Inventory = inventory_manager.player_inventory
-	
 	# Setting active slots:
 	# best only done on an empty inventory, otherwise behaviour get's strange when you disable occupied slots
 	# player_inventory.set_active_list([Vector2i(0,0),Vector2i(1,0),Vector2i(1,1),Vector2i(4,4)])
 	
-	var new_item:ItemObject = ItemManager.get_item_by_name("shoe")
-	player_inventory.add_item(new_item,Vector2i(1,0))
 	
-	new_item = ItemManager.get_item_by_name("gem")
-	player_inventory.add_item(new_item,Vector2i(6,2))
-	
-	new_item = ItemManager.get_item_by_name("backpack")
-	player_inventory.add_item_at_first_possible_position(new_item)
-	#player_inventory.add_item(ItemManager.get_item_by_name("amulet"),2)
-	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
-	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
+	# example content to try functionality
+	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),7)
+	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),2)
+	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
+	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
 	#for i in range(20):
 		#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
 	#menu_hud.clear_log()

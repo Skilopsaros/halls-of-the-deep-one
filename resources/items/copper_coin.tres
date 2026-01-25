@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bxfnyn8bgufmh"]
+
+[ext_resource type="Texture2D" uid="uid://c7qdogw57g8kp" path="res://graphics/items/coin1.png" id="1_vg3t7"]
+[ext_resource type="Texture2D" uid="uid://bu4whwvc3ma78" path="res://graphics/items/coin2.png" id="2_7fnwn"]
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="3_m6sxe"]
+
+[resource]
+script = ExtResource("3_m6sxe")
+name = "copper_coin"
+title = "Coin"
+texture = ExtResource("2_7fnwn")
+alternative_textures = Array[Texture]([ExtResource("1_vg3t7"), ExtResource("2_7fnwn")])
+occupancy_matrix = "1"
+tags = Array[int]([7])
+stat_modifiers = Dictionary[int, int]({})
+value = 1
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
