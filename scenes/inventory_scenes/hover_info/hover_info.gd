@@ -1,14 +1,15 @@
 extends Control
+class_name HoverInfo
 
-@onready var title_label := $TitleLabel
-@onready var text_label := $TextLabel
-@onready var flavour_label := $FlavourLabel
+@onready var title_label := $VBoxContainer/TitleLabel
+@onready var text_label := $VBoxContainer/Container/TextLabel
+@onready var flavour_label := $VBoxContainer/FlavourLabel
 
 func _ready() -> void:
 	visible = false
 
 func display_item_data(item:Item) -> void:
-	var text_to_display: String 
+	var text_to_display: String = ""
 	if item.title != "":
 		title_label.text = "[b]" + item.title 
 	else:

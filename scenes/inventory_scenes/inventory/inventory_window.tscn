@@ -1,0 +1,152 @@
+[gd_scene load_steps=12 format=3 uid="uid://bj12l8y8dx1bi"]
+
+[ext_resource type="Script" uid="uid://bjn5y25wrvv0p" path="res://scenes/inventory_scenes/inventory/inventory_window.gd" id="1_uu43u"]
+[ext_resource type="Theme" uid="uid://b6t8eigy6o4ce" path="res://graphics/themes/medium.tres" id="2_xt5h7"]
+[ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="3_a1j6j"]
+[ext_resource type="PackedScene" uid="uid://cb0s16p8l2v27" path="res://scenes/inventory_scenes/inventory/inventory.tscn" id="5_h12tj"]
+[ext_resource type="Texture2D" uid="uid://d1t37r6js5nn7" path="res://graphics/inventory/border_tl.png" id="7_gnmjf"]
+[ext_resource type="Texture2D" uid="uid://clx07yk58lj3d" path="res://graphics/inventory/border_tr.png" id="8_s3mah"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv05t"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(0, 80, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyph2"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(20, 80, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhanp"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(0, 0, 40, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h12tj"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(60, 0, 40, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu43u"]
+atlas = ExtResource("3_a1j6j")
+region = Rect2(39, 0, 22, 12)
+
+[node name="InventoryWindow" type="Node2D"]
+script = ExtResource("1_uu43u")
+
+[node name="BackgroundRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+
+[node name="InnerColorRect" type="ColorRect" parent="BackgroundRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.0823529, 0.101961, 0.172549, 1)
+
+[node name="Title" type="Label" parent="BackgroundRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 22.0
+grow_horizontal = 2
+theme = ExtResource("2_xt5h7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClosingX" type="TextureRect" parent="BackgroundRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+texture = SubResource("AtlasTexture_cv05t")
+stretch_mode = 2
+
+[node name="MinimizingV" type="TextureRect" parent="BackgroundRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+mouse_filter = 0
+texture = SubResource("AtlasTexture_cyph2")
+stretch_mode = 2
+
+[node name="Inventory" parent="." instance=ExtResource("5_h12tj")]
+
+[node name="Decoration" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="BorderTL" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+offset_left = 62.0
+offset_top = -4.0
+offset_right = 92.0
+offset_bottom = 1.0
+scale = Vector2(2, 2)
+texture = ExtResource("7_gnmjf")
+stretch_mode = 1
+
+[node name="BorderTR" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = -4.0
+offset_right = 10.0
+offset_bottom = 1.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+texture = ExtResource("8_s3mah")
+stretch_mode = 1
+
+[node name="CornerTL" type="TextureRect" parent="Decoration"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 25.0
+offset_bottom = 32.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_nhanp")
+stretch_mode = 2
+
+[node name="CornerTR" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -8.0
+offset_right = -24.0
+offset_bottom = 32.0
+grow_horizontal = 0
+scale = Vector2(2, 2)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_h12tj")
+stretch_mode = 2
+
+[node name="CenterTop" type="TextureRect" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = -10.0
+offset_bottom = 2.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_uu43u")
+stretch_mode = 2
+
+[connection signal="gui_input" from="BackgroundRect/ClosingX" to="." method="_closing_x_pressed"]
+[connection signal="gui_input" from="BackgroundRect/MinimizingV" to="." method="_minimizing_v_pressed"]

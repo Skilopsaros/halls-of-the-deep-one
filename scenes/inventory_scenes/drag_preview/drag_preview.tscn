@@ -5,9 +5,8 @@
 [node name="DragPreview" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+scale = Vector2(2, 2)
 mouse_filter = 2
 script = ExtResource("1_56ygq")
 
-[node name="ItemIcon" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-centered = false
+[node name="DraggedItemParent" type="Node2D" parent="."]
