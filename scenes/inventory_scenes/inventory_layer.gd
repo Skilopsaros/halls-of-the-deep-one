@@ -10,8 +10,8 @@ class_name InventoryManager
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 
-const starting_z_index: int = 2
-const player_UI_spacing: int = 40
+# this desicion is completely arbitrary right now, change if needed
+const max_temp_inventory_size := Vector2i(7,7)
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
@@ -102,6 +102,35 @@ func add_inventory(cols: int, rows: int, title: String, closable:bool = true, mi
 	_initialize_inventory_interactivity(new_inventory)
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
+	
+func create_inventory_from_item_list(item_list:Array[String],title:String) -> void:
+	if len(item_list) == 0:
+		return
+	# define max temp inventory size
+	var item_object_list:Array[ItemObject]
+	var full_content_size:int = 0
+	for key:String in item_list: # generate all item objects
+		var new_item = ItemManager.get_item_by_name(key)
+		item_object_list.append(new_item)
+		full_content_size += len(new_item.occupancy)
+	
+	var columns_to_put:int = 1
+	var rows_to_put:int = 1
+	var new_inventory:Inventory
+	if len(item_object_list) == 1: # only one item to place, let's take a shortcut
+		columns_to_put = item_object_list[0].bounding_box.x
+		rows_to_put = item_object_list[0].bounding_box.y
+		new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
+		new_inventory.add_item_at_first_possible_position(item_object_list[0])
+		return
+	
+	
+	
+	new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
+	var success:bool = true
+	for item_object in item_object_list:
+		success = success and (new_inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1))
+
 
 func remove_inventory(inventory: Inventory) -> void:
 	inventory.queue_free()

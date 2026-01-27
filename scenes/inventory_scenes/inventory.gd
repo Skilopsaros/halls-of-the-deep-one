@@ -13,7 +13,7 @@ signal inventory_changed
 signal inventory_closing
 
 const world_atlas_id:int = 0
-const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
+const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @export var rows:int = 6
 @export var cols:int = 6
