@@ -8,13 +8,13 @@ var second_skin: Texture = load("res://graphics/entities/wizard.png")
 @export var damage: int = 10
 @export var threshold = 12
 @export var inv_size: Vector2i = Vector2i(2,1)
-@export var inv_items: Dictionary[String, int] = {"metal_ingot":0}
+@export var inv_items: Array[String] = ["metal_ingot"]
 @export var gift_size: Vector2i = Vector2i(2,1)
-@export var gift_items: Dictionary[String, int] = {"magic_ingot":0}
+@export var gift_items: Array[String] = ["magic_ingot"]
 @export var loot_size: Vector2i = Vector2i(1,4)
-@export var loot_items: Dictionary[String, int] = {"staff":0}
+@export var loot_items: Array[String] = ["staff"]
 @export var attack_size: Vector2i = Vector2i(4,4)
-@export var attack_items: Dictionary[String, int] = {"staff":0, "magic_ingot":1}
+@export var attack_items: Array[String] = ["staff", "magic_ingot"]
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
@@ -73,7 +73,7 @@ func investigate(entity_node:Entity):
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Chest")
 		for item in inv_items:
-			chest.add_item(ItemManager.get_item_by_name(item), inv_items[item])
+			chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	entity_node.clear_self()
 
 func loot(entity_node:Entity):
@@ -82,14 +82,14 @@ func loot(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(loot_size.x,loot_size.y,"Chest")
 	for item in loot_items:
-		chest.add_item(ItemManager.get_item_by_name(item), loot_items[item])
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	entity_node.clear_self()
 
 func gift(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(gift_size.x,gift_size.y,"Chest")
 	for item in gift_items:
-		chest.add_item(ItemManager.get_item_by_name(item), gift_items[item])
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	entity_node.clear_self()
 
 func boon(entity_node:Entity):
@@ -106,7 +106,7 @@ func attack(entity_node:Entity):
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var chest := inventory_manager.add_inventory(attack_size.x,attack_size.y,"Chest")
 		for item in attack_items:
-			chest.add_item(ItemManager.get_item_by_name(item), attack_items[item])
+			chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	else: 
 		character.take_damge(damage)
 	entity_node.clear_self()

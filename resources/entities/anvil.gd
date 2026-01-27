@@ -72,10 +72,10 @@ func craft_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> vo
 		for item in inventory.items.values():
 			if item.name == "magic_ingot":
 				var craft_inventory := inventory_manager.add_inventory(4,4,"Anvil")
-				craft_inventory.add_item(ItemManager.get_item_by_name("amulet"), 0)
+				craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("amulet"))
 			if item.name == "metal_ingot":
 				var craft_inventory := inventory_manager.add_inventory(4,4,"Anvil")
-				craft_inventory.add_item(ItemManager.get_item_by_name("chain_mail"), 0)
+				craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("chain_mail"))
 		entity_node.clear_self()
 
 func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
@@ -91,7 +91,7 @@ func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> v
 			if item.name == "broken_sword":
 				var craft_inventory := inventory_manager.add_inventory(1,4,"Anvil")
 				if ingot_type == "magic":
-					craft_inventory.add_item(ItemManager.get_item_by_name("epic_sword"), 0)
+					craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("epic_sword"))
 				elif ingot_type == "metal":
-					craft_inventory.add_item(ItemManager.get_item_by_name("sword"), 0)
+					craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("sword"))
 		entity_node.clear_self()

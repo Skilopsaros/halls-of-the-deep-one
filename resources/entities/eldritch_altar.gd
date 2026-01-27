@@ -52,10 +52,10 @@ func fill_cup_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	if inventory.items:
 		var bottle_inventory := inventory_manager.add_inventory(2,2,"Eldritch Altar")
-		bottle_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"), 0)
+		bottle_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("empty_bottle"))
 		for item in inventory.items.values():
 			if item.name == "strange_brew":
-				bottle_inventory.add_item(ItemManager.get_item_by_name("suspicious_eyeball"), 3)
+				bottle_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("suspicious_eyeball"))
 			if item.name == "blood":
 				character.heal_damage(damage)
 				character.take_insanity(insanity)
@@ -72,7 +72,7 @@ func break_altar(entity_node:Entity):
 	if pass_check:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var chest := inventory_manager.add_inventory(2,2,"Altar remains")
-		chest.add_item(ItemManager.get_item_by_name("gem"), 0)
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name("gem"))
 	else:
 		character.take_insanity(insanity)
 	entity_node.clear_self()

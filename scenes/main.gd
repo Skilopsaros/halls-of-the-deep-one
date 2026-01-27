@@ -22,9 +22,9 @@ func _ready() -> void:
 	
 	
 	# example content to try functionality
-	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),7)
-	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),2)
-	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
+	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),Vector2i(1,1))
+	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),Vector2i(2,2))
+	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("gold_coin"))
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
 	#for i in range(20):
 		#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))

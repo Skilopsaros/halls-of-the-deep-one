@@ -3,7 +3,7 @@ class_name Chest
 
 @export var skin: Texture = load("res://graphics/entities/chest.png")
 @export var chest_size: Vector2i = Vector2i(5,5)
-@export var items: Dictionary[String, int] = {"silver_coin":0, "copper_coin":2, "empty_bottle":6}
+@export var items: Array[String] = ["silver_coin", "copper_coin", "empty_bottle"]
 @export var trapped: bool = false
 @export var damage: int = 15
 @export var threshold: int = 15
@@ -95,5 +95,5 @@ func open_chest(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(chest_size.x,chest_size.y,"Chest")
 	for item in items:
-		chest.add_item(ItemManager.get_item_by_name(item), items[item])
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	entity_node.clear_self()

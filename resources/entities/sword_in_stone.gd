@@ -7,8 +7,8 @@ var second_skin: Texture = load("res://graphics/entities/sword_monster.png")
 @export var damage: int = 10
 @export var damage_increase: int = 15
 @export var inv_size: Vector2i = Vector2i(4,1)
-@export var broken_sword: Dictionary[String, int] = {"broken_sword":0}
-@export var sword: Dictionary[String, int] = {"epic_sword":0}
+@export var broken_sword: Array[String] = ["broken_sword"]
+@export var sword: Array[String] = ["epic_sword"]
 
 @export var attack_damage: int = 15
 @export var consume_insanity: int = 5
@@ -47,7 +47,7 @@ func break_sword(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Stone")
 	for item in broken_sword:
-		chest.add_item(ItemManager.get_item_by_name(item), broken_sword[item])
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
 	entity_node.clear_self()
 
 func pull_sword(entity_node:Entity):
@@ -101,4 +101,4 @@ func give_sword(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Stone")
 	for item in sword:
-		chest.add_item(ItemManager.get_item_by_name(item), sword[item])
+		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
