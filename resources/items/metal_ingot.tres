@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cdoixew430cq8"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cdoixew430cq8"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_gfj7n"]
-[ext_resource type="Texture2D" uid="uid://cwts7by44nvh0" path="res://graphics/items/ingot.png" id="2_gfj7n"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_4k7ln"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4du3"]
+atlas = ExtResource("2_4k7ln")
+region = Rect2(155, 5, 50, 20)
 
 [resource]
 script = ExtResource("1_gfj7n")
 name = "metal_ingot"
 title = "Metal Ingot"
-texture = ExtResource("2_gfj7n")
+texture = SubResource("AtlasTexture_s4du3")
 occupancy_matrix = "1,1"
 tags = Array[int]([5])
 value = 10

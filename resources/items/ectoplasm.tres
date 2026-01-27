@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cuduylibti74s"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cuduylibti74s"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_i6txe"]
-[ext_resource type="Texture2D" uid="uid://3yv0tkjp7vyl" path="res://graphics/items/strange_brew.png" id="2_sayee"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_i6txe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sayee"]
+atlas = ExtResource("2_i6txe")
+region = Rect2(5, 95, 20, 50)
 
 [resource]
 script = ExtResource("1_i6txe")
 name = "ectoplasm"
 title = "Ectoplasm"
-texture = ExtResource("2_sayee")
+texture = SubResource("AtlasTexture_sayee")
 occupancy_matrix = "1
 1"
 tags = Array[int]([3])

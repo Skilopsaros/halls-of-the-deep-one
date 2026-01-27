@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://7msxntxxectx"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://7msxntxxectx"]
 
-[ext_resource type="Texture2D" uid="uid://c7qdogw57g8kp" path="res://graphics/items/coin1.png" id="1_on1v2"]
-[ext_resource type="Texture2D" uid="uid://bu4whwvc3ma78" path="res://graphics/items/coin2.png" id="2_ghr6d"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_cic4o"]
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="3_n87gn"]
-[ext_resource type="Texture2D" uid="uid://coh1u0xgarg15" path="res://graphics/items/coin.png" id="4_gba0e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm8wh"]
+atlas = ExtResource("2_cic4o")
+region = Rect2(125, 65, 20, 20)
 
 [resource]
 script = ExtResource("3_n87gn")
 name = "suspicious_eyeball"
 title = "Suspicious Eyeball"
-texture = ExtResource("4_gba0e")
-alternative_textures = Array[Texture]([ExtResource("1_on1v2"), ExtResource("2_ghr6d")])
+texture = SubResource("AtlasTexture_tm8wh")
 occupancy_matrix = "1"
 tags = Array[int]([6])
 stat_modifiers = Dictionary[int, int]({})

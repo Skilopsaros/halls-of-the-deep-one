@@ -1,15 +1,17 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://d0vyik7badvvy"]
 
-[ext_resource type="Texture2D" uid="uid://c7qdogw57g8kp" path="res://graphics/items/coin1.png" id="1_k3tad"]
-[ext_resource type="Texture2D" uid="uid://bu4whwvc3ma78" path="res://graphics/items/coin2.png" id="2_8wyg4"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_s3w6y"]
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="3_ywpun"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgri3"]
+atlas = ExtResource("2_s3w6y")
+region = Rect2(35, 5, 20, 20)
 
 [resource]
 script = ExtResource("3_ywpun")
 name = "silver_coin"
 title = "Coin"
-texture = ExtResource("1_k3tad")
-alternative_textures = Array[Texture]([ExtResource("1_k3tad"), ExtResource("2_8wyg4")])
+texture = SubResource("AtlasTexture_kgri3")
 occupancy_matrix = "1"
 tags = Array[int]([7])
 stat_modifiers = Dictionary[int, int]({})

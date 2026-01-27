@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b8cvve82acx1u"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b8cvve82acx1u"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_poc6y"]
-[ext_resource type="Texture2D" uid="uid://d1uxbe1ahk76b" path="res://graphics/items/sword.png" id="2_yw6yr"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_poc6y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw6yr"]
+atlas = ExtResource("2_poc6y")
+region = Rect2(5, 216, 50, 20)
 
 [resource]
 script = ExtResource("1_poc6y")
 name = "broken_sword"
 title = "Broken Sword"
-texture = ExtResource("2_yw6yr")
+texture = SubResource("AtlasTexture_yw6yr")
 occupancy_matrix = "1,1"
 tags = Array[int]([0, 4])
 stat_modifiers = Dictionary[int, int]({

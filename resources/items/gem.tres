@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://doypvfk0vsns4"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://doypvfk0vsns4"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_2bghf"]
-[ext_resource type="Texture2D" uid="uid://c3rw015oca0rw" path="res://graphics/items/gem.png" id="2_vshvr"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_vshvr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_askgy"]
+atlas = ExtResource("2_vshvr")
+region = Rect2(215, 5, 20, 49)
 
 [resource]
 script = ExtResource("1_2bghf")
 name = "gem"
 title = "Gem"
-texture = ExtResource("2_vshvr")
+texture = SubResource("AtlasTexture_askgy")
 occupancy_matrix = "1
 1"
 tags = Array[int]([7])
