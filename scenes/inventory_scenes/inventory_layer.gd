@@ -9,6 +9,7 @@ class_name InventoryManager
 @onready var player_weapon:= $Inventories/EquipmentWeapon
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
+@onready var entitiy_inventory:= $Inventories/EntityInventory
 
 # this desicion is completely arbitrary right now, change if needed
 const max_temp_inventory_size := Vector2i(7,7)
@@ -94,17 +95,28 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
 
-func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false, movable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
+func add_inventory(cols: int, rows: int, title: String = "", closable:bool = true, minimizable:bool = false, movable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	# this should work tecnically but maybe it's not helpful
-	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable,movable,initial_active_list)
+	var new_inventory: Inventory = Inventory.constructor(cols,rows,title,closable,minimizable,movable,initial_active_list)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
+
+func add_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+	var initial_active_list:Array[Vector2i] = []
+	for i in range(cols):
+		for j in range(rows):
+			initial_active_list.append(Vector2i(i,j))
+	var new_inventory: Inventory = add_inventory(7, 24, title, true, false, false, initial_active_list)
+	new_inventory.filters = filters
+	new_inventory.position = Vector2(232,53)
+	new_inventory.closes_on_item_placement = true
+	return new_inventory
+
 	
 func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
-	# TODO replace with the hidden inventory node
-	var inventory:Inventory = player_inventory
+	var inventory:Inventory = entitiy_inventory
 	
 	var item_object_list:Array[ItemObject]
 	var full_content_size:int = 0
@@ -183,7 +195,6 @@ func add_inventory_from_item_list(item_list:Array[String],title:String) -> void:
 		else:
 			columns_to_put += 1
 		
-
 func remove_inventory(inventory: Inventory) -> void:
 	for item in inventory.items.get_children():
 		inventory.destroy_item(item)

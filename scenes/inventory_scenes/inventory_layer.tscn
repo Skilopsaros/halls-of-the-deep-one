@@ -29,14 +29,6 @@ stretch_mode = 2
 
 [node name="Inventories" type="Node" parent="."]
 
-[node name="EntityInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
-offset_left = 232.0
-offset_top = 53.0
-offset_right = 272.0
-offset_bottom = 93.0
-rows = 7
-cols = 24
-
 [node name="PlayerInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
 offset_top = 43.0
@@ -45,6 +37,16 @@ offset_bottom = 83.0
 rows = 7
 cols = 7
 
+[node name="EntityInventory" parent="Inventories" instance=ExtResource("3_s2ubw")]
+visible = false
+offset_left = 232.0
+offset_top = 53.0
+offset_right = 272.0
+offset_bottom = 93.0
+rows = 7
+cols = 24
+minimizable = true
+
 [node name="EquipmentWeapon" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
 offset_top = 403.0
@@ -52,8 +54,6 @@ offset_right = 56.0
 offset_bottom = 443.0
 rows = 3
 cols = 7
-title = "Weapon"
-filters = Array[int]([0])
 
 [node name="EquipmentArmour" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 136.0
@@ -62,8 +62,6 @@ offset_right = 176.0
 offset_bottom = 323.0
 rows = 3
 cols = 3
-title = "Armour"
-filters = Array[int]([2])
 
 [node name="EquipmentAccessory" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
@@ -72,7 +70,5 @@ offset_right = 56.0
 offset_bottom = 323.0
 rows = 3
 cols = 3
-title = "Accessory"
-filters = Array[int]([1])
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]
