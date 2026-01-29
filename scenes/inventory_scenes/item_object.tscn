@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqtipaietq3lm"]
 
 [ext_resource type="Script" uid="uid://d0h6ja7qitdu" path="res://scenes/inventory_scenes/item_object.gd" id="1_uu01i"]
-[ext_resource type="PackedScene" uid="uid://d4bwde7tln134" path="res://scenes/inventory_scenes/hover_info/hover_info.tscn" id="2_o7ip7"]
+[ext_resource type="PackedScene" uid="uid://d4bwde7tln134" path="res://scenes/inventory_scenes/hover_info.tscn" id="2_o7ip7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7ip7"]
 size = Vector2(0, 0)

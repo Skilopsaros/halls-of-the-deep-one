@@ -14,7 +14,7 @@ signal inventory_changed
 signal inventory_closing
 
 const world_atlas_id:int = 0
-const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
+const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @export var rows:int = 6
 @export var cols:int = 6
@@ -31,6 +31,8 @@ enum TILES {OCCUPIED,FREE,INACTIVE}
 var occupancy_dict:Dictionary = {}
 var active_list:Array[Vector2i] = []
 
+var is_bag:bool = false
+
 static func constructor(new_rows: int, new_cols: int, new_title:String, new_closable:bool ,new_minimizable:bool, new_movable:bool = true, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	var obj:Inventory = self_scene.instantiate()
 	obj.rows = new_rows
@@ -45,6 +47,26 @@ static func constructor(new_rows: int, new_cols: int, new_title:String, new_clos
 func set_active_list(new_active_list:Array[Vector2i]) -> void:
 	active_list = new_active_list.duplicate()
 	update_inventory_tiles()
+
+func add_to_active_list(slots_to_add:Array[Vector2i]) -> void:
+	for slot in slots_to_add:
+		if not slot in active_list:
+			active_list.append(slot)
+	update_inventory_tiles()
+
+func set_active_rectangle(width:int,height:int) -> void:
+	if width > self.cols:
+		width = self.cols
+	if height > self.rows:
+		rows = self.rows
+	
+	var padding_v:int = floor((rows-height)/2.)
+	var padding_h:int = floor((cols-width)/2.)
+	var new_active_list:Array[Vector2i] = []
+	for i in range(width):
+		for j in range(height):
+			new_active_list.append(Vector2i(i+padding_h,j+padding_v))
+	set_active_list(new_active_list)
 
 func _gui_input(event:InputEvent) -> void:
 	if input_supressed:
@@ -104,7 +126,7 @@ func _check_filter_ok(item: ItemObject) -> bool:
 func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	if not check_placement(item,coordinate) or not _check_filter_ok(item):
 		return false
-	if item.inventory and item.inventory == self: # don't put a bag into itself please
+	if item.inventory and self.is_bag: # don't put a bags into bags
 		return false
 	# if so update everything
 	item.location = coordinate
@@ -125,6 +147,10 @@ func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	items.remove_child(item_to_remove)
 	inventory_changed.emit(self,item_to_remove,"remove")
 	return item_to_remove
+	
+func destroy_item(item_to_remove:ItemObject) -> void:
+	remove_item(item_to_remove)
+	item_to_remove.destroy_self()
 	
 func remove_item_by_name(item_name: String) -> ItemObject:
 	for item in items.get_children():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cb0s16p8l2v27"]
 
 [ext_resource type="Texture2D" uid="uid://dbxypeo72xauc" path="res://graphics/inventory/inventory_tilemap.png" id="1_0kf6p"]
-[ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory/inventory.gd" id="1_uov6c"]
+[ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
 [ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="3_pc1ti"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5rcul"]

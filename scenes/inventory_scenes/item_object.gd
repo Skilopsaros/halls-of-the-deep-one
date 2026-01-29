@@ -10,6 +10,7 @@ var location:Vector2i
 var orientation:int = 0
 var origin:Vector2i # the point in the item where it will be grabbed and from where the occupancy is calculated
 var occupancy:Array[Vector2i]
+var bounding_box:Vector2i
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/item_object.tscn")
 
 var inventory:Inventory = null # only used for container items
@@ -70,6 +71,8 @@ func _derive_occupancy() -> void:
 		var temp = row.split(",")
 		occupancy_temp.append(temp)
 	
+	bounding_box.y = len(occupancy_temp) # vertical
+	bounding_box.x = len(occupancy_temp[0]) # horizontal
 	origin = Vector2i(0,0)
 	for entry in occupancy_temp[0]:
 		if entry == '0':
@@ -122,3 +125,14 @@ func _on_visibility_changed() -> void:
 		hover_info.visible = false
 	if inventory:
 		inventory.visible = false
+
+func destroy_self() -> void:
+	if inventory:
+		inventory.inventory_closing.emit(inventory)
+	self.queue_free()
+
+static func item_size_sorter(a:ItemObject,b:ItemObject) -> bool:
+	if len(a.occupancy) > len(b.occupancy):
+		return true
+	else:
+		return false

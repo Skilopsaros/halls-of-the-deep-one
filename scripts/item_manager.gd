@@ -19,6 +19,7 @@ func get_item_by_name(key:String) -> ItemObject:
 		var inventory:Inventory = get_node("/root/Main").inventory_manager.add_inventory(item.cols,item.rows,item.title,false,true,true)
 		item_object.inventory = inventory
 		inventory.hide()
+		inventory.is_bag = true
 	self.add_child(item_object) # so it's ready function is called and it has a parent to be re-parented from
 	
 	return item_object
