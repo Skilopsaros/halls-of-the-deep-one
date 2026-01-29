@@ -42,7 +42,7 @@ func requirement_torch(entity_node:Entity):
 
 func fill_cup(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var altar_inventory := inventory_manager.show_input_inventory(4,4,[Enums.item_tags.liquid],"Add a Liquid")
+	var altar_inventory := inventory_manager.show_input_inventory(4,4,{},[Enums.item_tags.liquid],"Add a Liquid")
 	altar_inventory.connect("inventory_hiding", fill_cup_after_closed_inventory.bind(entity_node))
 	
 func fill_cup_after_closed_inventory(inventory:Inventory, entity_node:Entity):

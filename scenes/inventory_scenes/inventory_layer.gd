@@ -104,7 +104,7 @@ func add_inventory(cols: int, rows: int, title: String = "", closable:bool = tru
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 
-func show_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+func show_input_inventory(cols: int, rows: int, required_tags:Dictionary[Enums.item_tags, int], filters:Array[Enums.item_tags], title: String = "") -> Inventory:
 	for item in input_inventory.items.get_children():
 		input_inventory.destroy_item(item)
 	var initial_active_list:Array[Vector2i] = []
@@ -113,6 +113,7 @@ func show_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], 
 			initial_active_list.append(Vector2i(i,j))
 	input_inventory.filters = filters
 	input_inventory.title = title
+	input_inventory.required_tags = required_tags
 	input_inventory.show()
 	return input_inventory
 

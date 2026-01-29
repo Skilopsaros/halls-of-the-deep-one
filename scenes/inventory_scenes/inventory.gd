@@ -22,6 +22,9 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @export var input_supressed = false
 @export var title:String
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
+@export var required_tags:Dictionary[Enums.item_tags,int] = {}:
+	set = set_required_tags
+var tag_count:Dictionary[Enums.item_tags,int] = {}
 # if multiple keys are given all of them need to be fulfilled
 @export var closes_on_item_placement:bool = false
 var closing_check:Callable = returns_true
@@ -49,6 +52,10 @@ static func constructor(new_rows: int, new_cols: int, new_title:String, new_clos
 func set_active_list(new_active_list:Array[Vector2i]) -> void:
 	active_list = new_active_list.duplicate()
 	update_inventory_tiles()
+
+func set_required_tags(new_required_tags:Dictionary[Enums.item_tags,int]) -> void:
+	required_tags = new_required_tags
+	update_tag_counts()
 
 func add_to_active_list(slots_to_add:Array[Vector2i]) -> void:
 	for slot in slots_to_add:
@@ -125,15 +132,38 @@ func _check_filter_ok(item: ItemObject) -> bool:
 			return false
 	return true
 
+func _check_tag_counts(item: ItemObject) -> bool:
+	# if there are no tags to check, just return true
+	if len(required_tags.keys()) == 0:
+		return true
+	
+	# otherwise check if the newly to be added item fills out a tag we are missing right now
+	for key in required_tags.keys():
+		if required_tags[key] > tag_count[key] and key in item.data.tags:
+			return true
+	return false
+
+func update_tag_counts() -> void:
+	tag_count = {}
+	for key in required_tags.keys():
+		tag_count[key] = 0
+	for item:ItemObject in items.get_children():
+		var tags:Array[Enums.item_tags] = item.data.tags
+		for key in required_tags.keys():
+			if key in tags:
+				tag_count[key] += 1
+
 func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
-	if not check_placement(item,coordinate) or not _check_filter_ok(item):
+	if not check_placement(item,coordinate) or not _check_filter_ok(item) or not _check_tag_counts(item):
 		return false
+	
 	if item.inventory and self.is_bag: # don't put a bags into bags
 		return false
 	# if so update everything
 	item.location = coordinate
 	add_occupancy(item)
 	item.reparent(items)
+	update_tag_counts()
 	update_item_position(item)
 	update_inventory_tiles()
 	inventory_changed.emit(self,item,"add")
@@ -151,6 +181,7 @@ func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	remove_occupancy(item_to_remove)
 	update_inventory_tiles()
 	items.remove_child(item_to_remove)
+	update_tag_counts()
 	inventory_changed.emit(self,item_to_remove,"remove")
 	return item_to_remove
 	
