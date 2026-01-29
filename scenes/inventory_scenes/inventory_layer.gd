@@ -21,8 +21,8 @@ const max_temp_inventory_size := Vector2i(7,7)
 # to add items to an existing inventory use this
 	#chest.add_item(ItemManager.get_item_by_name("coin"),0)
 
-func get_inventory_tags() -> Dictionary:
-	var dict:Dictionary = {}
+func get_inventory_tags() -> Dictionary[String, Array]:
+	var dict:Dictionary[String, Array] = {}
 	dict["inventory"] = player_inventory.get_contained_tags()
 	dict["weapon"] = player_weapon.get_contained_tags()
 	dict["armour"] = player_armour.get_contained_tags()

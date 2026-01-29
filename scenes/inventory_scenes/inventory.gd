@@ -24,6 +24,7 @@ const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
 # if multiple keys are given all of them need to be fulfilled
 @export var closes_on_item_placement:bool = false
+var closing_check:Callable = returns_true
 @export var closable:bool = false
 @export var minimizable:bool = false
 @export var movable:bool = false
@@ -138,11 +139,14 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	inventory_changed.emit(self,item,"add")
 	if not visible:
 		item.visible = false
-	if closes_on_item_placement:
+	if closes_on_item_placement and closing_check.call(self):
 		emit_signal("inventory_hiding", self)
 		self.hide()
 	return true
 	
+func returns_true(inventory:Inventory) -> bool:
+	return true
+
 func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	remove_occupancy(item_to_remove)
 	update_inventory_tiles()

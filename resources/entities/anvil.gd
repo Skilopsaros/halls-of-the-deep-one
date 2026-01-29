@@ -64,10 +64,10 @@ func repair_close_check(inventory:Inventory) -> bool:
 func craft_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		for item in inventory.items.values():
-			if item.name == "magic_ingot":
+		for item in inventory.items.get_children():
+			if item.data.name == "magic_ingot":
 				inventory_manager.display_hidden_inventory_with_items(["amulet"])
-			if item.name == "metal_ingot":
+			if item.data.name == "metal_ingot":
 				inventory_manager.display_hidden_inventory_with_items(["chain_mail"])
 		entity_node.clear_self()
 
@@ -75,13 +75,13 @@ func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> v
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var ingot_type = ""
-		for item in inventory.items.values():
-			if item.name == "magic_ingot":
+		for item in inventory.items.get_children():
+			if item.data.name == "magic_ingot":
 				ingot_type = "magic"
-			if item.name == "metal_ingot":
+			if item.data.name == "metal_ingot":
 				ingot_type = "metal"
-		for item in inventory.items.values():
-			if item.name == "broken_sword":
+		for item in inventory.items.get_children():
+			if item.data.name == "broken_sword":
 				if ingot_type == "magic":
 					inventory_manager.display_hidden_inventory_with_items(["epic_sword"])
 				elif ingot_type == "metal":
