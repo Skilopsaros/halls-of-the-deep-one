@@ -7,7 +7,6 @@
 size = Vector2(0, 0)
 
 [node name="ItemObject" type="Sprite2D"]
-scale = Vector2(2, 2)
 centered = false
 script = ExtResource("1_uu01i")
 

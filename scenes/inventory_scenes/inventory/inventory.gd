@@ -2,11 +2,12 @@ extends Control
 class_name Inventory
 
 @onready var items:Node = $InventoryLayer/Items
-@onready var title_label:Label = $HBoxContainer/Label
+@onready var title_label:Label = $ColorRect/HBoxContainer/Label
 @onready var inventory_layer:TileMapLayer = $InventoryLayer
-@onready var closing_x:TextureButton = $HBoxContainer/ClosingX
-@onready var minimizing_v:TextureButton = $HBoxContainer/MinimizingV
-@onready var movement_handle:TextureRect = $HBoxContainer/MovementHandle
+@onready var closing_x:TextureButton = $ColorRect/HBoxContainer/ClosingX
+@onready var minimizing_v:TextureButton = $ColorRect/HBoxContainer/MinimizingV
+@onready var movement_handle:TextureRect = $ColorRect/HBoxContainer/MovementHandle
+@onready var top_bar = $ColorRect
 
 signal cell_clicked
 signal inventory_changed
@@ -62,7 +63,7 @@ func _ready() -> void:
 	update_top_bar_tools_visibility()
 	size.x = cols*30
 	size.y = rows*30
-	$ColorRect.size.x = cols*30
+	top_bar.size.x = cols*30
 
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
 var dragging:bool = false
@@ -130,7 +131,11 @@ func remove_item_by_name(item_name: String) -> ItemObject:
 		if item.data.name == item_name:
 			return remove_item(item)
 	return null
-	
+
+func clear_inventory() -> void:
+	for item in items.get_children():
+		remove_item(item)
+
 func remove_item_by_coordinate(coordinate:Vector2i) -> ItemObject:
 	if not coordinate in occupancy_dict or occupancy_dict[coordinate] == null:
 		return null

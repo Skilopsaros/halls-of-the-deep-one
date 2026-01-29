@@ -28,10 +28,10 @@ func get_inventory_tags() -> Dictionary:
 	return dict
 
 func _ready() -> void:
+	player_inventory.top_bar.visible = false
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 	trash.connect("gui_input", _trash_item)
-	self.propagate_call("set_visible", [false])
 
 func toggle_inventory_visibility() -> void:
 	if drag_preview.dragged_item:
@@ -41,7 +41,7 @@ func toggle_inventory_visibility() -> void:
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
-		toggle_inventory_visibility()
+		pass
 
 func _on_inventory_changed(inventory:Inventory, item:ItemObject, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -74,7 +74,6 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			var clicked_item:ItemObject = inventory.occupancy_dict[coordinate]
 			if !clicked_item:
 				return
-			print(clicked_item.name)
 			inventory.remove_item(clicked_item)
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:

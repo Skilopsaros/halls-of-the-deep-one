@@ -20,7 +20,7 @@ func _ready():
 	
 	sprite = Sprite2D.new()
 	sprite.texture = skin
-	sprite.scale = Vector2(2,2)
+	sprite.scale = Vector2(1,1)
 	sprite.offset = Vector2i(20, 65)
 	sprite.material = outline_material
 	add_child(sprite)

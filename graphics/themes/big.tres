@@ -1,5 +1,5 @@
 [gd_resource type="Theme" format=3 uid="uid://duhun5q5swqyn"]
 
 [resource]
-default_font_size = 21
+default_font_size = 16
 Label/colors/font_color = Color(0.897588, 0.864362, 0.819808, 1)
