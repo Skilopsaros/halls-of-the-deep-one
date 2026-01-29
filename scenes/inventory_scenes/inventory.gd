@@ -12,6 +12,7 @@ class_name Inventory
 signal cell_clicked
 signal inventory_changed
 signal inventory_closing
+signal inventory_hiding
 
 const world_atlas_id:int = 0
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
@@ -138,7 +139,8 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	if not visible:
 		item.visible = false
 	if closes_on_item_placement:
-		emit_signal("inventory_closing", self)
+		emit_signal("inventory_hiding", self)
+		self.hide()
 	return true
 	
 func remove_item(item_to_remove:ItemObject) -> ItemObject:

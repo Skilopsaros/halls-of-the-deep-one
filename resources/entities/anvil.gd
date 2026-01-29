@@ -48,19 +48,14 @@ func ignore(entity_node:Entity) -> void:
 
 func craft(entity_node:Entity) -> void:
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var anvil_inventory := inventory_manager.add_inventory(4,4,"Add an Ingot")
-	anvil_inventory.filters = [Enums.item_tags.ingot]
-	anvil_inventory.closes_on_item_placement = true
-	anvil_inventory.connect("inventory_closing", craft_after_closed_inventory.bind(entity_node))
+	var anvil_inventory := inventory_manager.show_input_inventory(4,4,[Enums.item_tags.ingot],"Add an Ingot")
+	anvil_inventory.connect("inventory_hiding", craft_after_closed_inventory.bind(entity_node))
 
 func repair(entity_node:Entity) -> void:
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var anvil_table_inventory := inventory_manager.add_inventory(8,8,"Ingot and Broken equipment")
-	anvil_table_inventory.filters = [Enums.item_tags.ingot]
-	anvil_table_inventory.closes_on_item_placement = true
-	anvil_table_inventory.closing_check = repair_close_check
-	anvil_table_inventory.connect("inventory_closing", repair_after_closed_inventory.bind(entity_node))
-
+	var anvil_table_inventory := inventory_manager.show_input_inventory(8,8,[Enums.item_tags.ingot, Enums.item_tags.broken],"Ingot and Broken equipment")
+	anvil_table_inventory.closing_check = repair_close_check # wtf
+	anvil_table_inventory.connect("inventory_hiding", repair_after_closed_inventory.bind(entity_node))
 
 func repair_close_check(inventory:Inventory) -> bool:
 	var tags = inventory.get_contained_tags()
@@ -71,11 +66,9 @@ func craft_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> vo
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		for item in inventory.items.values():
 			if item.name == "magic_ingot":
-				var craft_inventory := inventory_manager.add_inventory(4,4,"Anvil")
-				craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("amulet"))
+				inventory_manager.display_hidden_inventory_with_items(["amulet"])
 			if item.name == "metal_ingot":
-				var craft_inventory := inventory_manager.add_inventory(4,4,"Anvil")
-				craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("chain_mail"))
+				inventory_manager.display_hidden_inventory_with_items(["chain_mail"])
 		entity_node.clear_self()
 
 func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
@@ -89,9 +82,8 @@ func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> v
 				ingot_type = "metal"
 		for item in inventory.items.values():
 			if item.name == "broken_sword":
-				var craft_inventory := inventory_manager.add_inventory(1,4,"Anvil")
 				if ingot_type == "magic":
-					craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("epic_sword"))
+					inventory_manager.display_hidden_inventory_with_items(["epic_sword"])
 				elif ingot_type == "metal":
-					craft_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("sword"))
+					inventory_manager.display_hidden_inventory_with_items(["sword"])
 		entity_node.clear_self()

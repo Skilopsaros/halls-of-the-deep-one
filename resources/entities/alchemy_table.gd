@@ -44,27 +44,25 @@ func pillage(entity_node:Entity):
 
 func alchemise(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var alchemy_table_inventory := inventory_manager.add_input_inventory(4,4,[Enums.item_tags.liquid],"Add a Liquid")
-	alchemy_table_inventory.connect("inventory_closing", alchemise_after_closed_inventory.bind(entity_node))
+	var alchemy_table_inventory := inventory_manager.show_input_inventory(4,4,[Enums.item_tags.liquid],"Add a Liquid")
+	alchemy_table_inventory.connect("inventory_hiding", alchemise_after_closed_inventory.bind(entity_node))
 	
 func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	print(inventory.items.get_children())
 	if inventory.items.get_children():
 		print(inventory.items.get_children())
 		for item in inventory.items.get_children():
-			print(item.name)
-			if item.name == "strange_brew":
-				character.change_stats(Enums.stats.occult, 1)
-			if item.name == "acid":
+			print(item.data.name)
+			if item.data.name == "strange_brew":
+				character.change_stat(Enums.stats.occult, 1)
+			if item.data.name == "acid":
 				character.heal_insanity(10)
-			if item.name == "blood":
+			if item.data.name == "blood":
 				character.heal_damage(10)
-			if item.name == "ectoplasm":
-				character.change_stats(Enums.stats.perception, 1)
+			if item.data.name == "ectoplasm":
+				character.change_stat(Enums.stats.perception, 1)
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		var items := ["empty_bottle"]
-		inventory_manager.display_hidden_inventory_with_items(items)
+		inventory_manager.display_hidden_inventory_with_items(["empty_bottle"])
 		entity_node.clear_self()
 
 

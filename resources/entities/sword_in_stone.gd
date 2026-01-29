@@ -7,8 +7,6 @@ var second_skin: Texture = load("res://graphics/entities/sword_monster.png")
 @export var damage: int = 10
 @export var damage_increase: int = 15
 @export var inv_size: Vector2i = Vector2i(4,1)
-@export var broken_sword: Array[String] = ["broken_sword"]
-@export var sword: Array[String] = ["epic_sword"]
 
 @export var attack_damage: int = 15
 @export var consume_insanity: int = 5
@@ -45,9 +43,7 @@ func requirement_strange_brew(entity_node:Entity):
 
 func break_sword(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Stone")
-	for item in broken_sword:
-		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(["broken_sword"])
 	entity_node.clear_self()
 
 func pull_sword(entity_node:Entity):
@@ -99,6 +95,4 @@ func avoid(entity_node:Entity):
 
 func give_sword(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Stone")
-	for item in sword:
-		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(["epic_sword"])

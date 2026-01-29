@@ -10,6 +10,7 @@ class_name InventoryManager
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
 @onready var entitiy_inventory:= $Inventories/EntityInventory
+@onready var input_inventory:= $Inventories/InputInventory
 
 # this desicion is completely arbitrary right now, change if needed
 const max_temp_inventory_size := Vector2i(7,7)
@@ -103,16 +104,17 @@ func add_inventory(cols: int, rows: int, title: String = "", closable:bool = tru
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 
-func add_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+func show_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+	for item in input_inventory.items.get_children():
+		input_inventory.destroy_item(item)
 	var initial_active_list:Array[Vector2i] = []
 	for i in range(cols):
 		for j in range(rows):
 			initial_active_list.append(Vector2i(i,j))
-	var new_inventory: Inventory = add_inventory(7, 24, title, true, false, false, initial_active_list)
-	new_inventory.filters = filters
-	new_inventory.position = Vector2(232,53)
-	new_inventory.closes_on_item_placement = true
-	return new_inventory
+	input_inventory.filters = filters
+	input_inventory.title = title
+	input_inventory.show()
+	return input_inventory
 
 	
 func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
