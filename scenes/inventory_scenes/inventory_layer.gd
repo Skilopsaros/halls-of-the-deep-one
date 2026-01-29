@@ -103,7 +103,51 @@ func add_inventory(cols: int, rows: int, title: String, closable:bool = true, mi
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 	
-func create_inventory_from_item_list(item_list:Array[String],title:String) -> void:
+func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
+	# TODO replace with the hidden inventory node
+	var inventory:Inventory = player_inventory
+	
+	var item_object_list:Array[ItemObject]
+	var full_content_size:int = 0
+	for key:String in item_list: # generate all item objects
+		var new_item = ItemManager.get_item_by_name(key)
+		item_object_list.append(new_item)
+		full_content_size += len(new_item.occupancy)
+	
+	# sort the items by size, larger items are porbably harder to place and we want to put them in first
+	item_object_list.sort_custom(ItemObject.item_size_sorter)
+
+	#clear the inventory
+	for item in inventory.items.get_children():
+		inventory.destroy_item(item)
+	
+	var columns_to_put:int = 1
+	var rows_to_put:int = 1
+	if len(item_object_list) == 1:
+		columns_to_put = item_object_list[0].bounding_box.x
+		rows_to_put = item_object_list[0].bounding_box.y
+		inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	
+	columns_to_put = floor(sqrt(full_content_size))
+	rows_to_put = floor(sqrt(full_content_size))
+	inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	for item_object in item_object_list:
+		var success:bool = false
+		while not success:
+			success = inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1)
+			if not success:
+				if columns_to_put > rows_to_put:
+					rows_to_put += 1
+				else:
+					columns_to_put += 1
+				if columns_to_put > inventory.cols and rows_to_put > inventory.rows:
+					inventory.visible = true
+					return # we failed
+				inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	inventory.visible = true
+	return
+
+func add_inventory_from_item_list(item_list:Array[String],title:String) -> void:
 	if len(item_list) == 0:
 		return
 	# define max temp inventory size
@@ -124,15 +168,26 @@ func create_inventory_from_item_list(item_list:Array[String],title:String) -> vo
 		new_inventory.add_item_at_first_possible_position(item_object_list[0])
 		return
 	
+	columns_to_put = floor(sqrt(full_content_size))
+	rows_to_put = floor(sqrt(full_content_size))
 	
-	
-	new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
-	var success:bool = true
-	for item_object in item_object_list:
-		success = success and (new_inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1))
-
+	while true:
+		new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
+		var success:bool = true
+		for item_object in item_object_list:
+			success = success and (new_inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1))
+		if success:
+			return
+		remove_inventory(new_inventory)
+		if columns_to_put > rows_to_put:
+			rows_to_put += 1
+		else:
+			columns_to_put += 1
+		
 
 func remove_inventory(inventory: Inventory) -> void:
+	for item in inventory.items.get_children():
+		inventory.destroy_item(item)
 	inventory.queue_free()
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:

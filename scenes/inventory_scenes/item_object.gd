@@ -125,3 +125,14 @@ func _on_visibility_changed() -> void:
 		hover_info.visible = false
 	if inventory:
 		inventory.visible = false
+
+func destroy_self() -> void:
+	if inventory:
+		inventory.inventory_closing.emit(inventory)
+	self.queue_free()
+
+static func item_size_sorter(a:ItemObject,b:ItemObject) -> bool:
+	if len(a.occupancy) > len(b.occupancy):
+		return true
+	else:
+		return false
