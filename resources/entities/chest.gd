@@ -93,7 +93,5 @@ func open_chest(entity_node:Entity):
 		else:
 			character.take_damage(damage-character.stats[Enums.stats.agility])
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var chest := inventory_manager.add_inventory(chest_size.x,chest_size.y,"Chest")
-	for item in items:
-		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(items)
 	entity_node.clear_self()

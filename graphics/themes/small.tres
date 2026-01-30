@@ -1,5 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bmb6alj3b355v"]
 
 [resource]
-default_font_size = 9
+default_base_scale = 1.4
+default_font_size = 11
 Label/colors/font_color = Color(1, 1, 1, 1)

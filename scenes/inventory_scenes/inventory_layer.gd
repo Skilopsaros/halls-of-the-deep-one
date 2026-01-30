@@ -9,9 +9,11 @@ class_name InventoryManager
 @onready var player_weapon:= $Inventories/EquipmentWeapon
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
+@onready var entitiy_inventory:= $Inventories/EntityInventory
+@onready var input_inventory:= $Inventories/InputInventory
 
-const starting_z_index: int = 2
-const player_UI_spacing: int = 40
+# this desicion is completely arbitrary right now, change if needed
+const max_temp_inventory_size := Vector2i(7,7)
 
 #### How to use:
 # to generate a new inventory somewhere use this syntax
@@ -19,8 +21,8 @@ const player_UI_spacing: int = 40
 # to add items to an existing inventory use this
 	#chest.add_item(ItemManager.get_item_by_name("coin"),0)
 
-func get_inventory_tags() -> Dictionary:
-	var dict:Dictionary = {}
+func get_inventory_tags() -> Dictionary[String, Array]:
+	var dict:Dictionary[String, Array] = {}
 	dict["inventory"] = player_inventory.get_contained_tags()
 	dict["weapon"] = player_weapon.get_contained_tags()
 	dict["armour"] = player_armour.get_contained_tags()
@@ -28,10 +30,10 @@ func get_inventory_tags() -> Dictionary:
 	return dict
 
 func _ready() -> void:
+	player_inventory.top_bar.visible = false
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 	trash.connect("gui_input", _trash_item)
-	self.propagate_call("set_visible", [false])
 
 func toggle_inventory_visibility() -> void:
 	if drag_preview.dragged_item:
@@ -41,7 +43,7 @@ func toggle_inventory_visibility() -> void:
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
-		toggle_inventory_visibility()
+		pass
 
 func _on_inventory_changed(inventory:Inventory, item:ItemObject, event_cause:String)->void:
 	if inventory == player_inventory:
@@ -74,7 +76,6 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			var clicked_item:ItemObject = inventory.occupancy_dict[coordinate]
 			if !clicked_item:
 				return
-			print(clicked_item.name)
 			inventory.remove_item(clicked_item)
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
@@ -95,15 +96,111 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 func move_inventory_to_foreground(inventory: Inventory) -> void:
 	inventories.move_child(inventory,-1) # this makes sure the mouse click priorities are correct
 
-func add_inventory(cols: int, rows: int, title: String, closable:bool = true, minimizable:bool = false, movable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
+func add_inventory(cols: int, rows: int, title: String = "", closable:bool = true, minimizable:bool = false, movable:bool = false, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	# this should work tecnically but maybe it's not helpful
-	var new_inventory := Inventory.constructor(cols,rows,title,closable,minimizable,movable,initial_active_list)
+	var new_inventory: Inventory = Inventory.constructor(cols,rows,title,closable,minimizable,movable,initial_active_list)
 	inventories.add_child(new_inventory)
 	_initialize_inventory_interactivity(new_inventory)
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 
+func show_input_inventory(cols: int, rows: int, required_tags:Dictionary[Enums.item_tags, int], filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+	for item in input_inventory.items.get_children():
+		input_inventory.destroy_item(item)
+	var initial_active_list:Array[Vector2i] = []
+	for i in range(cols):
+		for j in range(rows):
+			initial_active_list.append(Vector2i(i,j))
+	input_inventory.filters = filters
+	input_inventory.title = title
+	input_inventory.required_tags = required_tags
+	input_inventory.show()
+	return input_inventory
+
+	
+func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
+	var inventory:Inventory = entitiy_inventory
+	
+	var item_object_list:Array[ItemObject]
+	var full_content_size:int = 0
+	for key:String in item_list: # generate all item objects
+		var new_item = ItemManager.get_item_by_name(key)
+		item_object_list.append(new_item)
+		full_content_size += len(new_item.occupancy)
+	
+	# sort the items by size, larger items are porbably harder to place and we want to put them in first
+	item_object_list.sort_custom(ItemObject.item_size_sorter)
+
+	#clear the inventory
+	for item in inventory.items.get_children():
+		inventory.destroy_item(item)
+	
+	var columns_to_put:int = 1
+	var rows_to_put:int = 1
+	if len(item_object_list) == 1:
+		columns_to_put = item_object_list[0].bounding_box.x
+		rows_to_put = item_object_list[0].bounding_box.y
+		inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	
+	columns_to_put = floor(sqrt(full_content_size))
+	rows_to_put = floor(sqrt(full_content_size))
+	inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	for item_object in item_object_list:
+		var success:bool = false
+		while not success:
+			success = inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1)
+			if not success:
+				if columns_to_put > rows_to_put:
+					rows_to_put += 1
+				else:
+					columns_to_put += 1
+				if columns_to_put > inventory.cols and rows_to_put > inventory.rows:
+					inventory.visible = true
+					return # we failed
+				inventory.set_active_rectangle(columns_to_put,rows_to_put)
+	inventory.visible = true
+	return
+
+func add_inventory_from_item_list(item_list:Array[String],title:String) -> void:
+	if len(item_list) == 0:
+		return
+	# define max temp inventory size
+	var item_object_list:Array[ItemObject]
+	var full_content_size:int = 0
+	for key:String in item_list: # generate all item objects
+		var new_item = ItemManager.get_item_by_name(key)
+		item_object_list.append(new_item)
+		full_content_size += len(new_item.occupancy)
+	
+	var columns_to_put:int = 1
+	var rows_to_put:int = 1
+	var new_inventory:Inventory
+	if len(item_object_list) == 1: # only one item to place, let's take a shortcut
+		columns_to_put = item_object_list[0].bounding_box.x
+		rows_to_put = item_object_list[0].bounding_box.y
+		new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
+		new_inventory.add_item_at_first_possible_position(item_object_list[0])
+		return
+	
+	columns_to_put = floor(sqrt(full_content_size))
+	rows_to_put = floor(sqrt(full_content_size))
+	
+	while true:
+		new_inventory = add_inventory(columns_to_put,rows_to_put,title,true,false,true,[])
+		var success:bool = true
+		for item_object in item_object_list:
+			success = success and (new_inventory.add_item_at_first_possible_position(item_object) != Vector2i(-1,-1))
+		if success:
+			return
+		remove_inventory(new_inventory)
+		if columns_to_put > rows_to_put:
+			rows_to_put += 1
+		else:
+			columns_to_put += 1
+		
 func remove_inventory(inventory: Inventory) -> void:
+	for item in inventory.items.get_children():
+		inventory.destroy_item(item)
 	inventory.queue_free()
 
 func _initialize_inventory_interactivity(inventory:Inventory) -> void:

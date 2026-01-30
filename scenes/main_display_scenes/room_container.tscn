@@ -8,5 +8,5 @@ script = ExtResource("1_rbjdk")
 
 [node name="RoomOutline" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(640, 230)
 texture = ExtResource("1_27sec")
+centered = false

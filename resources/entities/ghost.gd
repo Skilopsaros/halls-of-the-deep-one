@@ -29,16 +29,16 @@ func get_choices() -> Array[Dictionary]:
 
 func requirement_to_capture(entity_node:Entity):
 	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
-	for item in player_inventory.items.values():
-		if item.name == "empty_bottle":
+	for item in player_inventory.items.get_children():
+		if item.data.name == "empty_bottle":
 			return(true)
 	return(false)
 
 func capture(entity_node:Entity):
 	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
-	if player_inventory.items:
+	if player_inventory.items.get_children():
 		for item_key in player_inventory.items.keys():
-			if player_inventory.items[item_key].name == "empty_bottle":
+			if player_inventory.items[item_key].data.name == "empty_bottle":
 				player_inventory.remove_item(item_key)
 				player_inventory.add_item(ItemManager.get_item_by_name("ectoplasm"), item_key)
 				break

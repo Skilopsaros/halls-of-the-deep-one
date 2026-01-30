@@ -19,9 +19,8 @@ shader_parameter/pixelation_size = 2.0
 script = ExtResource("1_dnds5")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 670)
-scale = Vector2(2, 2)
 texture = ExtResource("1_w4b2m")
+centered = false
 offset = Vector2(0, -3)
 
 [node name="Health_Cur" type="Label" parent="Background"]
@@ -30,21 +29,21 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -311.5
-offset_top = -75.5
-offset_right = -265.5
-offset_bottom = -45.5
+offset_left = -2.5
+offset_top = -46.0
+offset_right = 43.5
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_qlvr2")
-text = "20"
+text = "12"
 horizontal_alignment = 1
 
 [node name="Health_Max" type="Label" parent="Background"]
-offset_left = 24.5
-offset_top = 2.0
-offset_right = 39.5
-offset_bottom = 15.0
+offset_left = 506.5
+offset_top = 502.0
+offset_right = 528.5
+offset_bottom = 522.0
 theme = ExtResource("4_0uiy3")
 text = "/20"
 horizontal_alignment = 1
@@ -55,10 +54,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -375.0
-offset_top = -75.0
-offset_right = -329.0
-offset_bottom = -45.0
+offset_left = -66.0
+offset_top = -45.5
+offset_right = -20.0
+offset_bottom = -15.5
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_qlvr2")
@@ -66,10 +65,10 @@ text = "20"
 horizontal_alignment = 1
 
 [node name="Insanity_Max" type="Label" parent="Background"]
-offset_left = -39.5
-offset_top = 2.0
-offset_right = -24.5
-offset_bottom = 15.0
+offset_left = 442.5
+offset_top = 502.0
+offset_right = 464.5
+offset_bottom = 522.0
 theme = ExtResource("4_0uiy3")
 text = "/20"
 horizontal_alignment = 1
@@ -77,10 +76,10 @@ horizontal_alignment = 1
 [node name="Stats" type="Control" parent="Background"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -263.0
-offset_top = -17.5
-offset_right = -100.0
-offset_bottom = 36.5
+offset_left = 637.0
+offset_top = 494.0
+offset_right = 800.0
+offset_bottom = 548.0
 size_flags_horizontal = 0
 
 [node name="Perception" type="VBoxContainer" parent="Background/Stats"]
@@ -175,45 +174,46 @@ color = Color(1, 1, 1, 0)
 
 [node name="ChromaticSprites" type="Node2D" parent="Background"]
 material = ExtResource("7_2ngfb")
+position = Vector2(479, 270)
 
 [node name="Background" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(0, -3)
+position = Vector2(-2, 240)
 texture = ExtResource("4_2wdk6")
 
 [node name="Candle1" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(69, -4)
+position = Vector2(67, 239)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle2" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(79.5, 9.5)
+position = Vector2(77.5, 252.5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle3" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(-72.5, 6.5)
+position = Vector2(-74.5, 249.5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle4" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(-302.5, -25.5)
+position = Vector2(-183.5, 217.5)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle5" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(-292.5, -5)
+position = Vector2(-173.5, 238)
 texture = ExtResource("9_5hmf3")
 
 [node name="Candle8" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(299, -7)
+position = Vector2(420, 236)
 texture = ExtResource("8_0uiy3")
 
 [node name="Candle7" type="Sprite2D" parent="Background/ChromaticSprites"]
 use_parent_material = true
-position = Vector2(303, -29.5)
+position = Vector2(424, 213.5)
 texture = ExtResource("9_5hmf3")
 
 [node name="Character" parent="." instance=ExtResource("3_ldeky")]

@@ -1,12 +1,12 @@
 extends CanvasLayer
 class_name ChoicesContainer
 
-@onready var hbox_container := $Background/HBoxContainer
+@onready var grid_container := $Background/GridContainer
 
 @export var option_scene : PackedScene
 
 func clear_options() -> void:
-	for n in hbox_container.get_children():
+	for n in grid_container.get_children():
 		n.queue_free()
 
 func add_options_from_options_list(options_list:Array[Dictionary], entity:Entity) -> void:
@@ -19,4 +19,4 @@ func add_options_from_options_list(options_list:Array[Dictionary], entity:Entity
 		option.entity = entity
 		option._ready()
 		option.init_from_dict(o_dict)
-		hbox_container.add_child(option)
+		grid_container.add_child(option)

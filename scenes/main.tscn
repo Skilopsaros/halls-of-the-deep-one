@@ -6,22 +6,28 @@
 [ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_tipki"]
 [ext_resource type="PackedScene" uid="uid://ce6l1qwo0u77n" path="res://scenes/main_display_scenes/room_container.tscn" id="3_sugp2"]
-[ext_resource type="Resource" uid="uid://ckjapun58t78b" path="res://resources/rooms/example_room_2.tres" id="4_85g3d"]
 [ext_resource type="PackedScene" uid="uid://bqa3i600a7odc" path="res://scenes/main_display_scenes/menu_hud.tscn" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bl5rvohfwylcv" path="res://graphics/huds/left_border.png" id="4_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://da27tnlsb8mau" path="res://scenes/room.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c7mms8twfmadh" path="res://scenes/inventory_scenes/inventory_layer.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bs6fv3mwtpegb" path="res://scenes/die.tscn" id="11_ya4ey"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tbgi4")
-room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu"), ExtResource("4_85g3d")])
+room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu")])
+
+[node name="Further_Background" type="Node2D" parent="."]
+
+[node name="right_bar" type="Sprite2D" parent="Further_Background"]
+texture = ExtResource("4_ya4ey")
+centered = false
 
 [node name="ChoisesContainer" parent="." instance=ExtResource("2_0wfyh")]
 
-[node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
-
 [node name="RoomContainer" parent="." instance=ExtResource("3_sugp2")]
 room_scene = ExtResource("6_o6xl0")
+
+[node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
 
 [node name="MenuHud" parent="." instance=ExtResource("4_jyhfs")]
 

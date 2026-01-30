@@ -9,7 +9,7 @@ func init_room(room_data) -> void:
 		room.queue_free()
 		await room.tree_exited
 	room = room_scene.instantiate()
-	room.position = Vector2(640, 230)
+	room.position = Vector2(242, 31)
 	room.data = room_data
 	room.clear_choices.connect(get_parent().choices_container.clear_options)
 	add_child(room)
