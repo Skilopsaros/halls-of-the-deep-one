@@ -21,8 +21,8 @@ const max_temp_inventory_size := Vector2i(7,7)
 # to add items to an existing inventory use this
 	#chest.add_item(ItemManager.get_item_by_name("coin"),0)
 
-func get_inventory_tags() -> Dictionary:
-	var dict:Dictionary = {}
+func get_inventory_tags() -> Dictionary[String, Array]:
+	var dict:Dictionary[String, Array] = {}
 	dict["inventory"] = player_inventory.get_contained_tags()
 	dict["weapon"] = player_weapon.get_contained_tags()
 	dict["armour"] = player_armour.get_contained_tags()
@@ -104,7 +104,7 @@ func add_inventory(cols: int, rows: int, title: String = "", closable:bool = tru
 	new_inventory.position = Vector2i(100,100)
 	return new_inventory
 
-func show_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], title: String = "") -> Inventory:
+func show_input_inventory(cols: int, rows: int, required_tags:Dictionary[Enums.item_tags, int], filters:Array[Enums.item_tags], title: String = "") -> Inventory:
 	for item in input_inventory.items.get_children():
 		input_inventory.destroy_item(item)
 	var initial_active_list:Array[Vector2i] = []
@@ -113,6 +113,7 @@ func show_input_inventory(cols: int, rows: int, filters:Array[Enums.item_tags], 
 			initial_active_list.append(Vector2i(i,j))
 	input_inventory.filters = filters
 	input_inventory.title = title
+	input_inventory.required_tags = required_tags
 	input_inventory.show()
 	return input_inventory
 

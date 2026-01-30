@@ -65,6 +65,7 @@ offset_right = 56.0
 offset_bottom = 443.0
 rows = 3
 cols = 7
+filters = Array[int]([0])
 
 [node name="EquipmentArmour" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 136.0
@@ -73,6 +74,7 @@ offset_right = 176.0
 offset_bottom = 323.0
 rows = 3
 cols = 3
+filters = Array[int]([2])
 
 [node name="EquipmentAccessory" parent="Inventories" instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
@@ -81,5 +83,6 @@ offset_right = 56.0
 offset_bottom = 323.0
 rows = 3
 cols = 3
+filters = Array[int]([1])
 
 [node name="DragPreview" parent="." instance=ExtResource("2_s2ubw")]

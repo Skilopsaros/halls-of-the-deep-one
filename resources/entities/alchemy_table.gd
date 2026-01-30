@@ -44,7 +44,7 @@ func pillage(entity_node:Entity):
 
 func alchemise(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var alchemy_table_inventory := inventory_manager.show_input_inventory(4,4,[Enums.item_tags.liquid],"Add a Liquid")
+	var alchemy_table_inventory := inventory_manager.show_input_inventory(4,4,{},[Enums.item_tags.liquid],"Add a Liquid")
 	alchemy_table_inventory.connect("inventory_hiding", alchemise_after_closed_inventory.bind(entity_node))
 	
 func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):

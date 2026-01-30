@@ -48,12 +48,12 @@ func ignore(entity_node:Entity) -> void:
 
 func craft(entity_node:Entity) -> void:
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var anvil_inventory := inventory_manager.show_input_inventory(4,4,[Enums.item_tags.ingot],"Add an Ingot")
+	var anvil_inventory := inventory_manager.show_input_inventory(4,4,{},[Enums.item_tags.ingot],"Add an Ingot")
 	anvil_inventory.connect("inventory_hiding", craft_after_closed_inventory.bind(entity_node))
 
 func repair(entity_node:Entity) -> void:
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var anvil_table_inventory := inventory_manager.show_input_inventory(8,8,[Enums.item_tags.ingot, Enums.item_tags.broken],"Ingot and Broken equipment")
+	var anvil_table_inventory := inventory_manager.show_input_inventory(8,8,{Enums.item_tags.ingot: 1, Enums.item_tags.broken: 1},[],"Ingot and Broken equipment")
 	anvil_table_inventory.closing_check = repair_close_check # wtf
 	anvil_table_inventory.connect("inventory_hiding", repair_after_closed_inventory.bind(entity_node))
 
@@ -64,10 +64,10 @@ func repair_close_check(inventory:Inventory) -> bool:
 func craft_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> void:
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		for item in inventory.items.values():
-			if item.name == "magic_ingot":
+		for item in inventory.items.get_children():
+			if item.data.name == "magic_ingot":
 				inventory_manager.display_hidden_inventory_with_items(["amulet"])
-			if item.name == "metal_ingot":
+			if item.data.name == "metal_ingot":
 				inventory_manager.display_hidden_inventory_with_items(["chain_mail"])
 		entity_node.clear_self()
 
@@ -75,13 +75,13 @@ func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> v
 	if inventory.items:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 		var ingot_type = ""
-		for item in inventory.items.values():
-			if item.name == "magic_ingot":
+		for item in inventory.items.get_children():
+			if item.data.name == "magic_ingot":
 				ingot_type = "magic"
-			if item.name == "metal_ingot":
+			if item.data.name == "metal_ingot":
 				ingot_type = "metal"
-		for item in inventory.items.values():
-			if item.name == "broken_sword":
+		for item in inventory.items.get_children():
+			if item.data.name == "broken_sword":
 				if ingot_type == "magic":
 					inventory_manager.display_hidden_inventory_with_items(["epic_sword"])
 				elif ingot_type == "metal":
