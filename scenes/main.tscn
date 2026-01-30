@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7b3iq80s5ufb"]
+[gd_scene load_steps=13 format=3 uid="uid://c7b3iq80s5ufb"]
 
 [ext_resource type="PackedScene" uid="uid://c7015tuyqysh8" path="res://scenes/main_display_scenes/player_hud.tscn" id="1_o5qli"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_tbgi4"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bl5rvohfwylcv" path="res://graphics/huds/left_border.png" id="4_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://da27tnlsb8mau" path="res://scenes/room.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c7mms8twfmadh" path="res://scenes/inventory_scenes/inventory_layer.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b3skjpqr02jg7" path="res://scenes/main_display_scenes/log_hud.tscn" id="8_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bs6fv3mwtpegb" path="res://scenes/die.tscn" id="11_ya4ey"]
 
 [node name="Main" type="Node"]
@@ -26,6 +27,8 @@ centered = false
 
 [node name="RoomContainer" parent="." instance=ExtResource("3_sugp2")]
 room_scene = ExtResource("6_o6xl0")
+
+[node name="LogHud" parent="." instance=ExtResource("8_eb6dy")]
 
 [node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
 

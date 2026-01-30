@@ -6,6 +6,7 @@ extends Node
 @onready var game_over_layer := $GameOverLayer
 @onready var player_hud := $PlayerHud
 @onready var menu_hud := $MenuHud
+@onready var log_hud := $LogHud
 @onready var dice_layer := $DiceLayer
 @onready var dice := [$DiceLayer/Die_0, $DiceLayer/Die_1]
 @onready var dice_results_label := $DiceLayer/Results
@@ -72,7 +73,7 @@ func roll_dice(add:int=0, target:int=7) -> bool:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_key"):
-		roll_dice()
+		log_message("hello")
 		
-func log(message: String) -> void:
-	menu_hud.add_message_to_log(message)
+func log_message(message: String) -> void:
+	log_hud.add_message(message)
