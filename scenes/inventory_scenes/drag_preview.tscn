@@ -1,12 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cbpdimsir0pk6"]
 
-[ext_resource type="Script" uid="uid://cg43qd4kbtx1p" path="res://scenes/inventory_scenes/drag_preview/drag_preview.gd" id="1_56ygq"]
+[ext_resource type="Script" uid="uid://cg43qd4kbtx1p" path="res://scenes/inventory_scenes/drag_preview.gd" id="1_56ygq"]
 
 [node name="DragPreview" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-scale = Vector2(2, 2)
-mouse_filter = 2
 script = ExtResource("1_56ygq")
 
 [node name="DraggedItemParent" type="Node2D" parent="."]

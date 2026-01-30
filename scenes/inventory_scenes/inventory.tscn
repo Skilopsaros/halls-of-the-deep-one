@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cb0s16p8l2v27"]
 
 [ext_resource type="Texture2D" uid="uid://dbxypeo72xauc" path="res://graphics/inventory/inventory_tilemap.png" id="1_0kf6p"]
-[ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory/inventory.gd" id="1_uov6c"]
+[ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
 [ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="3_pc1ti"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5rcul"]
@@ -47,7 +47,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(2, 2)
 mouse_behavior_recursive = 2
 mouse_force_pass_scroll_events = false
 script = ExtResource("1_uov6c")
@@ -65,27 +64,27 @@ offset_right = 140.0
 offset_bottom = 0.5
 color = Color(0.1708, 0.18718001, 0.28, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
 layout_mode = 0
-offset_top = -23.0
 offset_right = 73.0
+offset_bottom = 23.0
 
-[node name="MovementHandle" type="TextureRect" parent="HBoxContainer"]
+[node name="MovementHandle" type="TextureRect" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4gmu2")
 
-[node name="ClosingX" type="TextureButton" parent="HBoxContainer"]
+[node name="ClosingX" type="TextureButton" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_70pa0")
 
-[node name="MinimizingV" type="TextureButton" parent="HBoxContainer"]
+[node name="MinimizingV" type="TextureButton" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_rbfvr")
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="gui_input" from="HBoxContainer/MovementHandle" to="." method="_on_movement_handle_gui_input"]
-[connection signal="pressed" from="HBoxContainer/ClosingX" to="." method="_on_closing_x_pressed"]
-[connection signal="pressed" from="HBoxContainer/MinimizingV" to="." method="_on_minimizing_v_pressed"]
+[connection signal="gui_input" from="ColorRect/HBoxContainer/MovementHandle" to="." method="_on_movement_handle_gui_input"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/ClosingX" to="." method="_on_closing_x_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/MinimizingV" to="." method="_on_minimizing_v_pressed"]

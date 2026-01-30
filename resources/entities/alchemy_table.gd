@@ -32,42 +32,37 @@ func experiment(entity_node:Entity):
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.occult], experiment_threshold)
 	if pass_check:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		var alchemy_table_inventory := inventory_manager.add_inventory(5,5,"Alchemy Table")
-		for item in pillage_items:
-			alchemy_table_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+		inventory_manager.display_hidden_inventory_with_items(experiment_items)
 	else:
 		character.take_insanity(experiment_insanity)
 	entity_node.clear_self()
 
 func pillage(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var alchemy_table_inventory := inventory_manager.add_inventory(5,5,"Alchemy Table")
-	for item in pillage_items:
-		alchemy_table_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(pillage_items)
 	entity_node.clear_self()
 
 func alchemise(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var alchemy_table_inventory := inventory_manager.add_inventory(4,4,"Add a Liquid")
-	alchemy_table_inventory.filters = [Enums.item_tags.liquid]
-	alchemy_table_inventory.closes_on_item_placement = true
-	alchemy_table_inventory.connect("inventory_closing", alchemise_after_closed_inventory.bind(entity_node))
+	var alchemy_table_inventory := inventory_manager.show_input_inventory(4,4,{},[Enums.item_tags.liquid],"Add a Liquid")
+	alchemy_table_inventory.connect("inventory_hiding", alchemise_after_closed_inventory.bind(entity_node))
 	
 func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
-	if inventory.items:
-		for item in inventory.items.values():
-			if item.name == "strange_brew":
-				character.change_stats(Enums.stats.occult, 1)
-			if item.name == "acid":
+	if inventory.items.get_children():
+		print(inventory.items.get_children())
+		for item in inventory.items.get_children():
+			print(item.data.name)
+			if item.data.name == "strange_brew":
+				character.change_stat(Enums.stats.occult, 1)
+			if item.data.name == "acid":
 				character.heal_insanity(10)
-			if item.name == "blood":
+			if item.data.name == "blood":
 				character.heal_damage(10)
-			if item.name == "ectoplasm":
-				character.change_stats(Enums.stats.perception, 1)
+			if item.data.name == "ectoplasm":
+				character.change_stat(Enums.stats.perception, 1)
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		var alchemy_table_inventory := inventory_manager.add_inventory(1,2,"Alchemy Table")
-		alchemy_table_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("empty_bottle"))
+		inventory_manager.display_hidden_inventory_with_items(["empty_bottle"])
 		entity_node.clear_self()
 
 

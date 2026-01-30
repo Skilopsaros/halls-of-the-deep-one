@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3skjpqr02jg7"]
+
+[ext_resource type="Script" uid="uid://cbhj8mlfbdv8n" path="res://scenes/main_display_scenes/log_hud.gd" id="1_4qan2"]
+[ext_resource type="Texture2D" uid="uid://cdkebfn1ai2al" path="res://graphics/huds/log_container.png" id="1_63d78"]
+
+[node name="LogHud" type="CanvasLayer"]
+script = ExtResource("1_4qan2")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_63d78")
+centered = false
+
+[node name="MessagesContainer" type="VBoxContainer" parent="."]
+offset_left = 721.0
+offset_top = 291.0
+offset_right = 944.0
+offset_bottom = 488.0
+
+[node name="Label" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+text = "Hello I am the first message in the log"
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+theme_override_font_sizes/font_size = 15
+text = "Second message"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+theme_override_font_sizes/font_size = 15
+text = "Second message"
+autowrap_mode = 3
+
+[node name="Label5" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+theme_override_font_sizes/font_size = 15
+text = "Second message"
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+theme_override_font_sizes/font_size = 15
+text = "Second message"
+autowrap_mode = 3
+
+[node name="Label7" type="Label" parent="MessagesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+theme_override_font_sizes/font_size = 15
+text = "Second message"
+autowrap_mode = 3

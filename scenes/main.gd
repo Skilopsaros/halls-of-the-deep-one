@@ -6,6 +6,7 @@ extends Node
 @onready var game_over_layer := $GameOverLayer
 @onready var player_hud := $PlayerHud
 @onready var menu_hud := $MenuHud
+@onready var log_hud := $LogHud
 @onready var dice_layer := $DiceLayer
 @onready var dice := [$DiceLayer/Die_0, $DiceLayer/Die_1]
 @onready var dice_results_label := $DiceLayer/Results
@@ -25,15 +26,7 @@ func _ready() -> void:
 	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),Vector2i(1,1))
 	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),Vector2i(2,2))
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("gold_coin"))
-	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
-	#for i in range(20):
-		#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("coin"))
-	#menu_hud.clear_log()
-	#player_inventory.resize(4,15)e
-	#menu_hud.add_message_to_log("A dark aura surrounds you")
-	#menu_hud.add_message_to_log("You lost 15 health")
-	#var chest:Inventory = inventory_manager.add_inventory(4,5,"CHEST")
-	#inventory_manager.toggle_inventory_visibility()
+	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
 	start_game()
 	pass
 
@@ -80,7 +73,7 @@ func roll_dice(add:int=0, target:int=7) -> bool:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_key"):
-		roll_dice()
+		log_message("hello")
 		
-func log(message: String) -> void:
-	menu_hud.add_message_to_log(message)
+func log_message(message: String) -> void:
+	log_hud.add_message(message)

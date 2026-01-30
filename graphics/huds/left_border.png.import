@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc6stlv5kc46a"
-path="res://.godot/imported/menu_hud.png-2312e7cf4d5e731c3698c7b37785c8ac.ctex"
+uid="uid://bl5rvohfwylcv"
+path="res://.godot/imported/left_border.png-548c0d043483a120f12fd3f143a6686d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/huds/menu_hud.png"
-dest_files=["res://.godot/imported/menu_hud.png-2312e7cf4d5e731c3698c7b37785c8ac.ctex"]
+source_file="res://graphics/huds/left_border.png"
+dest_files=["res://.godot/imported/left_border.png-548c0d043483a120f12fd3f143a6686d.ctex"]
 
 [params]
 

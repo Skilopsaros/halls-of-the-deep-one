@@ -71,25 +71,19 @@ func investigate(entity_node:Entity):
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.perception], threshold)
 	if pass_check:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		var chest := inventory_manager.add_inventory(inv_size.x,inv_size.y,"Chest")
-		for item in inv_items:
-			chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+		inventory_manager.display_hidden_inventory_with_items(inv_items)
 	entity_node.clear_self()
 
 func loot(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_insanity(insanity)
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var chest := inventory_manager.add_inventory(loot_size.x,loot_size.y,"Chest")
-	for item in loot_items:
-		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(loot_items)
 	entity_node.clear_self()
 
 func gift(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-	var chest := inventory_manager.add_inventory(gift_size.x,gift_size.y,"Chest")
-	for item in gift_items:
-		chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+	inventory_manager.display_hidden_inventory_with_items(gift_items)
 	entity_node.clear_self()
 
 func boon(entity_node:Entity):
@@ -104,9 +98,7 @@ func attack(entity_node:Entity):
 	character.take_damage(damage)
 	if pass_check:
 		var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
-		var chest := inventory_manager.add_inventory(attack_size.x,attack_size.y,"Chest")
-		for item in attack_items:
-			chest.add_item_at_first_possible_position(ItemManager.get_item_by_name(item))
+		inventory_manager.display_hidden_inventory_with_items(attack_items)
 	else: 
 		character.take_damge(damage)
 	entity_node.clear_self()

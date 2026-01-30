@@ -1,72 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqa3i600a7odc"]
+[gd_scene load_steps=4 format=3 uid="uid://bqa3i600a7odc"]
 
 [ext_resource type="Texture2D" uid="uid://cc6stlv5kc46a" path="res://graphics/huds/menu_hud.png" id="1_48dti"]
 [ext_resource type="Script" uid="uid://ddh5s4l6d4557" path="res://scenes/main_display_scenes/menu_hud.gd" id="1_uv5ie"]
 [ext_resource type="Theme" uid="uid://duhun5q5swqyn" path="res://graphics/themes/big.tres" id="2_ewmno"]
-[ext_resource type="Theme" uid="uid://b6t8eigy6o4ce" path="res://graphics/themes/medium.tres" id="3_uv5ie"]
 
 [node name="MenuHud" type="CanvasLayer"]
 script = ExtResource("1_uv5ie")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 50)
 texture = ExtResource("1_48dti")
-
-[node name="ReturnButton" type="Button" parent="Background"]
-offset_left = -172.0
-offset_top = -36.0
-offset_right = -1.0
-offset_bottom = 2.0
-scale = Vector2(2, 2)
-theme = ExtResource("2_ewmno")
-text = "RETURN"
+centered = false
 
 [node name="MenuButton" type="Button" parent="Background"]
-offset_left = -624.0
-offset_top = -37.0
-offset_right = -578.0
-offset_bottom = 1.0
-scale = Vector2(2, 2)
+offset_left = 410.0
+offset_top = -269.0
+offset_right = 451.0
+offset_bottom = -241.0
 theme = ExtResource("2_ewmno")
-
-[node name="Log" type="Control" parent="Background"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 198.0
-offset_top = -29.0
-offset_right = 411.0
-offset_bottom = 185.0
-scale = Vector2(2, 2)
-
-[node name="TextEdit" type="TextEdit" parent="Background/Log"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 31.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_uv5ie")
-text = "testtestaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-a
-a
-a
-a
-a
-a
-a
-a
-a"
-editable = false
-wrap_mode = 1
-
-[node name="LineEdit" type="LineEdit" parent="Background/Log"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
-theme = ExtResource("3_uv5ie")
-text = "the gods test you"
-editable = false

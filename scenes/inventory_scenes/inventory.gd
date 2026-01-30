@@ -2,26 +2,32 @@ extends Control
 class_name Inventory
 
 @onready var items:Node = $InventoryLayer/Items
-@onready var title_label:Label = $HBoxContainer/Label
+@onready var title_label:Label = $ColorRect/HBoxContainer/Label
 @onready var inventory_layer:TileMapLayer = $InventoryLayer
-@onready var closing_x:TextureButton = $HBoxContainer/ClosingX
-@onready var minimizing_v:TextureButton = $HBoxContainer/MinimizingV
-@onready var movement_handle:TextureRect = $HBoxContainer/MovementHandle
+@onready var closing_x:TextureButton = $ColorRect/HBoxContainer/ClosingX
+@onready var minimizing_v:TextureButton = $ColorRect/HBoxContainer/MinimizingV
+@onready var movement_handle:TextureRect = $ColorRect/HBoxContainer/MovementHandle
+@onready var top_bar = $ColorRect
 
 signal cell_clicked
 signal inventory_changed
 signal inventory_closing
+signal inventory_hiding
 
 const world_atlas_id:int = 0
-const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory/inventory.tscn")
+const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
 @export var rows:int = 6
 @export var cols:int = 6
 @export var input_supressed = false
 @export var title:String
 @export var filters:Array[Enums.item_tags] = [] # each element is a key that an item needs to have to be accepted
+@export var required_tags:Dictionary[Enums.item_tags,int] = {}:
+	set = set_required_tags
+var tag_count:Dictionary[Enums.item_tags,int] = {}
 # if multiple keys are given all of them need to be fulfilled
 @export var closes_on_item_placement:bool = false
+var closing_check:Callable = returns_true
 @export var closable:bool = false
 @export var minimizable:bool = false
 @export var movable:bool = false
@@ -29,6 +35,8 @@ enum TILES {OCCUPIED,FREE,INACTIVE}
 
 var occupancy_dict:Dictionary = {}
 var active_list:Array[Vector2i] = []
+
+var is_bag:bool = false
 
 static func constructor(new_rows: int, new_cols: int, new_title:String, new_closable:bool ,new_minimizable:bool, new_movable:bool = true, initial_active_list:Array[Vector2i]=[]) -> Inventory:
 	var obj:Inventory = self_scene.instantiate()
@@ -44,6 +52,30 @@ static func constructor(new_rows: int, new_cols: int, new_title:String, new_clos
 func set_active_list(new_active_list:Array[Vector2i]) -> void:
 	active_list = new_active_list.duplicate()
 	update_inventory_tiles()
+
+func set_required_tags(new_required_tags:Dictionary[Enums.item_tags,int]) -> void:
+	required_tags = new_required_tags
+	update_tag_counts()
+
+func add_to_active_list(slots_to_add:Array[Vector2i]) -> void:
+	for slot in slots_to_add:
+		if not slot in active_list:
+			active_list.append(slot)
+	update_inventory_tiles()
+
+func set_active_rectangle(width:int,height:int) -> void:
+	if width > self.cols:
+		width = self.cols
+	if height > self.rows:
+		rows = self.rows
+	
+	var padding_v:int = floor((rows-height)/2.)
+	var padding_h:int = floor((cols-width)/2.)
+	var new_active_list:Array[Vector2i] = []
+	for i in range(width):
+		for j in range(height):
+			new_active_list.append(Vector2i(i+padding_h,j+padding_v))
+	set_active_list(new_active_list)
 
 func _gui_input(event:InputEvent) -> void:
 	if input_supressed:
@@ -62,7 +94,7 @@ func _ready() -> void:
 	update_top_bar_tools_visibility()
 	size.x = cols*30
 	size.y = rows*30
-	$ColorRect.size.x = cols*30
+	top_bar.size.x = cols*30
 
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
 var dragging:bool = false
@@ -100,37 +132,73 @@ func _check_filter_ok(item: ItemObject) -> bool:
 			return false
 	return true
 
+func _check_tag_counts(item: ItemObject) -> bool:
+	# if there are no tags to check, just return true
+	if len(required_tags.keys()) == 0:
+		return true
+	
+	# otherwise check if the newly to be added item fills out a tag we are missing right now
+	for key in required_tags.keys():
+		if required_tags[key] > tag_count[key] and key in item.data.tags:
+			return true
+	return false
+
+func update_tag_counts() -> void:
+	tag_count = {}
+	for key in required_tags.keys():
+		tag_count[key] = 0
+	for item:ItemObject in items.get_children():
+		var tags:Array[Enums.item_tags] = item.data.tags
+		for key in required_tags.keys():
+			if key in tags:
+				tag_count[key] += 1
+
 func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
-	if not check_placement(item,coordinate) or not _check_filter_ok(item):
+	if not check_placement(item,coordinate) or not _check_filter_ok(item) or not _check_tag_counts(item):
 		return false
-	if item.inventory and item.inventory == self: # don't put a bag into itself please
+	
+	if item.inventory and self.is_bag: # don't put a bags into bags
 		return false
 	# if so update everything
 	item.location = coordinate
 	add_occupancy(item)
 	item.reparent(items)
+	update_tag_counts()
 	update_item_position(item)
 	update_inventory_tiles()
 	inventory_changed.emit(self,item,"add")
 	if not visible:
 		item.visible = false
-	if closes_on_item_placement:
-		emit_signal("inventory_closing", self)
+	if closes_on_item_placement and closing_check.call(self):
+		emit_signal("inventory_hiding", self)
+		self.hide()
 	return true
 	
+func returns_true(inventory:Inventory) -> bool:
+	return true
+
 func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	remove_occupancy(item_to_remove)
 	update_inventory_tiles()
 	items.remove_child(item_to_remove)
+	update_tag_counts()
 	inventory_changed.emit(self,item_to_remove,"remove")
 	return item_to_remove
+	
+func destroy_item(item_to_remove:ItemObject) -> void:
+	remove_item(item_to_remove)
+	item_to_remove.destroy_self()
 	
 func remove_item_by_name(item_name: String) -> ItemObject:
 	for item in items.get_children():
 		if item.data.name == item_name:
 			return remove_item(item)
 	return null
-	
+
+func clear_inventory() -> void:
+	for item in items.get_children():
+		remove_item(item)
+
 func remove_item_by_coordinate(coordinate:Vector2i) -> ItemObject:
 	if not coordinate in occupancy_dict or occupancy_dict[coordinate] == null:
 		return null
