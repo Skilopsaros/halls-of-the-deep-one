@@ -3,6 +3,7 @@ extends CanvasLayer
 class_name InventoryManager
 
 @onready var drag_preview := $DragPreview
+@onready var hover_info := $HoverInfo
 @onready var trash := $Trash
 @onready var inventories := $Inventories
 @onready var player_inventory := $Inventories/PlayerInventory
@@ -79,8 +80,10 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			inventory.remove_item(clicked_item)
 			drag_preview.dragged_item = clicked_item
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and drag_preview.dragged_item != null:
-			var success:bool = inventory.add_item(drag_preview.dragged_item,coordinate)
+			var item:ItemObject = drag_preview.dragged_item
+			var success:bool = inventory.add_item(item,coordinate)
 			if success:
+				item._on_hover_enter()
 				drag_preview.dragged_item = null
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
 			if not coordinate in inventory.occupancy_dict.keys():
@@ -207,3 +210,12 @@ func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	inventory.connect("cell_clicked", _on_inventory_slot_input)
 	inventory.connect("inventory_changed", _on_inventory_changed)
 	inventory.connect("inventory_closing", remove_inventory)
+	inventory.connect("item_hover_info_activated",_on_hover_info_activated)
+	inventory.connect("item_hover_info_deactivated",_on_hover_info_deactivated)
+	
+func _on_hover_info_activated(item:ItemObject) -> void:
+	hover_info.display_item(item)
+
+func _on_hover_info_deactivated(item:ItemObject) -> void:
+	hover_info.visible = false
+	hover_info.displayed_item = null

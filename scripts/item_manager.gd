@@ -1,8 +1,5 @@
 extends Node
 
-# TODO: iterate over the res://resources/items folder and make a big list of all items iside
-# and make it a dictionary where based on a key defined in the item ressource we can fetch the respective item data
-# to end the time of having the file name used
 var item_dictionary:Dictionary = {}
 
 func initialize_item_dict() -> void:
@@ -14,6 +11,8 @@ func initialize_item_dict() -> void:
 	for file:String in dir.get_files():
 		print(dir.get_current_dir() + "/" + file)
 		var resource := load(dir.get_current_dir() + "/" + file)
+		if resource == null:
+			continue
 		item_dictionary[resource.name] = resource
 
 func get_item_by_name(key:String) -> ItemObject:

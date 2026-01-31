@@ -15,21 +15,21 @@ signal clear_entity
 signal entity_clicked
 
 func _ready():
-	custom_minimum_size = Vector2(82,130)
+	custom_minimum_size = Vector2(120,180)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	sprite = Sprite2D.new()
 	sprite.texture = skin
 	sprite.scale = Vector2(1,1)
-	sprite.offset = Vector2i(20, 65)
+	sprite.offset = Vector2(60,90)
 	sprite.material = outline_material
 	add_child(sprite)
 	
 	var area2d := Area2D.new()
 	var collision := CollisionShape2D.new()
 	collision.shape = RectangleShape2D.new()
-	collision.shape.size = Vector2(160, 260)
-	collision.position = Vector2(42, 130)
+	collision.shape.size = Vector2(120,180)
+	collision.position = Vector2(60,90)
 	area2d.add_child(collision)
 	area2d.input_event.connect(_on_area_2d_input_event)
 	add_child(area2d)

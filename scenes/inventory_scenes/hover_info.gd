@@ -5,10 +5,13 @@ class_name HoverInfo
 @onready var text_label := $VBoxContainer/Container/TextLabel
 @onready var flavour_label := $VBoxContainer/FlavourLabel
 
+var displayed_item:ItemObject = null
+
 func _ready() -> void:
 	visible = false
 
-func display_item_data(item:Item) -> void:
+func display_item(item_object:ItemObject) -> void:
+	var item = item_object.data
 	var text_to_display: String = ""
 	if item.title != "":
 		title_label.text = "[b]" + item.title 
@@ -26,3 +29,5 @@ func display_item_data(item:Item) -> void:
 	text_label.text = text_to_display
 	
 	flavour_label.text = "[i]" + item.flavour_text
+	position = get_global_mouse_position() + Vector2(10,10)
+	self.visible = true
