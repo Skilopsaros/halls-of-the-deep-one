@@ -174,7 +174,7 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 		self.hide()
 	return true
 	
-func returns_true(inventory:Inventory) -> bool:
+func returns_true(_inventory:Inventory) -> bool:
 	return true
 
 func remove_item(item_to_remove:ItemObject) -> ItemObject:
