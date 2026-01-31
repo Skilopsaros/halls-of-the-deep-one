@@ -14,6 +14,9 @@ signal inventory_changed
 signal inventory_closing
 signal inventory_hiding
 
+signal item_hover_info_activated
+signal item_hover_info_deactivated
+
 const world_atlas_id:int = 0
 const self_scene:PackedScene = preload("res://scenes/inventory_scenes/inventory.tscn")
 
@@ -77,9 +80,21 @@ func set_active_rectangle(width:int,height:int) -> void:
 			new_active_list.append(Vector2i(i+padding_h,j+padding_v))
 	set_active_list(new_active_list)
 
-func _gui_input(event:InputEvent) -> void:
-	if input_supressed:
-		return
+func _ready() -> void:
+	title_label.text = title
+	update_inventory_tiles()
+	update_top_bar_tools_visibility()
+	size.x = cols*30
+	size.y = rows*30
+	top_bar.size.x = cols*30
+	$Area2D/CollisionShape2D.shape.size = size
+	$Area2D/CollisionShape2D.position = size/2
+	#inventory_layer.connect("cell_clicked",_on_inventory_tilemap_input)
+
+var window_drag_offset:Vector2 = Vector2(0.0,0.0)
+var dragging:bool = false
+
+func _on_inventory_slot_clicked(_viewport:Node,event:InputEvent,_inx:int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			var global_clicked:Vector2 = get_local_mouse_position()
@@ -88,16 +103,9 @@ func _gui_input(event:InputEvent) -> void:
 				print(pos_clicked)
 				cell_clicked.emit(event,pos_clicked,self)
 
-func _ready() -> void:
-	title_label.text = title
-	update_inventory_tiles()
-	update_top_bar_tools_visibility()
-	size.x = cols*30
-	size.y = rows*30
-	top_bar.size.x = cols*30
-
-var window_drag_offset:Vector2 = Vector2(0.0,0.0)
-var dragging:bool = false
+#func _on_inventory_tilemap_input(event:InputEvent,location:Vector2i) -> void:
+	#print("B")
+	#cell_clicked.emit(event,location,self)
 
 func _on_movement_handle_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -172,6 +180,8 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	if closes_on_item_placement and closing_check.call(self):
 		emit_signal("inventory_hiding", self)
 		self.hide()
+	item.connect("stop_hover_info",_on_item_hover_info_deactivated)
+	item.connect("display_hover_info",_on_item_hover_info_activated)
 	return true
 	
 func returns_true(_inventory:Inventory) -> bool:
@@ -180,9 +190,12 @@ func returns_true(_inventory:Inventory) -> bool:
 func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	remove_occupancy(item_to_remove)
 	update_inventory_tiles()
+	item_to_remove._on_hover_exit()
 	items.remove_child(item_to_remove)
 	update_tag_counts()
 	inventory_changed.emit(self,item_to_remove,"remove")
+	item_to_remove.disconnect("stop_hover_info",_on_item_hover_info_deactivated)
+	item_to_remove.disconnect("display_hover_info",_on_item_hover_info_activated)
 	return item_to_remove
 	
 func destroy_item(item_to_remove:ItemObject) -> void:
@@ -284,6 +297,11 @@ func update_top_bar_tools_visibility() -> void:
 func _on_closing_x_pressed() -> void:
 	self.inventory_closing.emit(self)
 
-
 func _on_minimizing_v_pressed() -> void:
 	self.visible = false
+
+func _on_item_hover_info_activated(item:ItemObject) -> void:
+	item_hover_info_activated.emit(item)
+	
+func _on_item_hover_info_deactivated(item:ItemObject) -> void:
+	item_hover_info_deactivated.emit(item)
