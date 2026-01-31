@@ -47,7 +47,7 @@ func ignore(entity_node:Entity) -> void:
 	entity_node.clear_self()
 
 func eat(entity_node:Entity) -> void:
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_insanity(insanity)
 	character.heal_health(health)
 	entity_node.clear_self()
