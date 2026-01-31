@@ -48,7 +48,7 @@ func alchemise(entity_node:Entity):
 	alchemy_table_inventory.connect("inventory_hiding", alchemise_after_closed_inventory.bind(entity_node))
 	
 func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	if inventory.items.get_children():
 		print(inventory.items.get_children())
 		for item in inventory.items.get_children():

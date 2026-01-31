@@ -45,12 +45,12 @@ func capture(entity_node:Entity):
 		entity_node.clear_self()
 
 func banish(entity_node:Entity):
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_damage(damage-character.stats[Enums.stats.occult])
 	entity_node.clear_self()
 
 func pass_through(entity_node:Entity):
-	var character = entity_node.get_node("/root/Main/PlayerHud").character
+	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.power], threshold)
 	if not pass_check:
 		character.take_insanity(insanity)
