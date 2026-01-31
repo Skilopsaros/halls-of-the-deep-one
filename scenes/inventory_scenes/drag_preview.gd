@@ -16,7 +16,7 @@ func set_dragged_item(item: ItemObject) -> void:
 func _process(_delta: float) -> void:
 	if not dragged_item:
 		return
-	dragged_item.position = get_global_mouse_position()/scale.x
+	dragged_item.position = round(get_global_mouse_position())
 	if Input.is_action_just_pressed("rotate_item"):
 		if dragged_item:
 			dragged_item.rotate_90()
