@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cg38sgqysbfu4"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cg38sgqysbfu4"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_ftqtd"]
-[ext_resource type="Texture2D" uid="uid://gf42a4on7jxn" path="res://graphics/items/knife.png" id="2_rvh1q"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_ftqtd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvh1q"]
+atlas = ExtResource("2_ftqtd")
+region = Rect2(275, 5, 20, 49)
 
 [resource]
 script = ExtResource("1_ftqtd")
 name = "knife"
 title = "Knife"
-texture = ExtResource("2_rvh1q")
+texture = SubResource("AtlasTexture_rvh1q")
 occupancy_matrix = "1
 1"
 tags = Array[int]([0])

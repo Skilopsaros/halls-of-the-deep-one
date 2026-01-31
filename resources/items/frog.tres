@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bvn76pl1ln3o0"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bvn76pl1ln3o0"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_agrw5"]
-[ext_resource type="Texture2D" uid="uid://bejfbwqtwu4hf" path="res://graphics/items/frog.png" id="2_wn6uh"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_wn6uh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxvmy"]
+atlas = ExtResource("2_wn6uh")
+region = Rect2(155, 65, 50, 80)
 
 [resource]
 script = ExtResource("1_agrw5")
 name = "frog"
 title = "Frog"
-texture = ExtResource("2_wn6uh")
+texture = SubResource("AtlasTexture_sxvmy")
 occupancy_matrix = "1,1
 1,1
 1,1"

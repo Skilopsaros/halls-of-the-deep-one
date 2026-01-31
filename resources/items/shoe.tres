@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://53lins83es7h"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://53lins83es7h"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_bpp6t"]
-[ext_resource type="Texture2D" uid="uid://cvhy07pu2322d" path="res://graphics/items/shoe.png" id="2_gs51p"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_gs51p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0owe"]
+atlas = ExtResource("2_gs51p")
+region = Rect2(5, 156, 50, 49)
 
 [resource]
 script = ExtResource("1_bpp6t")
 name = "shoe"
 title = "Shoe"
-texture = ExtResource("2_gs51p")
+texture = SubResource("AtlasTexture_j0owe")
 occupancy_matrix = "0,1
 1,1
 "

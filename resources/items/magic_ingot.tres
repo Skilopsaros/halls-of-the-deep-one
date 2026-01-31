@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://d3f0sski36vxj"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://d3f0sski36vxj"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_yim0o"]
-[ext_resource type="Texture2D" uid="uid://csytx14fp7mn6" path="res://graphics/items/magic_ingot.png" id="2_yim0o"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_yim0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghwsw"]
+atlas = ExtResource("2_yim0o")
+region = Rect2(155, 34, 50, 20)
 
 [resource]
 script = ExtResource("1_yim0o")
 name = "magic_ingot"
 title = "Magic Ingot"
-texture = ExtResource("2_yim0o")
+texture = SubResource("AtlasTexture_ghwsw")
 occupancy_matrix = "1,1"
 tags = Array[int]([5])
 value = 50
