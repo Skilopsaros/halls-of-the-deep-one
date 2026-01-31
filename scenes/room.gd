@@ -25,6 +25,7 @@ func load_all_entities() -> void:
 		load_entity(index)
 
 func remove_entity(index:int) -> void:
+	print(index)
 	emit_signal("clear_choices")
 	print(active_entities[index])
 	active_entities[index].queue_free()
@@ -41,6 +42,7 @@ func load_entity(index:int) -> void:
 	new_entity.entity_clicked.connect(highlight_correct_entity)
 	new_entity.clear_entity.connect(remove_entity)
 	hbox_container.add_child(new_entity)
+	hbox_container.move_child(new_entity, index)
 	active_entities[index] = new_entity
 	new_entity.index = index
 	

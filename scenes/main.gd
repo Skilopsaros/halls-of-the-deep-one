@@ -10,6 +10,7 @@ extends Node
 @onready var dice_layer := $DiceLayer
 @onready var dice := [$DiceLayer/Die_0, $DiceLayer/Die_1]
 @onready var dice_results_label := $DiceLayer/Results
+@onready var room_generator := $RoomGenerator
 
 @export var room_data: Array[RoomData]
 var next_room: int = 0
@@ -45,7 +46,7 @@ func start_game() -> void:
 	init_next_room()
 
 func init_next_room() -> void:
-	room_container.init_room(room_data[next_room])
+	room_container.init_room(room_generator.make_level_1_room())
 	next_room += 1
 
 func _on_entity_clicked(options_list:Array[Dictionary], entity:Entity) -> void:

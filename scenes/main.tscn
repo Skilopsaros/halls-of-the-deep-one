@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c7mms8twfmadh" path="res://scenes/inventory_scenes/inventory_layer.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3skjpqr02jg7" path="res://scenes/main_display_scenes/log_hud.tscn" id="8_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bs6fv3mwtpegb" path="res://scenes/die.tscn" id="11_ya4ey"]
+[ext_resource type="Script" uid="uid://cpyrtrfeblrjo" path="res://scenes/room_generator.gd" id="13_trceg"]
 
 [node name="Main" type="Node" unique_id=1436959928]
 script = ExtResource("1_tbgi4")
@@ -113,5 +114,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "New Game"
+
+[node name="RoomGenerator" type="Node" parent="." unique_id=1901730385]
+script = ExtResource("13_trceg")
 
 [connection signal="pressed" from="GameOverLayer/NewGame" to="." method="start_game"]

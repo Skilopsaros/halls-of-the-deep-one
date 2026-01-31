@@ -9,8 +9,8 @@ region = Rect2(245, 5, 20, 49)
 
 [resource]
 script = ExtResource("1_d17os")
-name = "gem"
-title = "Gem"
+name = "torch"
+title = "Torch"
 texture = SubResource("AtlasTexture_kdbb6")
 occupancy_matrix = "1
 1"

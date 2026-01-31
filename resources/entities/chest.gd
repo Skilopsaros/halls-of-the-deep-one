@@ -2,7 +2,6 @@ extends EntityData
 class_name Chest
 
 @export var skin: Texture = load("res://graphics/entities/chest.png")
-@export var chest_size: Vector2i = Vector2i(5,5)
 @export var items: Array[String] = ["silver_coin", "copper_coin", "empty_bottle"]
 @export var trapped: bool = false
 @export var damage: int = 15
@@ -32,10 +31,10 @@ func get_choices() -> Array[Dictionary]:
 		]
 	return(choices)
 
-func ignore(entity_node:Entity):
+func ignore(entity_node:Entity) -> void:
 	entity_node.clear_self()
 
-func check_for_traps(entity_node:Entity):
+func check_for_traps(entity_node:Entity) -> void:
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.perception], threshold)
 	if pass_check:
@@ -76,7 +75,7 @@ func check_for_traps(entity_node:Entity):
 	else:
 		character.take_insanity(4)
 
-func disarm_traps(entity_node:Entity):
+func disarm_traps(entity_node:Entity) -> void:
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.agility], disarm_threshold)
 	if not pass_check:
@@ -85,7 +84,7 @@ func disarm_traps(entity_node:Entity):
 	open_chest(entity_node)
 	pass
 
-func open_chest(entity_node:Entity):
+func open_chest(entity_node:Entity) -> void:
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	if trapped:
 		if detected:
@@ -95,3 +94,12 @@ func open_chest(entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	inventory_manager.display_hidden_inventory_with_items(items)
 	entity_node.clear_self()
+
+func randomise(loot_table):
+	print("here")
+	loot_table.shuffle()
+	items = []
+	for i in range(randi_range(3,6)):
+		if len(loot_table) > i:
+			items.append(loot_table[i])
+	print(items)
