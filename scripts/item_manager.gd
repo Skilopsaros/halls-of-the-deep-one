@@ -12,6 +12,7 @@ func initialize_item_dict() -> void:
 		return
 	dir.list_dir_begin()
 	for file:String in dir.get_files():
+		print(dir.get_current_dir() + "/" + file)
 		var resource := load(dir.get_current_dir() + "/" + file)
 		item_dictionary[resource.name] = resource
 

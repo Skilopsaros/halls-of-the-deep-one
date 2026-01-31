@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c6vo6rf21oclw"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c6vo6rf21oclw"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_mawiu"]
-[ext_resource type="Texture2D" uid="uid://bn8f3p0j3uhu" path="res://graphics/items/amulet.png" id="2_pvhfd"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_mawiu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvhfd"]
+atlas = ExtResource("2_mawiu")
+region = Rect2(275, 156, 20, 110)
 
 [resource]
 script = ExtResource("1_mawiu")
 name = "staff"
 title = "Staff"
-texture = ExtResource("2_pvhfd")
+texture = SubResource("AtlasTexture_pvhfd")
 occupancy_matrix = "1
 1
 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7b3iq80s5ufb"]
+[gd_scene format=3 uid="uid://c7b3iq80s5ufb"]
 
 [ext_resource type="PackedScene" uid="uid://c7015tuyqysh8" path="res://scenes/main_display_scenes/player_hud.tscn" id="1_o5qli"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_tbgi4"]
@@ -13,33 +13,33 @@
 [ext_resource type="PackedScene" uid="uid://b3skjpqr02jg7" path="res://scenes/main_display_scenes/log_hud.tscn" id="8_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bs6fv3mwtpegb" path="res://scenes/die.tscn" id="11_ya4ey"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1436959928]
 script = ExtResource("1_tbgi4")
 room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu")])
 
-[node name="Further_Background" type="Node2D" parent="."]
+[node name="Further_Background" type="Node2D" parent="." unique_id=1315419648]
 
-[node name="right_bar" type="Sprite2D" parent="Further_Background"]
+[node name="right_bar" type="Sprite2D" parent="Further_Background" unique_id=1391879853]
 texture = ExtResource("4_ya4ey")
 centered = false
 
-[node name="ChoisesContainer" parent="." instance=ExtResource("2_0wfyh")]
+[node name="ChoisesContainer" parent="." unique_id=767718238 instance=ExtResource("2_0wfyh")]
 
-[node name="RoomContainer" parent="." instance=ExtResource("3_sugp2")]
+[node name="RoomContainer" parent="." unique_id=2097653361 instance=ExtResource("3_sugp2")]
 room_scene = ExtResource("6_o6xl0")
 
-[node name="LogHud" parent="." instance=ExtResource("8_eb6dy")]
+[node name="LogHud" parent="." unique_id=1235525466 instance=ExtResource("8_eb6dy")]
 
-[node name="PlayerHud" parent="." instance=ExtResource("1_o5qli")]
+[node name="PlayerHud" parent="." unique_id=700845797 instance=ExtResource("1_o5qli")]
 
-[node name="MenuHud" parent="." instance=ExtResource("4_jyhfs")]
+[node name="MenuHud" parent="." unique_id=190232845 instance=ExtResource("4_jyhfs")]
 
-[node name="InventoryLayer" parent="." instance=ExtResource("6_tefeu")]
+[node name="InventoryLayer" parent="." unique_id=1652324360 instance=ExtResource("6_tefeu")]
 
-[node name="DiceLayer" type="CanvasLayer" parent="."]
+[node name="DiceLayer" type="CanvasLayer" parent="." unique_id=528567278]
 visible = false
 
-[node name="Background" type="ColorRect" parent="DiceLayer"]
+[node name="Background" type="ColorRect" parent="DiceLayer" unique_id=356569277]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,13 +47,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="Die_0" parent="DiceLayer" instance=ExtResource("11_ya4ey")]
+[node name="Die_0" parent="DiceLayer" unique_id=1904987240 instance=ExtResource("11_ya4ey")]
 position = Vector2(593, 360)
 
-[node name="Die_1" parent="DiceLayer" instance=ExtResource("11_ya4ey")]
+[node name="Die_1" parent="DiceLayer" unique_id=2082662825 instance=ExtResource("11_ya4ey")]
 position = Vector2(696, 360)
 
-[node name="Results" type="Label" parent="DiceLayer"]
+[node name="Results" type="Label" parent="DiceLayer" unique_id=177996399]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -71,10 +71,10 @@ text = "6+5=11
 Success"
 horizontal_alignment = 1
 
-[node name="GameOverLayer" type="CanvasLayer" parent="."]
+[node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=96564632]
 visible = false
 
-[node name="Background" type="ColorRect" parent="GameOverLayer"]
+[node name="Background" type="ColorRect" parent="GameOverLayer" unique_id=2048182735]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -82,7 +82,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="GameOver" type="Label" parent="GameOverLayer"]
+[node name="GameOver" type="Label" parent="GameOverLayer" unique_id=1692944284]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -99,7 +99,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 text = "GAME OVER"
 
-[node name="NewGame" type="Button" parent="GameOverLayer"]
+[node name="NewGame" type="Button" parent="GameOverLayer" unique_id=1446694689]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
