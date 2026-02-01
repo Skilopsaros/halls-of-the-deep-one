@@ -3,8 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c7015tuyqysh8" path="res://scenes/main_display_scenes/player_hud.tscn" id="1_o5qli"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cd3fikbu43hqs" path="res://scenes/main_display_scenes/choices_container.tscn" id="2_0wfyh"]
-[ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_tefeu"]
-[ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_tipki"]
+[ext_resource type="Resource" uid="uid://rfpmmfvk22y" path="res://resources/levels/level_1.tres" id="2_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://ce6l1qwo0u77n" path="res://scenes/main_display_scenes/room_container.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bqa3i600a7odc" path="res://scenes/main_display_scenes/menu_hud.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://bl5rvohfwylcv" path="res://graphics/huds/left_border.png" id="4_ya4ey"]
@@ -16,7 +15,7 @@
 
 [node name="Main" type="Node" unique_id=1436959928]
 script = ExtResource("1_tbgi4")
-room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu")])
+level_data = ExtResource("2_eb6dy")
 
 [node name="Further_Background" type="Node2D" parent="." unique_id=1315419648]
 
@@ -115,7 +114,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "New Game"
 
-[node name="RoomGenerator" type="Node" parent="." unique_id=1901730385]
+[node name="RoomGenerator" type="Node" parent="." unique_id=1194900277]
 script = ExtResource("13_trceg")
 
 [connection signal="pressed" from="GameOverLayer/NewGame" to="." method="start_game"]

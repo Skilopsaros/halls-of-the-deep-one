@@ -1,7 +1,7 @@
 extends EntityData
 class_name Ghost
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/ghost.png")
 @export var damage: int = 2
 @export var insanity: int = 2
 @export var threshold: int = 12

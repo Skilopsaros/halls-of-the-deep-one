@@ -95,11 +95,13 @@ func open_chest(entity_node:Entity) -> void:
 	inventory_manager.display_hidden_inventory_with_items(items)
 	entity_node.clear_self()
 
-func randomise(loot_table):
-	print("here")
+func randomise(level_data):
+	var loot_table: Array[String] = loot_table_to_array(level_data.loot_table)
 	loot_table.shuffle()
 	items = []
 	for i in range(randi_range(3,6)):
 		if len(loot_table) > i:
 			items.append(loot_table[i])
+	if not randi_range(0,3):
+		trapped = true
 	print(items)

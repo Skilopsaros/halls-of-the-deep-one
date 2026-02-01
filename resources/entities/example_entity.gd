@@ -45,4 +45,3 @@ func gain_insanity(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_insanity(insanity)
 	entity_node.clear_self()
- 

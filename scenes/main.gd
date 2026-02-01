@@ -12,7 +12,7 @@ extends Node
 @onready var dice_results_label := $DiceLayer/Results
 @onready var room_generator := $RoomGenerator
 
-@export var room_data: Array[RoomData]
+@export var level_data: LevelData
 var next_room: int = 0
 
 func _ready() -> void:
@@ -24,8 +24,8 @@ func _ready() -> void:
 	
 	
 	# example content to try functionality
-	player_inventory.add_item(ItemManager.get_item_by_name("empty_bottle"),Vector2i(1,1))
-	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),Vector2i(2,2))
+	player_inventory.add_item(ItemManager.get_item_by_name("plokamarchidi"),Vector2i(1,1))
+	player_inventory.add_item(ItemManager.get_item_by_name("strange_brew"),Vector2i(3,3))
 	player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("gold_coin"))
 	#player_inventory.add_item_at_first_possible_position(ItemManager.get_item_by_name("backpack"))
 	start_game()
@@ -46,7 +46,7 @@ func start_game() -> void:
 	init_next_room()
 
 func init_next_room() -> void:
-	room_container.init_room(room_generator.make_level_1_room())
+	room_container.init_room(room_generator.make_room(level_data))
 	next_room += 1
 
 func _on_entity_clicked(options_list:Array[Dictionary], entity:Entity) -> void:
