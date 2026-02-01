@@ -9,7 +9,7 @@ func loot_table_to_array(loot_table:Dictionary[String,int]) -> Array[String]:
 	return(loot_array)
 		
 
-func make_room(level:LevelData):
+func make_room(level:LevelData, room_number:int):
 	var n_stacks: int = randi_range(3,4)
 	var door_room: int = randi_range(0,n_stacks-1)
 	var my_room_data: RoomData = RoomData.new()

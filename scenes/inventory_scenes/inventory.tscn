@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb0s16p8l2v27"]
+[gd_scene format=3 uid="uid://cb0s16p8l2v27"]
 
 [ext_resource type="Texture2D" uid="uid://dbxypeo72xauc" path="res://graphics/inventory/inventory_tilemap.png" id="1_0kf6p"]
 [ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
@@ -42,7 +42,7 @@ region = Rect2(0, 80, 20, 20)
 atlas = ExtResource("3_pc1ti")
 region = Rect2(20, 80, 20, 20)
 
-[node name="Iventory" type="Control"]
+[node name="Iventory" type="Control" unique_id=344662526]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -51,12 +51,12 @@ mouse_behavior_recursive = 2
 mouse_force_pass_scroll_events = false
 script = ExtResource("1_uov6c")
 
-[node name="InventoryLayer" type="TileMapLayer" parent="."]
+[node name="InventoryLayer" type="TileMapLayer" parent="." unique_id=1171817907]
 tile_set = SubResource("TileSet_5qkal")
 
-[node name="Items" type="Node2D" parent="InventoryLayer"]
+[node name="Items" type="Node2D" parent="InventoryLayer" unique_id=594603732]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=873017946]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 0
 offset_top = -23.0
@@ -64,24 +64,24 @@ offset_right = 140.0
 offset_bottom = 0.5
 color = Color(0.1708, 0.18718001, 0.28, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=486025926]
 layout_mode = 0
 offset_right = 73.0
 offset_bottom = 23.0
 
-[node name="MovementHandle" type="TextureRect" parent="ColorRect/HBoxContainer"]
+[node name="MovementHandle" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=1002882340]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4gmu2")
 
-[node name="ClosingX" type="TextureButton" parent="ColorRect/HBoxContainer"]
+[node name="ClosingX" type="TextureButton" parent="ColorRect/HBoxContainer" unique_id=16963415]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_70pa0")
 
-[node name="MinimizingV" type="TextureButton" parent="ColorRect/HBoxContainer"]
+[node name="MinimizingV" type="TextureButton" parent="ColorRect/HBoxContainer" unique_id=997939356]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_rbfvr")
 
-[node name="Label" type="Label" parent="ColorRect/HBoxContainer"]
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer" unique_id=1883363875]
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

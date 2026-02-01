@@ -1,9 +1,12 @@
 extends Node
+class_name Main
 
 @onready var choices_container := $ChoisesContainer
 @onready var room_container := $RoomContainer
 @onready var inventory_manager := $InventoryLayer
 @onready var game_over_layer := $GameOverLayer
+@onready var game_over_text := $GameOverLayer/GameOver
+@onready var game_over_score := $GameOverLayer/Score
 @onready var player_hud := $PlayerHud
 @onready var menu_hud := $MenuHud
 @onready var log_hud := $LogHud
@@ -12,8 +15,9 @@ extends Node
 @onready var dice_results_label := $DiceLayer/Results
 @onready var room_generator := $RoomGenerator
 
+
 @export var level_data: LevelData
-var next_room: int = 0
+var room_number: int = 0
 
 func _ready() -> void:
 	# example content to show functionality
@@ -32,7 +36,17 @@ func _ready() -> void:
 	pass
 
 func game_over() -> void:
+	game_over_score.hide()
+	game_over_text.show()
 	game_over_layer.show()
+
+func exited() -> void:
+	var score: int = inventory_manager.player_inventory.get_total_value()
+	game_over_score.text = str(score)
+	game_over_score.show()
+	game_over_text.hide()
+	game_over_layer.show()
+
 
 func start_game() -> void:
 	choices_container.clear_options()
@@ -42,12 +56,12 @@ func start_game() -> void:
 	character.died.connect(game_over)
 	character.insane.connect(game_over)
 	character.init_character()
-	next_room = 0
+	room_number = 0
 	init_next_room()
 
 func init_next_room() -> void:
-	room_container.init_room(room_generator.make_room(level_data))
-	next_room += 1
+	room_number += 1
+	room_container.init_room(room_generator.make_room(level_data, room_number))
 
 func _on_entity_clicked(options_list:Array[Dictionary], entity:Entity) -> void:
 	choices_container.add_options_from_options_list(options_list, entity)

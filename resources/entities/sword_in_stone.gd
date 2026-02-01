@@ -36,8 +36,8 @@ func get_choices() -> Array[Dictionary]:
 
 func requirement_strange_brew(entity_node:Entity):
 	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
-	for item in player_inventory.items.values():
-		if item.name == "strange_brew":
+	for item in player_inventory.items.get_children():
+		if item.data.name == "strange_brew":
 			return(true)
 	return(false)
 

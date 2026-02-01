@@ -72,7 +72,6 @@ Success"
 horizontal_alignment = 1
 
 [node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=96564632]
-visible = false
 
 [node name="Background" type="ColorRect" parent="GameOverLayer" unique_id=2048182735]
 anchors_preset = 15
@@ -81,6 +80,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
+
+[node name="Score" type="Label" parent="GameOverLayer" unique_id=297092996]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -41.5
+offset_right = 172.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.52156854, 0.95118517, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
 
 [node name="GameOver" type="Label" parent="GameOverLayer" unique_id=1692944284]
 anchors_preset = 8
