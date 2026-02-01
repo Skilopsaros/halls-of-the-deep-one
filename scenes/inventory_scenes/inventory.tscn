@@ -68,21 +68,28 @@ tile_set = SubResource("TileSet_5qkal")
 [node name="Items" type="Node2D" parent="InventoryLayer" unique_id=672154198]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1148051039]
-custom_minimum_size = Vector2(0, 23)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 0
-offset_top = -23.0
+offset_top = -30.0
 offset_right = 140.0
-offset_bottom = 0.5
 color = Color(0.1708, 0.18718001, 0.28, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=1014391309]
-layout_mode = 0
-offset_right = 73.0
-offset_bottom = 23.0
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MovementHandle" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=20740577]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4gmu2")
+stretch_mode = 2
 
 [node name="ClosingX" type="TextureButton" parent="ColorRect/HBoxContainer" unique_id=1026182464]
 layout_mode = 2
@@ -94,6 +101,8 @@ texture_normal = SubResource("AtlasTexture_rbfvr")
 
 [node name="Label" type="Label" parent="ColorRect/HBoxContainer" unique_id=203003539]
 layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="input_event" from="Area2D" to="." method="_on_inventory_slot_clicked"]

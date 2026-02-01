@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7015tuyqysh8"]
+[gd_scene format=3 uid="uid://c7015tuyqysh8"]
 
 [ext_resource type="Script" uid="uid://ds4vds4xpcifd" path="res://scenes/main_display_scenes/player_hud.gd" id="1_dnds5"]
 [ext_resource type="Texture2D" uid="uid://dlpr5xm7jo5pk" path="res://graphics/huds/player_hud.png" id="1_w4b2m"]
@@ -15,14 +15,14 @@
 shader = ExtResource("5_2wdk6")
 shader_parameter/pixelation_size = 2.0
 
-[node name="PlayerHud" type="CanvasLayer"]
+[node name="PlayerHud" type="CanvasLayer" unique_id=1734905234]
 script = ExtResource("1_dnds5")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="." unique_id=1882608370]
 texture = ExtResource("1_w4b2m")
 centered = false
 
-[node name="Health_Cur" type="Label" parent="Background"]
+[node name="Health_Cur" type="Label" parent="Background" unique_id=1347681906]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -38,7 +38,7 @@ theme = ExtResource("3_qlvr2")
 text = "12"
 horizontal_alignment = 1
 
-[node name="Health_Max" type="Label" parent="Background"]
+[node name="Health_Max" type="Label" parent="Background" unique_id=2094940286]
 offset_left = 506.5
 offset_top = 502.0
 offset_right = 528.5
@@ -47,7 +47,7 @@ theme = ExtResource("4_0uiy3")
 text = "/20"
 horizontal_alignment = 1
 
-[node name="Insanity_Cur" type="Label" parent="Background"]
+[node name="Insanity_Cur" type="Label" parent="Background" unique_id=2124522937]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -63,7 +63,7 @@ theme = ExtResource("3_qlvr2")
 text = "20"
 horizontal_alignment = 1
 
-[node name="Insanity_Max" type="Label" parent="Background"]
+[node name="Insanity_Max" type="Label" parent="Background" unique_id=1331970043]
 offset_left = 442.5
 offset_top = 502.0
 offset_right = 464.5
@@ -72,7 +72,7 @@ theme = ExtResource("4_0uiy3")
 text = "/20"
 horizontal_alignment = 1
 
-[node name="Stats" type="Control" parent="Background"]
+[node name="Stats" type="Control" parent="Background" unique_id=312001446]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 637.0
@@ -81,83 +81,83 @@ offset_right = 800.0
 offset_bottom = 548.0
 size_flags_horizontal = 0
 
-[node name="Perception" type="VBoxContainer" parent="Background/Stats"]
+[node name="Perception" type="VBoxContainer" parent="Background/Stats" unique_id=329976309]
 layout_mode = 0
 offset_left = 6.0
 offset_right = 31.0
 offset_bottom = 54.0
 theme_override_constants/separation = -5
 
-[node name="Name" type="Label" parent="Background/Stats/Perception"]
+[node name="Name" type="Label" parent="Background/Stats/Perception" unique_id=203252469]
 layout_mode = 2
 theme = ExtResource("4_0uiy3")
 text = "PRC"
 horizontal_alignment = 1
 
-[node name="Value" type="Label" parent="Background/Stats/Perception"]
+[node name="Value" type="Label" parent="Background/Stats/Perception" unique_id=1529107592]
 layout_mode = 2
 theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
-[node name="Occult" type="VBoxContainer" parent="Background/Stats"]
+[node name="Occult" type="VBoxContainer" parent="Background/Stats" unique_id=2064521473]
 layout_mode = 0
 offset_left = 48.0
 offset_right = 73.0
 offset_bottom = 54.0
 theme_override_constants/separation = -5
 
-[node name="Name" type="Label" parent="Background/Stats/Occult"]
+[node name="Name" type="Label" parent="Background/Stats/Occult" unique_id=169924581]
 layout_mode = 2
 theme = ExtResource("4_0uiy3")
 text = "OCC"
 horizontal_alignment = 1
 
-[node name="Value" type="Label" parent="Background/Stats/Occult"]
+[node name="Value" type="Label" parent="Background/Stats/Occult" unique_id=646952521]
 layout_mode = 2
 theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
-[node name="Agility" type="VBoxContainer" parent="Background/Stats"]
+[node name="Agility" type="VBoxContainer" parent="Background/Stats" unique_id=1085370050]
 layout_mode = 0
 offset_left = 90.0
 offset_right = 115.0
 offset_bottom = 54.0
 theme_override_constants/separation = -5
 
-[node name="Name" type="Label" parent="Background/Stats/Agility"]
+[node name="Name" type="Label" parent="Background/Stats/Agility" unique_id=2118533227]
 layout_mode = 2
 theme = ExtResource("4_0uiy3")
 text = "AGL"
 horizontal_alignment = 1
 
-[node name="Value" type="Label" parent="Background/Stats/Agility"]
+[node name="Value" type="Label" parent="Background/Stats/Agility" unique_id=1836598248]
 layout_mode = 2
 theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
-[node name="Power" type="VBoxContainer" parent="Background/Stats"]
+[node name="Power" type="VBoxContainer" parent="Background/Stats" unique_id=170846182]
 layout_mode = 0
 offset_left = 132.0
 offset_right = 157.0
 offset_bottom = 54.0
 theme_override_constants/separation = -5
 
-[node name="Name" type="Label" parent="Background/Stats/Power"]
+[node name="Name" type="Label" parent="Background/Stats/Power" unique_id=309538423]
 layout_mode = 2
 theme = ExtResource("4_0uiy3")
 text = "POW"
 horizontal_alignment = 1
 
-[node name="Value" type="Label" parent="Background/Stats/Power"]
+[node name="Value" type="Label" parent="Background/Stats/Power" unique_id=958892431]
 layout_mode = 2
 theme = ExtResource("3_qlvr2")
 text = "10"
 horizontal_alignment = 1
 
-[node name="PixelShaderApplicator" type="ColorRect" parent="Background"]
+[node name="PixelShaderApplicator" type="ColorRect" parent="Background" unique_id=426918075]
 visible = false
 material = SubResource("ShaderMaterial_qlvr2")
 anchors_preset = 15
@@ -171,51 +171,41 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="ChromaticSprites" type="Node2D" parent="Background"]
+[node name="ChromaticSprites" type="Node2D" parent="Background" unique_id=836032725]
 material = ExtResource("7_2ngfb")
 position = Vector2(479, 270)
 
-[node name="Background" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Background" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=1327076279]
 use_parent_material = true
 position = Vector2(-2, 240)
 texture = ExtResource("4_2wdk6")
 
-[node name="Candle1" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Candle1" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=366412243]
 use_parent_material = true
 position = Vector2(67, 239)
 texture = ExtResource("8_0uiy3")
 
-[node name="Candle2" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Candle2" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=1593570728]
 use_parent_material = true
 position = Vector2(77.5, 252.5)
 texture = ExtResource("9_5hmf3")
 
-[node name="Candle3" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Candle3" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=1416413193]
 use_parent_material = true
 position = Vector2(-74.5, 249.5)
 texture = ExtResource("9_5hmf3")
 
-[node name="Candle4" type="Sprite2D" parent="Background/ChromaticSprites"]
-use_parent_material = true
-position = Vector2(-183.5, 217.5)
-texture = ExtResource("8_0uiy3")
-
-[node name="Candle5" type="Sprite2D" parent="Background/ChromaticSprites"]
-use_parent_material = true
-position = Vector2(-173.5, 238)
-texture = ExtResource("9_5hmf3")
-
-[node name="Candle8" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Candle8" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=98016574]
 use_parent_material = true
 position = Vector2(420, 236)
 texture = ExtResource("8_0uiy3")
 
-[node name="Candle7" type="Sprite2D" parent="Background/ChromaticSprites"]
+[node name="Candle7" type="Sprite2D" parent="Background/ChromaticSprites" unique_id=770547878]
 use_parent_material = true
 position = Vector2(424, 213.5)
 texture = ExtResource("9_5hmf3")
 
-[node name="Character" parent="." instance=ExtResource("3_ldeky")]
+[node name="Character" parent="." unique_id=640321903 instance=ExtResource("3_ldeky")]
 
 [connection signal="health_changed" from="Character" to="." method="_on_character_health_changed"]
 [connection signal="insanity_changed" from="Character" to="." method="_on_character_insanity_changed"]

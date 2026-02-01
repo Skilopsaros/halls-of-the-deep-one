@@ -287,12 +287,16 @@ func _on_visibility_changed() -> void:
 	update_top_bar_tools_visibility()
 
 func update_top_bar_tools_visibility() -> void:
+	if not top_bar:
+		return
 	if not closable and closing_x:
 		closing_x.hide()
 	if not minimizable and minimizing_v:
 		minimizing_v.hide()
 	if not movable and movement_handle:
 		movement_handle.hide()
+	if not closable and not movable and not minimizable:
+		top_bar.color = Color(0,0,0,0)
 
 func _on_closing_x_pressed() -> void:
 	self.inventory_closing.emit(self)

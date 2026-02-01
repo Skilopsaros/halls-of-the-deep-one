@@ -31,7 +31,7 @@ func get_inventory_tags() -> Dictionary[String, Array]:
 	return dict
 
 func _ready() -> void:
-	player_inventory.top_bar.visible = false
+	#player_inventory.top_bar.visible = false'
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 	trash.connect("gui_input", _trash_item)
