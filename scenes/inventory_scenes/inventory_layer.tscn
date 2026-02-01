@@ -19,10 +19,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -944.0
-offset_top = -40.0
-offset_right = -914.0
-offset_bottom = -10.0
+offset_left = -715.0
+offset_top = -45.0
+offset_right = -685.0
+offset_bottom = -15.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_as3bf")
@@ -31,10 +31,10 @@ stretch_mode = 2
 [node name="Inventories" type="Node" parent="." unique_id=391350216]
 
 [node name="PlayerInventory" parent="Inventories" unique_id=554660684 instance=ExtResource("3_s2ubw")]
-offset_left = 16.0
-offset_top = 43.0
-offset_right = 56.0
-offset_bottom = 83.0
+offset_left = 15.0
+offset_top = 45.0
+offset_right = 55.0
+offset_bottom = 85.0
 rows = 7
 cols = 7
 
@@ -60,30 +60,33 @@ cols = 24
 minimizable = true
 
 [node name="EquipmentWeapon" parent="Inventories" unique_id=181881091 instance=ExtResource("3_s2ubw")]
-offset_left = 16.0
-offset_top = 403.0
-offset_right = 56.0
-offset_bottom = 443.0
+offset_left = 15.0
+offset_top = 435.0
+offset_right = 55.0
+offset_bottom = 475.0
 rows = 3
 cols = 7
+title = "Weapon"
 filters = Array[int]([0])
 
 [node name="EquipmentArmour" parent="Inventories" unique_id=806928206 instance=ExtResource("3_s2ubw")]
-offset_left = 136.0
-offset_top = 283.0
-offset_right = 176.0
-offset_bottom = 323.0
-rows = 3
-cols = 3
+offset_left = 105.0
+offset_top = 285.0
+offset_right = 145.0
+offset_bottom = 325.0
+rows = 4
+cols = 4
+title = "Armour"
 filters = Array[int]([2])
 
 [node name="EquipmentAccessory" parent="Inventories" unique_id=129706681 instance=ExtResource("3_s2ubw")]
-offset_left = 16.0
-offset_top = 283.0
-offset_right = 56.0
-offset_bottom = 323.0
-rows = 3
+offset_left = 15.0
+offset_top = 285.0
+offset_right = 55.0
+offset_bottom = 325.0
+rows = 4
 cols = 3
+title = "Accessory"
 filters = Array[int]([1])
 
 [node name="DragPreview" parent="." unique_id=739333247 instance=ExtResource("2_s2ubw")]
@@ -92,3 +95,17 @@ filters = Array[int]([1])
 visible = false
 offset_right = -860.0
 offset_bottom = -390.0
+
+[node name="Decorations" type="Control" parent="." unique_id=1675299600]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Decorations" unique_id=1101772485]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 259.0
+offset_right = 105.0
+offset_bottom = 410.0
+color = Color(0.75, 0.75, 0.75, 1)
