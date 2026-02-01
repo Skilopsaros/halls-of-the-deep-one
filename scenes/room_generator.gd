@@ -9,17 +9,17 @@ func loot_table_to_array(loot_table:Dictionary[String,int]) -> Array[String]:
 	return(loot_array)
 		
 
-func make_room(level:LevelData, room_number:int):
+func make_room(level:LevelData, _room_number:int):
 	var n_stacks: int = randi_range(3,4)
 	var door_room: int = randi_range(0,n_stacks-1)
 	var my_room_data: RoomData = RoomData.new()
 	my_room_data.room_art = level.room_art
 	for i in range(n_stacks):
 		var my_enity_stack:EntityStack = EntityStack.new()
-		var monster_entity = level.monsters[randi() % level.monsters.size()].new()
-		my_enity_stack.entities.append(monster_entity)
-		var curio_entity = level.curios[randi() % level.curios.size()].new()
-		my_enity_stack.entities.append(curio_entity)
+		#var monster_entity = level.monsters[randi() % level.monsters.size()].new()
+		#my_enity_stack.entities.append(monster_entity)
+		#var curio_entity = level.curios[randi() % level.curios.size()].new()
+		#my_enity_stack.entities.append(curio_entity)
 		if i == door_room:
 			my_enity_stack.entities.append(Door.new())
 		else:

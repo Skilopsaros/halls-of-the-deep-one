@@ -51,8 +51,13 @@ func exited() -> void:
 func start_game() -> void:
 	choices_container.clear_options()
 	game_over_layer.hide()
+	inventory_manager.player_inventory.clear_inventory()
+	inventory_manager.player_weapon.clear_inventory()
+	inventory_manager.player_armour.clear_inventory()
+	inventory_manager.player_accessory.clear_inventory()
 	await player_hud.new_character()
 	var character = get_node("/root/Main/PlayerHud").character
+	inventory_manager.player_inventory.set_active_list(character.get_starting_inventory_active_list(20))
 	character.died.connect(game_over)
 	character.insane.connect(game_over)
 	character.init_character()
