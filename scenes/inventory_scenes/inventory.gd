@@ -9,11 +9,11 @@ class_name Inventory
 @onready var movement_handle:TextureRect = $ColorRect/HBoxContainer/MovementHandle
 @onready var top_bar = $ColorRect
 
-signal cell_clicked
 signal inventory_changed
 signal inventory_closing
 signal inventory_hiding
 
+signal cell_clicked
 signal item_hover_info_activated
 signal item_hover_info_deactivated
 
@@ -87,14 +87,11 @@ func _ready() -> void:
 	size.x = cols*30
 	size.y = rows*30
 	top_bar.size.x = cols*30
-	$Area2D/CollisionShape2D.shape.size = size
-	$Area2D/CollisionShape2D.position = size/2
-	#inventory_layer.connect("cell_clicked",_on_inventory_tilemap_input)
 
 var window_drag_offset:Vector2 = Vector2(0.0,0.0)
 var dragging:bool = false
 
-func _on_inventory_slot_clicked(_viewport:Node,event:InputEvent,_inx:int) -> void:
+func _on_gui_input(event:InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			var global_clicked:Vector2 = get_local_mouse_position()
@@ -102,10 +99,6 @@ func _on_inventory_slot_clicked(_viewport:Node,event:InputEvent,_inx:int) -> voi
 			if inventory_layer.get_cell_tile_data(pos_clicked) != null:
 				print(pos_clicked)
 				cell_clicked.emit(event,pos_clicked,self)
-
-#func _on_inventory_tilemap_input(event:InputEvent,location:Vector2i) -> void:
-	#print("B")
-	#cell_clicked.emit(event,location,self)
 
 func _on_movement_handle_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -116,9 +109,33 @@ func _on_movement_handle_gui_input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and dragging:
 			dragging = false
 			
+var mouse_in_window:bool = false
+var focused_item:ItemObject = null
+
 func _process(_delta: float) -> void:
 	if dragging:
 		position = get_global_mouse_position() + window_drag_offset
+	if mouse_in_window:
+		var pos_focused:Vector2i = inventory_layer.local_to_map(get_local_mouse_position())
+		var new_focused_item:ItemObject
+		if pos_focused in occupancy_dict.keys():
+			new_focused_item = occupancy_dict[pos_focused]
+		else:
+			new_focused_item = null
+		
+		if new_focused_item != focused_item:
+			focused_item = new_focused_item
+			if focused_item:
+				item_hover_info_activated.emit(focused_item)
+			else:
+				item_hover_info_deactivated.emit()
+
+func _on_mouse_entered() -> void:
+	mouse_in_window = true
+	
+func _on_mouse_exited() -> void:
+	item_hover_info_deactivated.emit()
+	mouse_in_window = false
 
 func check_placement(item:ItemObject,coordinate:Vector2i) -> bool:
 	for position_vector in item.occupancy: # vectors in godot are value types.
@@ -180,8 +197,6 @@ func add_item(item:ItemObject,coordinate:Vector2i) -> bool:
 	if closes_on_item_placement and closing_check.call(self):
 		emit_signal("inventory_hiding", self)
 		self.hide()
-	item.connect("stop_hover_info",_on_item_hover_info_deactivated)
-	item.connect("display_hover_info",_on_item_hover_info_activated)
 	return true
 	
 func returns_true(_inventory:Inventory) -> bool:
@@ -190,12 +205,9 @@ func returns_true(_inventory:Inventory) -> bool:
 func remove_item(item_to_remove:ItemObject) -> ItemObject:
 	remove_occupancy(item_to_remove)
 	update_inventory_tiles()
-	item_to_remove._on_hover_exit()
 	items.remove_child(item_to_remove)
 	update_tag_counts()
 	inventory_changed.emit(self,item_to_remove,"remove")
-	item_to_remove.disconnect("stop_hover_info",_on_item_hover_info_deactivated)
-	item_to_remove.disconnect("display_hover_info",_on_item_hover_info_activated)
 	return item_to_remove
 	
 func destroy_item(item_to_remove:ItemObject) -> void:
