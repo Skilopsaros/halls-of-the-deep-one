@@ -210,7 +210,7 @@ func remove_item_by_name(item_name: String) -> ItemObject:
 
 func clear_inventory() -> void:
 	for item in items.get_children():
-		remove_item(item)
+		destroy_item(item)
 
 func remove_item_by_coordinate(coordinate:Vector2i) -> ItemObject:
 	if not coordinate in occupancy_dict or occupancy_dict[coordinate] == null:

@@ -1,5 +1,5 @@
 extends EntityData
-class_name Trap
+class_name Bookshelf
 
 @export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
 @export var insanity: int = 10
@@ -46,3 +46,11 @@ func research(entity_node:Entity):
 	character.change_stat(Enums.stats.occult, occ_increase)
 	entity_node.clear_self()
  
+func randomise(level_data):
+	var loot_table: Array[String] = loot_table_to_array(level_data.loot_table)
+	loot_table.shuffle()
+	items = []
+	for i in range(randi_range(2,5)):
+		if len(loot_table) > i:
+			items.append(loot_table[i])
+	print(items)

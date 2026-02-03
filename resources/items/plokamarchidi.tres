@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://twowfh2djvnf"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_1qker"]
+[ext_resource type="Texture2D" uid="uid://3pbis2blgwth" path="res://graphics/items/plokamarchidi_smol.png" id="2_1qker"]
+
+[resource]
+script = ExtResource("1_1qker")
+name = "plokamarchidi"
+title = "Plokamarchidi"
+texture = ExtResource("2_1qker")
+occupancy_matrix = "1,1
+1,1"
+value = -1
+flavour_text = "What an ominous aura"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

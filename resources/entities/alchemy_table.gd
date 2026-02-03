@@ -65,5 +65,4 @@ func alchemise_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 		inventory_manager.display_hidden_inventory_with_items(["empty_bottle"])
 		entity_node.clear_self()
 
-
  

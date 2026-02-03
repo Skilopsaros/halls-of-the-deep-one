@@ -50,16 +50,16 @@ func fill_cup_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 	var inventory_manager: InventoryManager = entity_node.get_node("/root/Main/InventoryLayer")
 	if inventory.items:
 		var items: Array[String] = ["empty_bottle"]
-		for item in inventory.items.values():
-			if item.name == "strange_brew":
+		for item in inventory.items.get_children():
+			if item.data.name == "strange_brew":
 				items.append("suspicious_eyeball")
-			if item.name == "blood":
+			if item.data.name == "blood":
 				character.heal_damage(damage)
 				character.take_insanity(insanity)
-			if item.name == "acid":
+			if item.data.name == "acid":
 				character.take_damage(damage)
 				character.heal_insanity(insanity)
-			if item.name == "ectoplasm":
+			if item.data.name == "ectoplasm":
 				pass # give inventory space
 		inventory_manager.display_hidden_inventory_with_items(items)
 		entity_node.clear_self()

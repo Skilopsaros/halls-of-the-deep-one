@@ -14,7 +14,6 @@ var stat_names: Dictionary[Enums.stats, String] = {
 }
 
 func get_choices() -> Array[Dictionary]:
-	all_stats.shuffle()
 	var choices: Array[Dictionary] = [
 		{
 			"title": "Small Trade",
@@ -52,3 +51,6 @@ func large_trade(entity_node:Entity):
 func trade(character:Character, stat_to_lose:Enums.stats, stat_to_gain:Enums.stats, amount:int):
 	character.change_stat(stat_to_lose, -amount)
 	character.change_stat(stat_to_gain, amount)
+
+func randomise(_level_data):
+	all_stats.shuffle()

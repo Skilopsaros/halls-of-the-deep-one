@@ -3,8 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c7015tuyqysh8" path="res://scenes/main_display_scenes/player_hud.tscn" id="1_o5qli"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cd3fikbu43hqs" path="res://scenes/main_display_scenes/choices_container.tscn" id="2_0wfyh"]
-[ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_tefeu"]
-[ext_resource type="Script" uid="uid://dw7s26qp4bps6" path="res://scripts/data/room_data.gd" id="2_tipki"]
+[ext_resource type="Resource" uid="uid://rfpmmfvk22y" path="res://resources/levels/level_1.tres" id="2_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://ce6l1qwo0u77n" path="res://scenes/main_display_scenes/room_container.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bqa3i600a7odc" path="res://scenes/main_display_scenes/menu_hud.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://bl5rvohfwylcv" path="res://graphics/huds/left_border.png" id="4_ya4ey"]
@@ -12,10 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://c7mms8twfmadh" path="res://scenes/inventory_scenes/inventory_layer.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b3skjpqr02jg7" path="res://scenes/main_display_scenes/log_hud.tscn" id="8_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bs6fv3mwtpegb" path="res://scenes/die.tscn" id="11_ya4ey"]
+[ext_resource type="Script" uid="uid://cpyrtrfeblrjo" path="res://scenes/room_generator.gd" id="13_trceg"]
 
 [node name="Main" type="Node" unique_id=1436959928]
 script = ExtResource("1_tbgi4")
-room_data = Array[ExtResource("2_tipki")]([ExtResource("2_tefeu")])
+level_data = ExtResource("2_eb6dy")
 
 [node name="Further_Background" type="Node2D" parent="." unique_id=1315419648]
 
@@ -72,7 +72,6 @@ Success"
 horizontal_alignment = 1
 
 [node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=96564632]
-visible = false
 
 [node name="Background" type="ColorRect" parent="GameOverLayer" unique_id=2048182735]
 anchors_preset = 15
@@ -81,6 +80,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
+
+[node name="Score" type="Label" parent="GameOverLayer" unique_id=297092996]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -41.5
+offset_right = 172.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.52156854, 0.95118517, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
 
 [node name="GameOver" type="Label" parent="GameOverLayer" unique_id=1692944284]
 anchors_preset = 8
@@ -113,5 +131,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "New Game"
+
+[node name="RoomGenerator" type="Node" parent="." unique_id=1194900277]
+script = ExtResource("13_trceg")
 
 [connection signal="pressed" from="GameOverLayer/NewGame" to="." method="start_game"]
