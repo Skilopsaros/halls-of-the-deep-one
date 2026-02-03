@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cbpdimsir0pk6" path="res://scenes/inventory_scenes/drag_preview.tscn" id="2_s2ubw"]
 [ext_resource type="PackedScene" uid="uid://cb0s16p8l2v27" path="res://scenes/inventory_scenes/inventory.tscn" id="3_s2ubw"]
 [ext_resource type="PackedScene" uid="uid://d4bwde7tln134" path="res://scenes/inventory_scenes/hover_info.tscn" id="5_as3bf"]
-[ext_resource type="Texture2D" uid="uid://dgc2xy3v38p8p" path="res://graphics/inventory/inventory_decoration_dual_map.png" id="6_7dcd4"]
+[ext_resource type="Texture2D" uid="uid://dmfka0pbrsr0e" path="res://graphics/inventory/inventory_decoration_dual_map.png" id="6_7dcd4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as3bf"]
 atlas = ExtResource("2_j1u2o")
@@ -68,6 +68,7 @@ closes_on_item_placement = true
 minimizable = true
 
 [node name="EntityInventory" parent="Inventories" unique_id=509981301 instance=ExtResource("3_s2ubw")]
+visible = false
 offset_left = 246.805
 offset_top = 65.0
 offset_right = 286.8048
