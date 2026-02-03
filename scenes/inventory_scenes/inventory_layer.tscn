@@ -4,15 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="2_j1u2o"]
 [ext_resource type="PackedScene" uid="uid://cbpdimsir0pk6" path="res://scenes/inventory_scenes/drag_preview.tscn" id="2_s2ubw"]
 [ext_resource type="PackedScene" uid="uid://cb0s16p8l2v27" path="res://scenes/inventory_scenes/inventory.tscn" id="3_s2ubw"]
+[ext_resource type="PackedScene" uid="uid://d4bwde7tln134" path="res://scenes/inventory_scenes/hover_info.tscn" id="5_as3bf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as3bf"]
 atlas = ExtResource("2_j1u2o")
 region = Rect2(70, 40, 30, 30)
 
-[node name="InventoryLayer" type="CanvasLayer" unique_id=1272714497]
+[node name="InventoryLayer" type="CanvasLayer" unique_id=421070882]
 script = ExtResource("1_uskig")
 
-[node name="Trash" type="TextureRect" parent="." unique_id=363436502]
+[node name="Trash" type="TextureRect" parent="." unique_id=1813622359]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -27,9 +28,9 @@ grow_vertical = 0
 texture = SubResource("AtlasTexture_as3bf")
 stretch_mode = 2
 
-[node name="Inventories" type="Node" parent="." unique_id=633832035]
+[node name="Inventories" type="Node" parent="." unique_id=391350216]
 
-[node name="PlayerInventory" parent="Inventories" unique_id=493559985 instance=ExtResource("3_s2ubw")]
+[node name="PlayerInventory" parent="Inventories" unique_id=554660684 instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
 offset_top = 43.0
 offset_right = 56.0
@@ -37,7 +38,7 @@ offset_bottom = 83.0
 rows = 7
 cols = 7
 
-[node name="InputInventory" parent="Inventories" unique_id=1429835499 instance=ExtResource("3_s2ubw")]
+[node name="InputInventory" parent="Inventories" unique_id=1152143194 instance=ExtResource("3_s2ubw")]
 visible = false
 offset_left = 232.0
 offset_top = 53.0
@@ -48,7 +49,7 @@ cols = 24
 closes_on_item_placement = true
 minimizable = true
 
-[node name="EntityInventory" parent="Inventories" unique_id=1784874165 instance=ExtResource("3_s2ubw")]
+[node name="EntityInventory" parent="Inventories" unique_id=509981301 instance=ExtResource("3_s2ubw")]
 visible = false
 offset_left = 232.0
 offset_top = 53.0
@@ -58,7 +59,7 @@ rows = 7
 cols = 24
 minimizable = true
 
-[node name="EquipmentWeapon" parent="Inventories" unique_id=1205765657 instance=ExtResource("3_s2ubw")]
+[node name="EquipmentWeapon" parent="Inventories" unique_id=181881091 instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
 offset_top = 403.0
 offset_right = 56.0
@@ -67,7 +68,7 @@ rows = 3
 cols = 7
 filters = Array[int]([0])
 
-[node name="EquipmentArmour" parent="Inventories" unique_id=864508322 instance=ExtResource("3_s2ubw")]
+[node name="EquipmentArmour" parent="Inventories" unique_id=806928206 instance=ExtResource("3_s2ubw")]
 offset_left = 136.0
 offset_top = 283.0
 offset_right = 176.0
@@ -76,7 +77,7 @@ rows = 3
 cols = 3
 filters = Array[int]([2])
 
-[node name="EquipmentAccessory" parent="Inventories" unique_id=1989502458 instance=ExtResource("3_s2ubw")]
+[node name="EquipmentAccessory" parent="Inventories" unique_id=129706681 instance=ExtResource("3_s2ubw")]
 offset_left = 16.0
 offset_top = 283.0
 offset_right = 56.0
@@ -85,4 +86,9 @@ rows = 3
 cols = 3
 filters = Array[int]([1])
 
-[node name="DragPreview" parent="." unique_id=537154302 instance=ExtResource("2_s2ubw")]
+[node name="DragPreview" parent="." unique_id=739333247 instance=ExtResource("2_s2ubw")]
+
+[node name="HoverInfo" parent="." unique_id=931763061 instance=ExtResource("5_as3bf")]
+visible = false
+offset_right = -860.0
+offset_bottom = -390.0

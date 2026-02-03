@@ -4,16 +4,17 @@
 [ext_resource type="Resource" uid="uid://dtmffwssln3sh" path="res://resources/rooms/example_room.tres" id="2_ffxv4"]
 [ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="3_85yof"]
 
-[node name="Room" type="Node2D" unique_id=701579791]
+[node name="Room" type="Node2D" unique_id=1081923]
 script = ExtResource("1_ffxv4")
 data = ExtResource("2_ffxv4")
 
-[node name="RoomArt" type="Sprite2D" parent="." unique_id=604066247]
+[node name="RoomArt" type="Sprite2D" parent="." unique_id=157275914]
 texture = ExtResource("3_85yof")
 centered = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1065431067]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1171183621]
+offset_top = 20.0
 offset_right = 702.0
-offset_bottom = 228.0
+offset_bottom = 200.0
 theme_override_constants/separation = 100
 alignment = 1

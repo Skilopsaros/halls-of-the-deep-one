@@ -2,8 +2,11 @@ extends Sprite2D
 
 class_name ItemObject
 
-@onready var hover_info:HoverInfo = $HoverInfo
+#@onready var hover_info:HoverInfo = $HoverInfo
 @onready var collision_area:Area2D = $CollisionArea
+
+signal display_hover_info
+signal stop_hover_info
 
 var data:Item
 var location:Vector2i
@@ -17,6 +20,7 @@ var inventory:Inventory = null # only used for container items
 
 var hover_counter:float
 var hovering:bool = false
+var hover_info_subject:bool = false
 
 static func constructor(item_data:Item) -> ItemObject:
 	var obj := self_scene.instantiate()
@@ -26,21 +30,19 @@ static func constructor(item_data:Item) -> ItemObject:
 
 func _ready() -> void:
 	texture = data.texture
-	hover_info.display_item_data(data)
+	#hover_info.display_item_data(data)
 	_derive_occupancy()
 	_create_collision_shape()
 
 func _process(delta:float) -> void:
-	if hovering:
+	#if hover_info_subject and Input.get_last_mouse_velocity() != Vector2(0,0):
+		#hover_counter = 0
+		#disable_hover_info()
+	if not hover_info_subject and hovering:
 		hover_counter += delta
-	if Input.get_last_mouse_velocity() != Vector2(0,0):
-		hover_counter = 0
-		disable_hover_info()
-	var grandparent:Node = self.get_parent().get_parent()
-	if hover_info.visible and not grandparent is Inventory:
-		disable_hover_info()
-	if hover_counter > 0.5 and grandparent is Inventory and not hover_info.visible:
-		enable_hover_info()
+		var grandparent:Node = self.get_parent().get_parent().get_parent()
+		if hover_counter > 0.6 and grandparent is Inventory:
+			enable_hover_info()
 
 func _on_hover_enter() -> void:
 	hovering = true
@@ -51,16 +53,17 @@ func _on_hover_exit() -> void:
 	disable_hover_info()
 	
 func enable_hover_info() -> void:
-	hover_info.position = get_local_mouse_position() + Vector2(10,10)
-	hover_info.visible = true
-	
+	display_hover_info.emit(self)
+	hover_info_subject = true
+
 func disable_hover_info() -> void:
-	hover_info.visible = false
+	stop_hover_info.emit(self)
+	hover_info_subject = false
 
 func rotate_90() -> void:
 	orientation = (orientation + 1) % 4
 	rotation = PI/2*orientation
-	hover_info.rotation = -rotation
+	#hover_info.rotation = -rotation
 
 func _derive_occupancy() -> void:
 	var occupancy_temp:Array[PackedStringArray] = []
@@ -121,8 +124,6 @@ func _transpose(arr) -> Array[Array]:
 	return new_arr
 
 func _on_visibility_changed() -> void:
-	if hover_info:
-		hover_info.visible = false
 	if inventory:
 		inventory.visible = false
 
