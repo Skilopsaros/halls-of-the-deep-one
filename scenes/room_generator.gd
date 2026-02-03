@@ -16,10 +16,12 @@ func make_room(level:LevelData, _room_number:int):
 	my_room_data.room_art = level.room_art
 	for i in range(n_stacks):
 		var my_enity_stack:EntityStack = EntityStack.new()
-		#var monster_entity = level.monsters[randi() % level.monsters.size()].new()
-		#my_enity_stack.entities.append(monster_entity)
-		#var curio_entity = level.curios[randi() % level.curios.size()].new()
-		#my_enity_stack.entities.append(curio_entity)
+		var monster_entity = level.monsters[randi() % level.monsters.size()].new()
+		monster_entity.randomise(level)
+		my_enity_stack.entities.append(monster_entity)
+		var curio_entity = level.curios[randi() % level.curios.size()].new()
+		curio_entity.randomise(level)
+		my_enity_stack.entities.append(curio_entity)
 		if i == door_room:
 			my_enity_stack.entities.append(Door.new())
 		else:
