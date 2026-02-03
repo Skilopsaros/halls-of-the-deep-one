@@ -74,7 +74,7 @@ func get_starting_inventory_active_list(inv_size:int) -> Array[Vector2i]:
 		var new_direction = directions[randi()%len(directions)]
 		agent_position += new_direction
 		if agent_position.x>=7 or agent_position.y>=7 or agent_position.y<0 or agent_position.x<0:
-			agent_position -= new_direction
+			agent_position = Vector2i(3,3)
 		if agent_position not in enabled:
 			enabled.append(agent_position)
 	print(enabled)
