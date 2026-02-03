@@ -56,6 +56,24 @@ func set_active_list(new_active_list:Array[Vector2i]) -> void:
 	active_list = new_active_list.duplicate()
 	update_inventory_tiles()
 
+func activate_random_slot() -> void:
+	if active_list == [] or len(active_list) == rows*cols:
+		return # whole thing is already active
+	
+	# get list of all candidates
+	var candidates:Array[Vector2i] = []
+	var cardinal_directions:Array[Vector2i] = [Vector2i(-1,0),Vector2i(1,0),Vector2i(0,1),Vector2i(0,-1)]
+	for active_slot in active_list:
+		for direction in cardinal_directions:
+			var neighbor:Vector2i = active_slot + direction
+			if neighbor in active_list or neighbor in candidates:
+				continue
+			if neighbor.x >= 0 and neighbor.x < cols and neighbor.y >= 0 and neighbor.y < rows:
+				candidates.append(neighbor)
+	# choose one at random
+	var choice:int = randi_range(0,len(candidates)-1)
+	add_to_active_list([candidates[choice]])
+
 func set_required_tags(new_required_tags:Dictionary[Enums.item_tags,int]) -> void:
 	required_tags = new_required_tags
 	update_tag_counts()
