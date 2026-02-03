@@ -31,7 +31,7 @@ func get_inventory_tags() -> Dictionary[String, Array]:
 	return dict
 
 func _ready() -> void:
-	player_inventory.top_bar.visible = false
+	#player_inventory.top_bar.visible = false'
 	for inventory in inventories.get_children():
 		_initialize_inventory_interactivity(inventory)
 	trash.connect("gui_input", _trash_item)
@@ -83,7 +83,6 @@ func _on_inventory_slot_input(event: InputEvent, coordinate:Vector2i, inventory:
 			var item:ItemObject = drag_preview.dragged_item
 			var success:bool = inventory.add_item(item,coordinate)
 			if success:
-				item._on_hover_enter()
 				drag_preview.dragged_item = null
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and drag_preview.dragged_item == null:
 			if not coordinate in inventory.occupancy_dict.keys():
@@ -216,6 +215,6 @@ func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 func _on_hover_info_activated(item:ItemObject) -> void:
 	hover_info.display_item(item)
 
-func _on_hover_info_deactivated(item:ItemObject) -> void:
+func _on_hover_info_deactivated() -> void:
 	hover_info.visible = false
 	hover_info.displayed_item = null

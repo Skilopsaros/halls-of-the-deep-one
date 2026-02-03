@@ -10,7 +10,17 @@ var displayed_item:ItemObject = null
 func _ready() -> void:
 	visible = false
 
+var visibility_counter:float = 0
+
+func _process(delta: float) -> void:
+	if displayed_item:
+		visibility_counter += delta
+		if visibility_counter > 0.5 and not visible:
+			position = get_global_mouse_position() + Vector2(10,10)
+			visible = true
+	
 func display_item(item_object:ItemObject) -> void:
+	displayed_item = item_object
 	var item = item_object.data
 	var text_to_display: String = ""
 	if item.title != "":
@@ -29,5 +39,4 @@ func display_item(item_object:ItemObject) -> void:
 	text_label.text = text_to_display
 	
 	flavour_label.text = "[i]" + item.flavour_text
-	position = get_global_mouse_position() + Vector2(10,10)
-	self.visible = true
+	visibility_counter = 0

@@ -2,18 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d0h6ja7qitdu" path="res://scenes/inventory_scenes/item_object.gd" id="1_uu01i"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7ip7"]
-size = Vector2(0, 0)
-
 [node name="ItemObject" type="Sprite2D" unique_id=1115162589]
 centered = false
 script = ExtResource("1_uu01i")
 
-[node name="CollisionArea" type="Area2D" parent="." unique_id=1761027875]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea" unique_id=1988890953]
-shape = SubResource("RectangleShape2D_o7ip7")
-
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="mouse_entered" from="CollisionArea" to="." method="_on_hover_enter"]
-[connection signal="mouse_exited" from="CollisionArea" to="." method="_on_hover_exit"]

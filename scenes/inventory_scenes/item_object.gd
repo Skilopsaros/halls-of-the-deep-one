@@ -2,12 +2,6 @@ extends Sprite2D
 
 class_name ItemObject
 
-#@onready var hover_info:HoverInfo = $HoverInfo
-@onready var collision_area:Area2D = $CollisionArea
-
-signal display_hover_info
-signal stop_hover_info
-
 var data:Item
 var location:Vector2i
 var orientation:int = 0
@@ -32,33 +26,7 @@ func _ready() -> void:
 	texture = data.texture
 	#hover_info.display_item_data(data)
 	_derive_occupancy()
-	_create_collision_shape()
-
-func _process(delta:float) -> void:
-	#if hover_info_subject and Input.get_last_mouse_velocity() != Vector2(0,0):
-		#hover_counter = 0
-		#disable_hover_info()
-	if not hover_info_subject and hovering:
-		hover_counter += delta
-		var grandparent:Node = self.get_parent().get_parent().get_parent()
-		if hover_counter > 0.6 and grandparent is Inventory:
-			enable_hover_info()
-
-func _on_hover_enter() -> void:
-	hovering = true
-	hover_counter = 0
-
-func _on_hover_exit() -> void:
-	hovering = false
-	disable_hover_info()
-	
-func enable_hover_info() -> void:
-	display_hover_info.emit(self)
-	hover_info_subject = true
-
-func disable_hover_info() -> void:
-	stop_hover_info.emit(self)
-	hover_info_subject = false
+	#_create_collision_shape()
 
 func rotate_90() -> void:
 	orientation = (orientation + 1) % 4
@@ -89,13 +57,13 @@ func _derive_occupancy() -> void:
 			if occupancy_temp_transposed[i][j] == '1':
 				occupancy.append(Vector2i(i,j) - origin)
 
-func _create_collision_shape() -> void:
-	for position_vector in occupancy:
-		var coll_shape := CollisionShape2D.new()
-		coll_shape.shape = RectangleShape2D.new()
-		coll_shape.shape.size = Vector2(30,30)
-		coll_shape.position = position_vector*30
-		collision_area.add_child(coll_shape)
+#func _create_collision_shape() -> void:
+	#for position_vector in occupancy:
+		#var coll_shape := CollisionShape2D.new()
+		#coll_shape.shape = RectangleShape2D.new()
+		#coll_shape.shape.size = Vector2(30,30)
+		#coll_shape.position = position_vector*30
+		#collision_area.add_child(coll_shape)
 
 func _on_equip(character: Character) -> void:
 	for stat in data.stat_modifiers:
