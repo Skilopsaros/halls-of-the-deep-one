@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://bmb6alj3b355v" path="res://graphics/themes/small.tres" id="4_0uiy3"]
 [ext_resource type="Texture2D" uid="uid://b6ft2tdu2jpwg" path="res://graphics/huds/player_hud_shine.png" id="4_2wdk6"]
 [ext_resource type="Shader" uid="uid://do1l2ql4uka3s" path="res://graphics/shaders/pixelation.gdshader" id="5_2wdk6"]
-[ext_resource type="Material" uid="uid://dwflkaqsor3yi" path="res://graphics/shaders/Chromatic.tres" id="7_2ngfb"]
+[ext_resource type="Material" uid="uid://dwflkaqsor3yi" path="res://graphics/materials/Chromatic.tres" id="7_2ngfb"]
 [ext_resource type="Texture2D" uid="uid://b65rd0imtqgev" path="res://graphics/huds/candle_shine_1.png" id="8_0uiy3"]
 [ext_resource type="Texture2D" uid="uid://baf1orxpwhvtg" path="res://graphics/huds/candle_shine_2.png" id="9_5hmf3"]
 
