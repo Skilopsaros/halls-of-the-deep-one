@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b1hhu66v6g60y"]
+
+[ext_resource type="Shader" uid="uid://cxx0gus55toqa" path="res://graphics/shaders/palette_swap.gdshader" id="1_ra0fi"]
+[ext_resource type="Texture2D" uid="uid://w0wvso62aycf" path="res://graphics/materials/copper_palette.png" id="2_ycsys"]
+[ext_resource type="Texture2D" uid="uid://cm031nfvckgo5" path="res://graphics/materials/gold_palette.png" id="3_yg522"]
+
+[resource]
+shader = ExtResource("1_ra0fi")
+shader_parameter/input_palette = ExtResource("2_ycsys")
+shader_parameter/output_palette = ExtResource("3_yg522")
+shader_parameter/palette_width = 2
+shader_parameter/palette_height = 3
+shader_parameter/error_color = Color(0.72548985, 0.00019483328, 0.66173875, 1)
