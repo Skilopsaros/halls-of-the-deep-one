@@ -48,6 +48,8 @@ func _derive_occupancy() -> void:
 	for entry in occupancy_temp[0]:
 		if entry == '0':
 			origin[0] += 1 # yes the indexing is weird but I need to flip the dimensions in a second
+		else:
+			break
 	offset = Vector2(-10,-10) - origin*30.
 	# transpose the thing because the tilemap is column indexed
 	var occupancy_temp_transposed:Array[Array] = _transpose(occupancy_temp)
