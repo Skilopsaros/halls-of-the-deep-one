@@ -8,6 +8,6 @@
 shader = ExtResource("1_ra0fi")
 shader_parameter/input_palette = ExtResource("2_ycsys")
 shader_parameter/output_palette = ExtResource("3_yg522")
-shader_parameter/palette_width = 2
+shader_parameter/palette_width = 3
 shader_parameter/palette_height = 3
 shader_parameter/error_color = Color(0.72548985, 0.00019483328, 0.66173875, 1)

@@ -15,9 +15,9 @@ void fragment() {
 		done = true;
 		COLOR = vec4(0,0,0,0);
 	}
-	for (int i = 0; i < palette_height; i++){
+	for (int i = 0; i < palette_width; i++){
 		for (int j = 0; j < palette_height; j++){
-			vec2 texture_coordinate = vec2(float(i)/float(palette_height),float(j)/float(palette_width));
+			vec2 texture_coordinate = vec2((float(i)+0.5)/float(palette_width),(float(j)+0.5)/float(palette_height));
 			vec4 palette_color = texture(input_palette,texture_coordinate);
 			if (palette_color == local_color){
 				COLOR = texture(output_palette,texture_coordinate);

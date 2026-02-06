@@ -8,6 +8,6 @@
 shader = ExtResource("1_augli")
 shader_parameter/input_palette = ExtResource("2_hba33")
 shader_parameter/output_palette = ExtResource("3_w3hf2")
-shader_parameter/palette_width = 2
+shader_parameter/palette_width = 3
 shader_parameter/palette_height = 3
 shader_parameter/error_color = Color(0.3807798, 0.2054, 0.79, 1)
