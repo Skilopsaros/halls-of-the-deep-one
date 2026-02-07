@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bauoakintf3uc"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_5efkj"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_q3r85"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6dxg"]
+atlas = ExtResource("2_q3r85")
+region = Rect2(215, 156, 50, 49)
+
+[resource]
+script = ExtResource("1_5efkj")
+name = "copper_goblet"
+title = "Goblet"
+texture = SubResource("AtlasTexture_a6dxg")
+occupancy_matrix = "1,1
+1,1"
+value = 8
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
