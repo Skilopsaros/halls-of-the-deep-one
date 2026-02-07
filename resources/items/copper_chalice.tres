@@ -14,5 +14,6 @@ title = "Goblet"
 texture = SubResource("AtlasTexture_a6dxg")
 occupancy_matrix = "1,1
 1,1"
+tags = Array[int]([7])
 value = 8
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"

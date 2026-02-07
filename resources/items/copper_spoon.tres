@@ -14,5 +14,6 @@ title = "Spoon"
 texture = SubResource("AtlasTexture_4v1im")
 occupancy_matrix = "1
 1"
+tags = Array[int]([7])
 value = 3
 metadata/_custom_type_script = "uid://cmw0btv00jcnu"
