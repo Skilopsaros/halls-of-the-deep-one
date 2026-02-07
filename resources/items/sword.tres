@@ -1,18 +1,20 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://b0hk4yp5ymuwf"]
 
 [ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_otrck"]
-[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_otrck"]
+[ext_resource type="Texture2D" uid="uid://dhi4022vqsk8i" path="res://graphics/items/items_sheet2.png" id="2_otrck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5eq2r"]
 atlas = ExtResource("2_otrck")
-region = Rect2(5, 276, 110, 20)
+region = Rect2(5, 216, 140, 80)
 
 [resource]
 script = ExtResource("1_otrck")
 name = "sword"
 title = "Sword"
 texture = SubResource("AtlasTexture_5eq2r")
-occupancy_matrix = "1,1,1,1"
+occupancy_matrix = "0,0,0,1,0
+1,1,1,1,1
+0,0,0,1,0"
 tags = Array[int]([0])
 stat_modifiers = Dictionary[int, int]({
 0: 0,

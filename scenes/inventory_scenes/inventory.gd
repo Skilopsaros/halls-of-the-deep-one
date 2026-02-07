@@ -262,9 +262,9 @@ func add_item_at_first_possible_position(item: ItemObject) -> Vector2i:
 	return Vector2i(-1,-1)
 
 func update_item_position(item:ItemObject) -> void:
-	var rotated_origin = item.origin # vectors are copied by value by default
-	for _i in range(item.orientation):
-		rotated_origin = Vector2i(-rotated_origin[1],rotated_origin[0])
+	#var rotated_origin = item.origin # vectors are copied by value by default
+	#for _i in range(item.orientation):
+		#rotated_origin = Vector2i(-rotated_origin[1],rotated_origin[0])
 	var world_position:Vector2 = inventory_layer.map_to_local(item.location)
 	item.position = world_position
 
