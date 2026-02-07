@@ -25,6 +25,7 @@ loot_table = Dictionary[String, int]({
 "empty_bottle": 3,
 "gem": 1,
 "gold_coin": 2,
+"holly_symbol": 2,
 "magic_ingot": 1,
 "metal_ingot": 2,
 "shoe": 1,

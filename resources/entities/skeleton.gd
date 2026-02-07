@@ -4,7 +4,6 @@ class_name Skeleton
 @export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
 @export var damage: int = 10
 @export var insanity: int = 10
-@export var threshold: int = 6
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
