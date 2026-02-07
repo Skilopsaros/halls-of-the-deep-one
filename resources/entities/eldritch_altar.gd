@@ -87,8 +87,8 @@ func burn(entity_node:Entity):
 	# Add Deep one anger
 	var player_inventory: Inventory = entity_node.get_node("/root/Main/InventoryLayer").player_inventory
 	if player_inventory.items:
-		for item_key in player_inventory.items.keys():
-			if player_inventory.items[item_key].name == "torch":
+		for item_key in player_inventory.items.get_children():
+			if player_inventory.items.data.name == "torch":
 				break
 		entity_node.clear_self()
  

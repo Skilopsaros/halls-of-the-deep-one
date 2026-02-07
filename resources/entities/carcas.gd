@@ -15,7 +15,7 @@ func get_choices() -> Array[Dictionary]:
 		{
 			"title": "Eat",
 			"text": "Gain " + str(health) + " health and " +str(insanity) + " insanity.",
-			"action": harvest
+			"action": eat
 		},
 		{
 			"title": "Harvest Blood",
@@ -50,5 +50,5 @@ func ignore(entity_node:Entity) -> void:
 func eat(entity_node:Entity) -> void:
 	var character: Character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_insanity(insanity)
-	character.heal_health(health)
+	character.heal_damage(health)
 	entity_node.clear_self()

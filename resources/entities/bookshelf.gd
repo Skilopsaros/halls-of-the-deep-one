@@ -5,7 +5,7 @@ class_name Bookshelf
 @export var insanity: int = 10
 @export var threshold: int = 10
 @export var occ_increase: int = 2
-@export var items = ["silver_coin", "silver_coin", "empty_bottle", "knife"]
+@export var items: Array[String] = ["silver_coin", "silver_coin", "empty_bottle", "knife"]
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [

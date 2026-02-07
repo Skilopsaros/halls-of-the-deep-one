@@ -5,19 +5,19 @@ class_name SwordInStone
 var second_skin: Texture = load("res://graphics/entities/sword_monster.png")
 @export var threshold: int = 15
 @export var damage: int = 10
-@export var damage_increase: int = 15
+@export var damage_increase: int = 5
 @export var inv_size: Vector2i = Vector2i(4,1)
 
 @export var attack_damage: int = 15
 @export var consume_insanity: int = 5
-@export var consume_occult_loss: int = 5
+@export var consume_occult_loss: int = 2
 
 
 func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
 		{
 			"title": "Pull the sword out",
-			"text": "Strength check (" + str(threshold) + "but take " + str(damage) + " on failure. May be retried but the damage will increase by" + str(damage_increase) + " each time.",
+			"text": "Strength check (" + str(threshold) + "but take " + str(damage) + " damage on failure. May be retried but the damage will increase by" + str(damage_increase) + " each time.",
 			"action": pull_sword
 		},
 		{
@@ -51,6 +51,10 @@ func pull_sword(entity_node:Entity):
 	var pass_check: bool = await entity_node.get_node("/root/Main").roll_dice(character.stats[Enums.stats.power], threshold)
 	if pass_check:
 		give_sword(entity_node)
+		entity_node.clear_self()
+	else:
+		character.take_damage(damage)
+		damage += damage_increase
 
 func use_strange_brew(entity_node:Entity):
 	var choices: Array[Dictionary] = [
@@ -82,7 +86,7 @@ func attack(entity_node:Entity):
 func consume(entity_node:Entity):
 	var character = entity_node.get_node("/root/Main/PlayerHud").character
 	character.take_insanity(consume_insanity)
-	character.change_stats(Enums.stats.occult, -1)
+	character.change_stat(Enums.stats.occult, -consume_occult_loss)
 	give_sword(entity_node)
 	entity_node.clear_self()
 
