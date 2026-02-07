@@ -17,7 +17,7 @@ func get_choices() -> Array[Dictionary]:
 	var choices: Array[Dictionary] = [
 		{
 			"title": "Pull the sword out",
-			"text": "Strength check (" + str(threshold) + "but take " + str(damage) + " damage on failure. May be retried but the damage will increase by" + str(damage_increase) + " each time.",
+			"text": "Strength check (" + str(threshold) + ") but take " + str(damage) + " damage on failure. May be retried but the damage will increase by" + str(damage_increase) + " each time.",
 			"action": pull_sword
 		},
 		{
@@ -60,7 +60,7 @@ func use_strange_brew(entity_node:Entity):
 	var choices: Array[Dictionary] = [
 		{
 			"title": "Fight",
-			"text": "Take "+str(attack_damage)+"-Pow damage, take the sword",
+			"text": "Take "+str(attack_damage)+" - Pow damage, take the sword",
 			"action": attack
 		},
 		{
