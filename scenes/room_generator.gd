@@ -11,7 +11,10 @@ func loot_table_to_array(loot_table:Dictionary[String,int]) -> Array[String]:
 
 func make_room(level:LevelData, _room_number:int):
 	var n_stacks: int = randi_range(3,4)
-	var door_room: int = randi_range(0,n_stacks-1)
+	var stack_numbers = Array(range(n_stacks))
+	stack_numbers.shuffle()
+	var door_index: int = stack_numbers[0]
+	var treasure_index: int = stack_numbers[1]
 	var my_room_data: RoomData = RoomData.new()
 	my_room_data.room_art = level.room_art
 	for i in range(n_stacks):
@@ -22,9 +25,9 @@ func make_room(level:LevelData, _room_number:int):
 		var curio_entity = level.curios[randi() % level.curios.size()].new()
 		curio_entity.randomise(level)
 		my_enity_stack.entities.append(curio_entity)
-		if i == door_room:
+		if i == door_index:
 			my_enity_stack.entities.append(Door.new())
-		else:
+		elif i == treasure_index:
 			var treasure_entity = level.treasure[randi() % level.treasure.size()].new()
 			treasure_entity.randomise(level)
 			my_enity_stack.entities.append(treasure_entity)

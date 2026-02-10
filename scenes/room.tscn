@@ -16,5 +16,5 @@ centered = false
 offset_top = 20.0
 offset_right = 702.0
 offset_bottom = 200.0
-theme_override_constants/separation = 100
+theme_override_constants/separation = 30
 alignment = 1
