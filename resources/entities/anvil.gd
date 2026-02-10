@@ -86,4 +86,9 @@ func repair_after_closed_inventory(inventory:Inventory, entity_node:Entity) -> v
 					inventory_manager.display_hidden_inventory_with_items(["epic_sword"])
 				elif ingot_type == "metal":
 					inventory_manager.display_hidden_inventory_with_items(["sword"])
+			if item.data.name == "broken_armour":
+				if ingot_type == "magic":
+					inventory_manager.display_hidden_inventory_with_items(["enchanted_armour"])
+				elif ingot_type == "metal":
+					inventory_manager.display_hidden_inventory_with_items(["heavy_armour"])
 		entity_node.clear_self()

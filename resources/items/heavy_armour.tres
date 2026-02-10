@@ -12,9 +12,9 @@ script = ExtResource("1_m358a")
 name = "heavy_armour"
 title = "Heavy Armour"
 texture = SubResource("AtlasTexture_7n8j2")
-occupancy_matrix = "1,0,1
-1,1,1
-1,1,1"
+occupancy_matrix = "0,0,1
+0,1,1
+1,1,0"
 tags = Array[int]([2])
 stat_modifiers = Dictionary[int, int]({
 1: -1,
