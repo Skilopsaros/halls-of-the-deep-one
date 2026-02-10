@@ -53,4 +53,3 @@ func randomise(level_data):
 	for i in range(randi_range(2,5)):
 		if len(loot_table) > i:
 			items.append(loot_table[i])
-	print(items)

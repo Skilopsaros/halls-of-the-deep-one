@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ch4as11pbtjwb" path="res://resources/entities/bookshelf.gd" id="7_2dyce"]
 [ext_resource type="Script" uid="uid://db60q7a4kbp17" path="res://resources/entities/chest.gd" id="7_bbtr6"]
 [ext_resource type="Script" uid="uid://cr3ejvqmy2l20" path="res://resources/entities/sword_in_stone.gd" id="8_h2q1g"]
+[ext_resource type="Script" uid="uid://bhl0kn13vacwy" path="res://resources/entities/wizard_study.gd" id="9_hvnto"]
 [ext_resource type="Texture2D" uid="uid://xeoa6rwt7oy" path="res://graphics/room_art/room_art_1.png" id="10_cgn3d"]
 [ext_resource type="Script" uid="uid://dvd5bv8yt3itf" path="res://resources/entities/ghost.gd" id="12_usjkt"]
 [ext_resource type="Script" uid="uid://dsulivtgd7aje" path="res://resources/entities/rag_creature.gd" id="13_2dyce"]
@@ -35,7 +36,7 @@ loot_table = Dictionary[String, int]({
 "torch": 2
 })
 room_art = ExtResource("10_cgn3d")
-curios = Array[Script]([ExtResource("3_v6d2w"), ExtResource("2_d3w8w"), ExtResource("3_br0t4"), ExtResource("1_4u7ew"), ExtResource("1_sfdh2"), ExtResource("6_bqjqr"), ExtResource("7_2dyce"), ExtResource("8_h2q1g")])
+curios = Array[Script]([ExtResource("3_v6d2w"), ExtResource("2_d3w8w"), ExtResource("3_br0t4"), ExtResource("1_4u7ew"), ExtResource("1_sfdh2"), ExtResource("6_bqjqr"), ExtResource("7_2dyce"), ExtResource("8_h2q1g"), ExtResource("9_hvnto")])
 treasure = Array[Script]([ExtResource("7_bbtr6")])
 monsters = Array[Script]([ExtResource("6_cgn3d"), ExtResource("5_bqjqr"), ExtResource("4_br0t4"), ExtResource("12_usjkt"), ExtResource("13_2dyce"), ExtResource("14_h2q1g"), ExtResource("15_usjkt")])
 metadata/_custom_type_script = "uid://cviouq4qdkba3"

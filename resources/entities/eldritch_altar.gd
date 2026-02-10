@@ -60,7 +60,7 @@ func fill_cup_after_closed_inventory(inventory:Inventory, entity_node:Entity):
 				character.take_damage(damage)
 				character.heal_insanity(insanity)
 			if item.data.name == "ectoplasm":
-				pass # give inventory space
+				entity_node.get_node("/root/Main/InventoryLayer").player_inventory.activate_random_slot()
 		inventory_manager.display_hidden_inventory_with_items(items)
 		entity_node.clear_self()
 

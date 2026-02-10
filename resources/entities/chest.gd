@@ -104,4 +104,3 @@ func randomise(level_data):
 			items.append(loot_table[i])
 	if not randi_range(0,3):
 		trapped = true
-	print(items)

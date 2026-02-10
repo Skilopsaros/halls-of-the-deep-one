@@ -8,7 +8,8 @@ enum item_tags {
 	broken,
 	ingot,
 	deep,
-	treasure
+	treasure,
+	book
 }
 
 enum stats {

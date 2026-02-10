@@ -5,14 +5,15 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1cdtf"]
 atlas = ExtResource("2_1o8m2")
-region = Rect2(5, 5, 20, 20)
+region = Rect2(5, 5, 50, 50)
 
 [resource]
 script = ExtResource("1_fog5r")
 name = "cursed_volume"
 title = "Cursed Volume"
 texture = SubResource("AtlasTexture_1cdtf")
-occupancy_matrix = "1"
+occupancy_matrix = "1,1
+1,1"
 tags = Array[int]([7])
 stat_modifiers = Dictionary[int, int]({})
 value = 25
