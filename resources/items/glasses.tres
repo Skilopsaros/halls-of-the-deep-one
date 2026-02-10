@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c72r2f6nlwyxg"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_fepyp"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_858p6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n8j2"]
+atlas = ExtResource("2_858p6")
+region = Rect2(215, 65, 50, 20)
+
+[resource]
+script = ExtResource("1_fepyp")
+name = "glasses"
+title = "Glasses"
+texture = SubResource("AtlasTexture_7n8j2")
+occupancy_matrix = "1,1"
+tags = Array[int]([1])
+stat_modifiers = Dictionary[int, int]({
+0: 1,
+1: 0,
+2: 0,
+3: 0
+})
+flavour_text = "What an ominous aura"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

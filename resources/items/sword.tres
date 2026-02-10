@@ -18,7 +18,7 @@ stat_modifiers = Dictionary[int, int]({
 0: 0,
 1: 0,
 2: 0,
-3: 4
+3: 3
 })
 value = 15
 flavour_text = "Has seen better days"

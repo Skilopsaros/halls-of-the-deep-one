@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bgkm4x25ypfpl"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_8fneh"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_a11nt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eq2r"]
+atlas = ExtResource("2_a11nt")
+region = Rect2(5, 216, 20, 80)
+
+[resource]
+script = ExtResource("1_8fneh")
+name = "lightning_wand"
+title = "Lightning Wand"
+texture = SubResource("AtlasTexture_5eq2r")
+occupancy_matrix = "1
+1
+1
+"
+tags = Array[int]([0])
+stat_modifiers = Dictionary[int, int]({
+0: 0,
+1: 1,
+2: 0,
+3: 1
+})
+value = 15
+flavour_text = "Has seen better days"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

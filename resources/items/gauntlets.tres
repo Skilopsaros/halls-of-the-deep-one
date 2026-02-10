@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cc7knq3ihcga4"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_h4hnp"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_lf0tp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n8j2"]
+atlas = ExtResource("2_lf0tp")
+region = Rect2(215, 65, 50, 80)
+
+[resource]
+script = ExtResource("1_h4hnp")
+name = "gauntlets"
+title = "Gauntlets"
+texture = SubResource("AtlasTexture_7n8j2")
+occupancy_matrix = "1,0
+1,1
+0,1"
+tags = Array[int]([2])
+stat_modifiers = Dictionary[int, int]({
+0: 0,
+1: -1,
+2: 0,
+3: 2
+})
+flavour_text = "What an ominous aura"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
