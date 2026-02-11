@@ -122,6 +122,7 @@ func show_input_inventory(cols: int, rows: int, required_tags:Dictionary[Enums.i
 	
 func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
 	var inventory:Inventory = entitiy_inventory
+	input_inventory.hide()
 	
 	var item_object_list:Array[ItemObject]
 	var full_content_size:int = 0
