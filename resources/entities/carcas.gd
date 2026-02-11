@@ -41,8 +41,8 @@ func harvest(entity_node:Entity) -> void:
 				var item_coords: Vector2i = item.location
 				player_inventory.remove_item(item)
 				player_inventory.add_item(ItemManager.get_item_by_name("blood"), item_coords)
+				entity_node.clear_self()
 				break
-		entity_node.clear_self()
  
 func ignore(entity_node:Entity) -> void:
 	entity_node.clear_self()
