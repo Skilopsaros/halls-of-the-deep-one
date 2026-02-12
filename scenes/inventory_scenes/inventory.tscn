@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dbxypeo72xauc" path="res://graphics/inventory/inventory_tilemap.png" id="1_0kf6p"]
 [ext_resource type="Script" uid="uid://bmi3dggvar0co" path="res://scenes/inventory_scenes/inventory.gd" id="1_uov6c"]
 [ext_resource type="Texture2D" uid="uid://jkn7pymybd1y" path="res://graphics/inventory/inventory_1.png" id="3_pc1ti"]
+[ext_resource type="Texture2D" uid="uid://dmfka0pbrsr0e" path="res://graphics/inventory/inventory_decoration_dual_map.png" id="4_srsel"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5rcul"]
 texture = ExtResource("1_0kf6p")
@@ -41,6 +42,84 @@ region = Rect2(0, 80, 20, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbfvr"]
 atlas = ExtResource("3_pc1ti")
 region = Rect2(20, 80, 20, 20)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10cjv"]
+texture = ExtResource("4_srsel")
+texture_region_size = Vector2i(30, 30)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+1:0/0/terrains_peering_bit/left_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/bottom_left_corner = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+2:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+0:2/0/terrains_peering_bit/top_right_corner = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_left_corner = 0
+1:2/0/terrains_peering_bit/top_side = 0
+1:2/0/terrains_peering_bit/top_right_corner = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_left_corner = 0
+2:2/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_right_corner = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/bottom_left_corner = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_left_corner = 0
+1:1/0/terrains_peering_bit/top_side = 0
+1:1/0/terrains_peering_bit/top_right_corner = 0
+
+[sub_resource type="TileSet" id="TileSet_wj4uu"]
+tile_size = Vector2i(30, 30)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.7031024, 0.085191794, 0.2692953, 1)
+sources/0 = SubResource("TileSetAtlasSource_10cjv")
 
 [node name="Iventory" type="Control" unique_id=721244631]
 layout_mode = 3
@@ -92,6 +171,10 @@ texture_normal = SubResource("AtlasTexture_rbfvr")
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 1
+
+[node name="BorderTileMap" type="TileMapLayer" parent="." unique_id=1338761015]
+position = Vector2(-15, -15)
+tile_set = SubResource("TileSet_wj4uu")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

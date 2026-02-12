@@ -7,7 +7,8 @@ class_name Inventory
 @onready var closing_x:TextureButton = $ColorRect/HBoxContainer/ClosingX
 @onready var minimizing_v:TextureButton = $ColorRect/HBoxContainer/MinimizingV
 @onready var movement_handle:TextureRect = $ColorRect/HBoxContainer/MovementHandle
-@onready var top_bar = $ColorRect
+@onready var top_bar:ColorRect = $ColorRect
+@onready var border_tile_map:TileMapLayer = $BorderTileMap
 
 signal inventory_changed
 signal inventory_closing
@@ -102,6 +103,7 @@ func _ready() -> void:
 	title_label.text = title
 	update_inventory_tiles()
 	update_top_bar_tools_visibility()
+	update_border_decoration()
 	size.x = cols*30
 	size.y = rows*30
 	top_bar.size.x = cols*30
@@ -327,6 +329,14 @@ func update_top_bar_tools_visibility() -> void:
 		movement_handle.hide()
 	if not closable and not movable and not minimizable:
 		top_bar.color = Color(0,0,0,0)
+
+func update_border_decoration() -> void:
+	border_tile_map.clear()
+	var all_cells:Array[Vector2i] = []
+	for i in range(0,cols+1):
+		for j in range(0,rows+1):
+			all_cells.append(Vector2i(i,j))
+	border_tile_map.set_cells_terrain_connect(all_cells,0,0)
 
 func _on_closing_x_pressed() -> void:
 	self.inventory_closing.emit(self)
