@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c0vm8wetmiw5f"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_ibfvi"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_rx45b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_es8th"]
+atlas = ExtResource("2_rx45b")
+region = Rect2(125, 156, 80, 49)
+
+[resource]
+script = ExtResource("1_ibfvi")
+name = "copper_crown"
+title = "Crown"
+texture = SubResource("AtlasTexture_es8th")
+occupancy_matrix = "0,1,0
+1,1,1"
+tags = Array[int]([7])
+value = 9
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"

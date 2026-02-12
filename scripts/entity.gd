@@ -5,7 +5,7 @@ class_name Entity
 
 @onready var skin: Texture = data.skin
 @onready var choices: Array[Dictionary] = data.get_choices()
-@onready var outline_material = preload("res://graphics/shaders/Outlined.tres")
+@onready var outline_material = preload("res://graphics/materials/Outlined.tres")
 
 var sprite: Sprite2D
 var index: int

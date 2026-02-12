@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cnqu1vausirgu"]
+
+[ext_resource type="Script" uid="uid://cmw0btv00jcnu" path="res://scripts/data/item_data.gd" id="1_sqoqp"]
+[ext_resource type="Texture2D" uid="uid://dj4ucovoctw5b" path="res://graphics/items/items_sheet.png" id="2_akteh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84088"]
+atlas = ExtResource("2_akteh")
+region = Rect2(95, 5, 50, 49)
+
+[resource]
+script = ExtResource("1_sqoqp")
+name = "copper_amulet"
+title = "Amulet"
+texture = SubResource("AtlasTexture_84088")
+occupancy_matrix = "1,1
+1,0"
+tags = Array[int]([1, 7])
+stat_modifiers = Dictionary[int, int]({
+1: 3
+})
+value = 6
+flavour_text = "What an ominous aura"
+metadata/_custom_type_script = "uid://cmw0btv00jcnu"
