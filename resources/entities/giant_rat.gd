@@ -1,11 +1,11 @@
 extends EntityData
 class_name GiantRat
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/rat.png")
 @export var damage: int = 10
 @export var threshold: int = 10
 
-func get_choices() -> Array[Dictionary]:
+func get_choices() -> Array[Dictionary]:   
 	var choices: Array[Dictionary] = [
 		{
 			"title": "Fight",
