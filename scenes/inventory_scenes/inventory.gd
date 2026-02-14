@@ -14,6 +14,8 @@ signal inventory_changed
 signal inventory_closing
 signal inventory_hiding
 
+signal inventory_visibility_changed
+
 signal cell_clicked
 signal item_hover_info_activated
 signal item_hover_info_deactivated
@@ -317,6 +319,7 @@ func get_contained_tags() -> Array[Enums.item_tags]:
 func _on_visibility_changed() -> void:
 	self.propagate_call("set_visible", [self.visible])
 	update_top_bar_tools_visibility()
+	inventory_visibility_changed.emit(self,visible)
 
 func update_top_bar_tools_visibility() -> void:
 	if not top_bar:

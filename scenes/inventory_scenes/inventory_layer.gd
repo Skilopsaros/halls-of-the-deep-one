@@ -10,8 +10,12 @@ class_name InventoryManager
 @onready var player_weapon:= $Inventories/EquipmentWeapon
 @onready var player_armour:= $Inventories/EquipmentArmour
 @onready var player_accessory:= $Inventories/EquipmentAccessory
-@onready var entitiy_inventory:= $Inventories/EntityInventory
+@onready var entity_inventory:= $Inventories/EntityInventory
 @onready var input_inventory:= $Inventories/InputInventory
+
+@onready var room_cover_rect := $Decorations/RoomCover
+@onready var close_button := $Decorations/CloseButton
+@onready var take_all_button := $Decorations/TakeAllButton
 
 # this desicion is completely arbitrary right now, change if needed
 const max_temp_inventory_size := Vector2i(7,7)
@@ -121,7 +125,7 @@ func show_input_inventory(cols: int, rows: int, required_tags:Dictionary[Enums.i
 
 	
 func display_hidden_inventory_with_items(item_list:Array[String]) -> void:
-	var inventory:Inventory = entitiy_inventory
+	var inventory:Inventory = entity_inventory
 	
 	var item_object_list:Array[ItemObject]
 	var full_content_size:int = 0
@@ -211,6 +215,7 @@ func _initialize_inventory_interactivity(inventory:Inventory) -> void:
 	inventory.connect("inventory_closing", remove_inventory)
 	inventory.connect("item_hover_info_activated",_on_hover_info_activated)
 	inventory.connect("item_hover_info_deactivated",_on_hover_info_deactivated)
+	inventory.connect("inventory_visibility_changed",_on_inventory_visibility_changed)
 	
 func _on_hover_info_activated(item:ItemObject) -> void:
 	hover_info.display_item(item)
@@ -218,3 +223,36 @@ func _on_hover_info_activated(item:ItemObject) -> void:
 func _on_hover_info_deactivated() -> void:
 	hover_info.visible = false
 	hover_info.displayed_item = null
+	
+func _on_inventory_visibility_changed(inventory:Inventory,new_visibiltiy_state:bool) -> void:
+	if inventory in [input_inventory,entity_inventory]:
+		room_cover_rect.visible = new_visibiltiy_state
+		close_button.visible = new_visibiltiy_state
+		if inventory == entity_inventory:
+			take_all_button.visible = new_visibiltiy_state
+
+func _on_close_button_pressed() -> void:
+	assert(input_inventory.visible or entity_inventory.visible, "No closable inventory is visible")
+	var active_inventory:Inventory;
+	if input_inventory.visible:
+		active_inventory = input_inventory
+	else:
+		active_inventory = entity_inventory
+	
+	active_inventory.hide()
+
+func _on_take_all_button_pressed() -> void:
+	assert(entity_inventory.visible, "Entity inventory isn't visible, nothing to take all from")
+	var items_to_place:Array[Node] = entity_inventory.items.get_children()
+	items_to_place.sort_custom(ItemObject.item_size_sorter)
+
+	for item in items_to_place:
+		var old_item_position:Vector2i = item.location
+		entity_inventory.remove_item(item)
+		self.add_child(item)
+		var position:Vector2i = player_inventory.add_item_at_first_possible_position(item)
+		if position == Vector2i(-1,-1):
+			entity_inventory.add_item(item,old_item_position)
+	
+	if len(entity_inventory.items.get_children()) == 0:
+		entity_inventory.hide()

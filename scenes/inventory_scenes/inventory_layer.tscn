@@ -28,6 +28,39 @@ grow_vertical = 0
 texture = SubResource("AtlasTexture_as3bf")
 stretch_mode = 2
 
+[node name="Decorations" type="Control" parent="." unique_id=1675299600]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RoomCover" type="ColorRect" parent="Decorations" unique_id=202049109]
+visible = false
+layout_mode = 0
+offset_left = 240.0
+offset_top = 35.0
+offset_right = 950.0
+offset_bottom = 260.0
+color = Color(1, 1, 1, 0.21960784)
+
+[node name="CloseButton" type="Button" parent="Decorations" unique_id=1854985281]
+visible = false
+layout_mode = 0
+offset_left = 411.0
+offset_top = 64.0
+offset_right = 476.0
+offset_bottom = 95.0
+text = "close"
+
+[node name="TakeAllButton" type="Button" parent="Decorations" unique_id=19572927]
+visible = false
+layout_mode = 0
+offset_left = 411.0
+offset_top = 104.0
+offset_right = 476.0
+offset_bottom = 135.0
+text = "take all"
+
 [node name="Inventories" type="Node" parent="." unique_id=391350216]
 
 [node name="PlayerInventory" parent="Inventories" unique_id=554660684 instance=ExtResource("3_s2ubw")]
@@ -40,24 +73,22 @@ cols = 7
 
 [node name="InputInventory" parent="Inventories" unique_id=1152143194 instance=ExtResource("3_s2ubw")]
 visible = false
-offset_left = 232.0
-offset_top = 53.0
-offset_right = 272.0
-offset_bottom = 93.0
+offset_left = 490.0
+offset_top = 35.0
+offset_right = 530.0
+offset_bottom = 75.0
 rows = 7
-cols = 24
+cols = 7
 closes_on_item_placement = true
-minimizable = true
 
 [node name="EntityInventory" parent="Inventories" unique_id=509981301 instance=ExtResource("3_s2ubw")]
 visible = false
-offset_left = 246.805
-offset_top = 65.0
-offset_right = 286.8048
-offset_bottom = 105.0
+offset_left = 490.0
+offset_top = 35.0
+offset_right = 530.0
+offset_bottom = 75.0
 rows = 7
-cols = 23
-minimizable = true
+cols = 7
 
 [node name="EquipmentWeapon" parent="Inventories" unique_id=181881091 instance=ExtResource("3_s2ubw")]
 offset_left = 15.0
@@ -89,15 +120,12 @@ cols = 3
 title = "Accessory"
 filters = Array[int]([1])
 
-[node name="Decorations" type="Control" parent="." unique_id=1675299600]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="DragPreview" parent="." unique_id=739333247 instance=ExtResource("2_s2ubw")]
 
 [node name="HoverInfo" parent="." unique_id=931763061 instance=ExtResource("5_as3bf")]
 visible = false
 offset_right = -860.0
 offset_bottom = -390.0
+
+[connection signal="pressed" from="Decorations/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Decorations/TakeAllButton" to="." method="_on_take_all_button_pressed"]
