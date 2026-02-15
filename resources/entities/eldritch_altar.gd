@@ -1,7 +1,7 @@
 extends EntityData
 class_name EldritchAltar
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/eldritch_altar.png")
 @export var threshold: int = 12
 @export var insanity: int = 5
 @export var damage: int = 5
