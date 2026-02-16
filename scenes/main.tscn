@@ -48,10 +48,10 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
 [node name="Die_0" parent="DiceLayer" unique_id=1904987240 instance=ExtResource("11_ya4ey")]
-position = Vector2(593, 360)
+position = Vector2(438, 272)
 
 [node name="Die_1" parent="DiceLayer" unique_id=2082662825 instance=ExtResource("11_ya4ey")]
-position = Vector2(696, 360)
+position = Vector2(540, 272)
 
 [node name="Results" type="Label" parent="DiceLayer" unique_id=177996399]
 visible = false
