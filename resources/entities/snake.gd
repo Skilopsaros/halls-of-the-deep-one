@@ -1,7 +1,7 @@
 extends EntityData
 class_name Snake
 
-@export var skin: Texture = load("res://graphics/entities/master_poisoner.png")
+@export var skin: Texture = load("res://graphics/entities/snake.png")
 @export var damage: int = 10
 @export var pow_loss: int = -2
 @export var threshold: int = 10
